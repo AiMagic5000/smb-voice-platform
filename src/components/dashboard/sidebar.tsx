@@ -52,6 +52,9 @@ import {
   Server,
   Headphones,
   Radio,
+  Building,
+  Wifi,
+  UserCog,
 } from "lucide-react";
 
 const navItems = [
@@ -266,9 +269,24 @@ const navItems = [
     icon: Server,
   },
   {
+    label: "Locations",
+    href: "/dashboard/locations",
+    icon: Building,
+  },
+  {
+    label: "Network Test",
+    href: "/dashboard/network-test",
+    icon: Wifi,
+  },
+  {
     label: "Billing",
     href: "/dashboard/billing",
     icon: CreditCard,
+  },
+  {
+    label: "Account",
+    href: "/dashboard/account",
+    icon: UserCog,
   },
   {
     label: "Settings",

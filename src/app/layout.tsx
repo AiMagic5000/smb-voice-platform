@@ -3,6 +3,7 @@ import { Inter, Montserrat } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ServiceWorkerRegister } from "@/components/pwa/service-worker-register";
 import "./globals.css";
 
 // Check if Clerk is properly configured
@@ -142,6 +143,7 @@ function AppContent({ children }: { children: React.ReactNode }) {
         />
       </head>
       <body className={`${inter.className} antialiased`}>
+        <ServiceWorkerRegister />
         <ThemeProvider defaultTheme="system">
           {children}
         </ThemeProvider>

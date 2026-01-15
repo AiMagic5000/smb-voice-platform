@@ -1,11 +1,11 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
+import { db } from "@/lib/db";
+import { organizations, subscriptions, usageRecords, phoneNumbers, invoices } from "@/lib/db/schema";
+import { eq, and, gte, desc, sql, lte } from "drizzle-orm";
+import { PRICING, USAGE_PRICING } from "@/lib/stripe/client";
 
-function getTenantId(userId: string, orgId: string | null | undefined): string {
-  return orgId || userId;
-}
-
-// GET - Get usage data
+// GET - Get usage data from database
 export async function GET(request: NextRequest) {
   try {
     const { userId, orgId } = await auth();
@@ -13,113 +13,229 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const tenantId = getTenantId(userId, orgId);
+    const tenantId = orgId || userId;
     const searchParams = request.nextUrl.searchParams;
     const period = searchParams.get("period") || "current";
 
-    // Generate mock usage data
     const now = new Date();
-    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-    const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-    const daysPassed = now.getDate();
 
-    const usage = {
+    // Get organization
+    const [org] = await db
+      .select()
+      .from(organizations)
+      .where(eq(organizations.clerkOrgId, tenantId))
+      .limit(1);
+
+    // Get subscription
+    const [subscription] = org ? await db
+      .select()
+      .from(subscriptions)
+      .where(eq(subscriptions.organizationId, org.id))
+      .orderBy(desc(subscriptions.createdAt))
+      .limit(1) : [null];
+
+    // Get plan details
+    const planKey = (subscription?.planId || org?.plan || "starter") as keyof typeof PRICING;
+    const plan = PRICING[planKey] || PRICING.starter;
+
+    // Calculate billing period
+    const periodStart = subscription?.currentPeriodStart || new Date(now.getFullYear(), now.getMonth(), 1);
+    const periodEnd = subscription?.currentPeriodEnd || new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    const daysRemaining = Math.max(0, Math.ceil((periodEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)));
+
+    // Get current period usage from database
+    const currentUsage = org ? await db
+      .select()
+      .from(usageRecords)
+      .where(
+        and(
+          eq(usageRecords.organizationId, org.id),
+          gte(usageRecords.createdAt, periodStart)
+        )
+      ) : [];
+
+    // Aggregate usage by type
+    const usageTotals = {
+      call_minutes: 0,
+      ai_minutes: 0,
+      sms_outbound: 0,
+      sms_inbound: 0,
+      international_minutes: 0,
+      call_recording: 0,
+    };
+
+    let totalUsageCharges = 0;
+    for (const record of currentUsage) {
+      const type = record.type as keyof typeof usageTotals;
+      if (type in usageTotals) {
+        usageTotals[type] += record.quantity;
+      }
+      totalUsageCharges += record.totalPrice;
+    }
+
+    // Get phone numbers
+    const allNumbers = await db
+      .select()
+      .from(phoneNumbers)
+      .where(eq(phoneNumbers.tenantId, tenantId));
+
+    const localNumbers = allNumbers.filter(n => n.type === "local").length;
+    const tollFreeNumbers = allNumbers.filter(n => n.type === "toll_free").length;
+
+    // Calculate overages
+    const includedMinutes = plan.phoneNumbers === -1 ? Infinity : 1000; // Unlimited for enterprise
+    const includedSMS = 500;
+    const includedAI = plan.aiMinutes === -1 ? Infinity : plan.aiMinutes;
+    const includedNumbers = plan.phoneNumbers === -1 ? Infinity : plan.phoneNumbers;
+
+    const minutesOverage = Math.max(0, usageTotals.call_minutes - includedMinutes);
+    const smsOverage = Math.max(0, usageTotals.sms_outbound - includedSMS);
+    const aiOverage = Math.max(0, usageTotals.ai_minutes - includedAI);
+    const additionalNumbers = Math.max(0, localNumbers - includedNumbers);
+
+    // Calculate charges (US/Canada calls included in plan, only international is charged)
+    const callOverageRate = 1; // $0.01 per minute for overage (cents)
+    const overageCharges = {
+      minutes: minutesOverage * (callOverageRate / 100),
+      sms: smsOverage * (USAGE_PRICING.smsOutbound / 100),
+      ai: aiOverage * (USAGE_PRICING.aiMinuteOverage / 100),
+      additionalNumbers: additionalNumbers * (USAGE_PRICING.additionalPhoneNumber / 100),
+      tollFree: tollFreeNumbers * (USAGE_PRICING.tollFreeNumber / 100),
+      storage: 0,
+    };
+
+    const taxes = plan.monthly * 0.08; // Estimated 8% tax
+    const totalCharges = plan.monthly +
+      overageCharges.minutes +
+      overageCharges.sms +
+      overageCharges.ai +
+      overageCharges.additionalNumbers +
+      overageCharges.tollFree +
+      taxes;
+
+    // Get historical usage (last 6 months)
+    const history = [];
+    for (let i = 1; i <= 6; i++) {
+      const monthStart = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      const monthEnd = new Date(now.getFullYear(), now.getMonth() - i + 1, 0);
+
+      // Get usage for this month
+      const monthUsage = org ? await db
+        .select({
+          type: usageRecords.type,
+          total: sql<number>`sum(${usageRecords.quantity})`,
+          charges: sql<number>`sum(${usageRecords.totalPrice})`,
+        })
+        .from(usageRecords)
+        .where(
+          and(
+            eq(usageRecords.organizationId, org.id),
+            gte(usageRecords.createdAt, monthStart),
+            lte(usageRecords.createdAt, monthEnd)
+          )
+        )
+        .groupBy(usageRecords.type) : [];
+
+      // Get invoice for this month if available
+      const [monthInvoice] = org ? await db
+        .select()
+        .from(invoices)
+        .where(
+          and(
+            eq(invoices.organizationId, org.id),
+            gte(invoices.createdAt, monthStart),
+            lte(invoices.createdAt, monthEnd)
+          )
+        )
+        .limit(1) : [null];
+
+      let monthMinutes = 0;
+      let monthSMS = 0;
+      for (const u of monthUsage) {
+        if (u.type === "call_minutes") monthMinutes = u.total || 0;
+        if (u.type === "sms_outbound") monthSMS = u.total || 0;
+      }
+
+      history.push({
+        month: monthStart.toLocaleString("default", { month: "short", year: "numeric" }),
+        minutes: monthMinutes,
+        sms: monthSMS,
+        total: monthInvoice ? (monthInvoice.amountPaid / 100).toFixed(2) : plan.monthly.toFixed(2),
+      });
+    }
+
+    return NextResponse.json({
       tenantId,
       period,
       billingPeriod: {
-        start: startOfMonth.toISOString(),
-        end: new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString(),
-        daysRemaining: daysInMonth - daysPassed,
+        start: periodStart.toISOString(),
+        end: periodEnd.toISOString(),
+        daysRemaining,
       },
 
       plan: {
-        name: "Professional",
-        monthlyFee: 7.95,
-        includedMinutes: 1000,
-        includedSMS: 500,
-        includedPhoneNumbers: 2,
+        name: plan.name,
+        monthlyFee: plan.monthly,
+        includedMinutes: includedMinutes === Infinity ? "unlimited" : includedMinutes,
+        includedSMS,
+        includedPhoneNumbers: includedNumbers === Infinity ? "unlimited" : includedNumbers,
+        includedAIMinutes: includedAI === Infinity ? "unlimited" : includedAI,
       },
 
       current: {
         minutes: {
-          used: Math.floor(Math.random() * 800) + 100,
-          included: 1000,
-          overage: 0,
-          overageRate: 0.03,
+          used: usageTotals.call_minutes,
+          included: includedMinutes === Infinity ? "unlimited" : includedMinutes,
+          overage: minutesOverage,
+          overageRate: callOverageRate / 100,
         },
         sms: {
-          used: Math.floor(Math.random() * 400) + 50,
-          included: 500,
-          overage: 0,
-          overageRate: 0.01,
+          used: usageTotals.sms_outbound + usageTotals.sms_inbound,
+          outbound: usageTotals.sms_outbound,
+          inbound: usageTotals.sms_inbound,
+          included: includedSMS,
+          overage: smsOverage,
+          overageRate: USAGE_PRICING.smsOutbound / 100,
         },
         phoneNumbers: {
-          active: Math.floor(Math.random() * 3) + 1,
-          included: 2,
-          additionalRate: 2.00,
-        },
-        recordings: {
-          storageMB: Math.floor(Math.random() * 500) + 50,
-          includedMB: 1000,
-          overageRatePerGB: 0.10,
+          active: allNumbers.length,
+          local: localNumbers,
+          tollFree: tollFreeNumbers,
+          included: includedNumbers === Infinity ? "unlimited" : includedNumbers,
+          additionalRate: USAGE_PRICING.additionalPhoneNumber,
         },
         aiMinutes: {
-          used: Math.floor(Math.random() * 200) + 20,
-          included: 500,
-          overageRate: 0.05,
+          used: usageTotals.ai_minutes,
+          included: includedAI === Infinity ? "unlimited" : includedAI,
+          overage: aiOverage,
+          overageRate: USAGE_PRICING.aiMinuteOverage / 100,
+        },
+        internationalMinutes: {
+          used: usageTotals.international_minutes,
+          rate: USAGE_PRICING.internationalCall / 100,
         },
       },
 
       charges: {
-        basePlan: 7.95,
-        overageMinutes: 0,
-        overageSMS: 0,
-        additionalNumbers: 0,
-        storageOverage: 0,
-        aiOverage: 0,
-        taxes: 0.64,
-        total: 8.59,
+        basePlan: plan.monthly,
+        overageMinutes: overageCharges.minutes,
+        overageSMS: overageCharges.sms,
+        overageAI: overageCharges.ai,
+        additionalNumbers: overageCharges.additionalNumbers,
+        tollFreeNumbers: overageCharges.tollFree,
+        storageOverage: overageCharges.storage,
+        taxes,
+        total: totalCharges,
       },
 
-      history: Array.from({ length: 6 }, (_, i) => {
-        const date = new Date(now.getFullYear(), now.getMonth() - i - 1, 1);
-        return {
-          month: date.toLocaleString("default", { month: "short", year: "numeric" }),
-          minutes: Math.floor(Math.random() * 1200) + 200,
-          sms: Math.floor(Math.random() * 600) + 100,
-          total: (Math.random() * 20 + 7.95).toFixed(2),
-        };
-      }),
-    };
+      history,
 
-    // Calculate overages
-    if (usage.current.minutes.used > usage.current.minutes.included) {
-      usage.current.minutes.overage = usage.current.minutes.used - usage.current.minutes.included;
-      usage.charges.overageMinutes = usage.current.minutes.overage * usage.current.minutes.overageRate;
-    }
-
-    if (usage.current.sms.used > usage.current.sms.included) {
-      usage.current.sms.overage = usage.current.sms.used - usage.current.sms.included;
-      usage.charges.overageSMS = usage.current.sms.overage * usage.current.sms.overageRate;
-    }
-
-    if (usage.current.phoneNumbers.active > usage.current.phoneNumbers.included) {
-      usage.charges.additionalNumbers =
-        (usage.current.phoneNumbers.active - usage.current.phoneNumbers.included) *
-        usage.current.phoneNumbers.additionalRate;
-    }
-
-    // Recalculate total
-    usage.charges.total =
-      usage.charges.basePlan +
-      usage.charges.overageMinutes +
-      usage.charges.overageSMS +
-      usage.charges.additionalNumbers +
-      usage.charges.storageOverage +
-      usage.charges.aiOverage +
-      usage.charges.taxes;
-
-    return NextResponse.json(usage);
+      subscription: subscription ? {
+        status: subscription.status,
+        trialEndsAt: subscription.trialEndsAt,
+        cancelAtPeriodEnd: subscription.cancelAtPeriodEnd,
+      } : null,
+    });
   } catch (error) {
     console.error("Error fetching usage data:", error);
     return NextResponse.json(

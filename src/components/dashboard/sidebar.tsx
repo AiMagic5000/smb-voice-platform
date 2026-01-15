@@ -67,6 +67,9 @@ import {
   Hash,
   ShieldCheck,
   ClipboardList,
+  Webhook,
+  Database,
+  ClipboardCheck,
 } from "lucide-react";
 
 const navItems = [
@@ -109,6 +112,11 @@ const navItems = [
     label: "Agent Scorecard",
     href: "/dashboard/scorecard",
     icon: Trophy,
+  },
+  {
+    label: "Quality Assurance",
+    href: "/dashboard/qa",
+    icon: ClipboardCheck,
   },
   {
     label: "Phone Numbers",
@@ -296,6 +304,11 @@ const navItems = [
     icon: Puzzle,
   },
   {
+    label: "Custom Fields",
+    href: "/dashboard/custom-fields",
+    icon: Database,
+  },
+  {
     label: "Web Widget",
     href: "/dashboard/web-widget",
     icon: MousePointerClick,
@@ -304,6 +317,11 @@ const navItems = [
     label: "API Docs",
     href: "/dashboard/api-docs",
     icon: FileCode,
+  },
+  {
+    label: "Webhooks",
+    href: "/dashboard/webhooks",
+    icon: Webhook,
   },
   {
     label: "Mobile App",

@@ -7,10 +7,66 @@ export const organizations = pgTable('organizations', {
   name: text('name').notNull(),
   domain: text('domain').unique().notNull(),
   status: text('status').default('active').notNull(), // active, suspended, cancelled
-  plan: text('plan').default('basic').notNull(), // basic, pro, enterprise
+  plan: text('plan').default('starter').notNull(), // starter, professional, business, enterprise
   monthlyPrice: integer('monthly_price').default(795).notNull(), // cents ($7.95)
+  stripeCustomerId: text('stripe_customer_id'),
+  billingStatus: text('billing_status').default('active'), // active, trialing, past_due, canceled, incomplete
+  billingEmail: text('billing_email'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+// Subscriptions - Stripe subscription tracking
+export const subscriptions = pgTable('subscriptions', {
+  id: text('id').primaryKey(), // Use Stripe subscription ID
+  organizationId: uuid('organization_id').references(() => organizations.id).notNull(),
+  stripeCustomerId: text('stripe_customer_id').notNull(),
+  stripeSubscriptionId: text('stripe_subscription_id').notNull(),
+  stripePriceId: text('stripe_price_id').notNull(),
+  planId: text('plan_id').notNull(), // starter, professional, business, enterprise
+  status: text('status').notNull(), // active, trialing, past_due, canceled, incomplete, paused
+  currentPeriodStart: timestamp('current_period_start').notNull(),
+  currentPeriodEnd: timestamp('current_period_end').notNull(),
+  cancelAtPeriodEnd: boolean('cancel_at_period_end').default(false).notNull(),
+  canceledAt: timestamp('canceled_at'),
+  trialEndsAt: timestamp('trial_ends_at'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+// Invoices - Stripe invoice tracking
+export const invoices = pgTable('invoices', {
+  id: text('id').primaryKey(), // Use Stripe invoice ID
+  organizationId: uuid('organization_id').references(() => organizations.id).notNull(),
+  stripeInvoiceId: text('stripe_invoice_id').notNull(),
+  subscriptionId: text('subscription_id'),
+  amountDue: integer('amount_due').notNull(), // in cents
+  amountPaid: integer('amount_paid').default(0).notNull(), // in cents
+  currency: text('currency').default('usd').notNull(),
+  status: text('status').notNull(), // draft, open, paid, void, uncollectible, failed
+  invoiceUrl: text('invoice_url'),
+  pdfUrl: text('pdf_url'),
+  periodStart: timestamp('period_start'),
+  periodEnd: timestamp('period_end'),
+  paidAt: timestamp('paid_at'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+// Usage Records - Track metered usage for billing
+export const usageRecords = pgTable('usage_records', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  organizationId: uuid('organization_id').references(() => organizations.id).notNull(),
+  subscriptionId: text('subscription_id').references(() => subscriptions.id),
+  type: text('type').notNull(), // ai_minutes, sms_outbound, sms_inbound, call_recording, international_minutes
+  quantity: integer('quantity').notNull(),
+  unitPrice: integer('unit_price').notNull(), // in cents
+  totalPrice: integer('total_price').notNull(), // in cents
+  description: text('description'),
+  billingPeriodStart: timestamp('billing_period_start').notNull(),
+  billingPeriodEnd: timestamp('billing_period_end').notNull(),
+  reportedToStripe: boolean('reported_to_stripe').default(false).notNull(),
+  stripeUsageRecordId: text('stripe_usage_record_id'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
 // Users - Synced from Clerk
@@ -321,6 +377,12 @@ export const notificationPreferences = pgTable('notification_preferences', {
 // Type exports for use in application
 export type Organization = typeof organizations.$inferSelect;
 export type NewOrganization = typeof organizations.$inferInsert;
+export type Subscription = typeof subscriptions.$inferSelect;
+export type NewSubscription = typeof subscriptions.$inferInsert;
+export type Invoice = typeof invoices.$inferSelect;
+export type NewInvoice = typeof invoices.$inferInsert;
+export type UsageRecord = typeof usageRecords.$inferSelect;
+export type NewUsageRecord = typeof usageRecords.$inferInsert;
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type PhoneNumber = typeof phoneNumbers.$inferSelect;

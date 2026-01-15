@@ -6,10 +6,9 @@ export async function GET() {
   // Check environment configuration
   const checks = {
     clerk: !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
-    database: !!process.env.DATABASE_URL,
-    signalwire: !!process.env.SIGNALWIRE_PROJECT_ID,
-    stripe: !!process.env.STRIPE_SECRET_KEY,
-    resend: !!process.env.RESEND_API_KEY,
+    database: !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    signalwire: !!process.env.SIGNALWIRE_PROJECT_ID && !!process.env.SIGNALWIRE_API_TOKEN,
+    email: !!process.env.SMTP_HOST || !!process.env.RESEND_API_KEY,
   };
 
   const allConfigured = Object.values(checks).every(Boolean);

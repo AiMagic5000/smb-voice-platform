@@ -58,6 +58,9 @@ import {
   Headset,
   MousePointerClick,
   Undo2,
+  Eye,
+  Megaphone,
+  Radio as RadioIcon,
 } from "lucide-react";
 
 const navItems = [
@@ -90,6 +93,11 @@ const navItems = [
     label: "Callbacks",
     href: "/dashboard/callbacks",
     icon: Undo2,
+  },
+  {
+    label: "Supervisor",
+    href: "/dashboard/supervisor",
+    icon: Eye,
   },
   {
     label: "Phone Numbers",
@@ -165,6 +173,16 @@ const navItems = [
     label: "Hunt Groups",
     href: "/dashboard/hunt-groups",
     icon: Target,
+  },
+  {
+    label: "Paging",
+    href: "/dashboard/paging",
+    icon: Megaphone,
+  },
+  {
+    label: "Intercom",
+    href: "/dashboard/intercom",
+    icon: RadioIcon,
   },
   {
     label: "Phone Menu (IVR)",

@@ -289,5 +289,25 @@ Build: PASSED (107 routes)
 - /dashboard/usage - Usage dashboard page with visual meters
 Build: PASSED (111 routes)
 
-=== Iteration 46 Starting ===
+=== Iteration 46 Complete ===
+- /api/extensions/[id] - Extension CRUD operations (GET/PATCH/DELETE)
+- /api/fax - Fax list and send API
+- /api/fax/[id] - Fax details, delete, resend, forward
+- /api/fax/[id]/download - Fax file download endpoint
+- /dashboard/fax - Fax management page with tabs, search, send dialog
+- Updated sidebar navigation with Fax (Printer icon)
+- All work committed to git (248 files, 52,868 lines preserved)
+Build: PASSED (115+ routes)
+
+=== Iteration 47 Complete ===
+- shared-inbox.tsx: Team inbox with filters, status, assignments
+- call-scripts.tsx: Script management with steps and categories
+- /api/scripts - Call scripts CRUD API
+- /api/inbox - Shared inbox API with bulk actions
+- /dashboard/inbox - Shared inbox page
+- /dashboard/scripts - Call scripts page
+- Updated sidebar with Inbox (32 nav items total)
+Build: PASSED (120+ routes, 42 dashboard pages)
+
+=== Iteration 48 Starting ===
 

@@ -36,6 +36,9 @@ import {
   Zap,
   Ban,
   MapPin,
+  Printer,
+  Inbox,
+  FileText,
 } from "lucide-react";
 
 const navItems = [
@@ -43,6 +46,11 @@ const navItems = [
     label: "Dashboard",
     href: "/dashboard",
     icon: LayoutDashboard,
+  },
+  {
+    label: "Shared Inbox",
+    href: "/dashboard/inbox",
+    icon: Inbox,
   },
   {
     label: "Live Calls",
@@ -70,6 +78,11 @@ const navItems = [
     icon: MessageSquare,
   },
   {
+    label: "Fax",
+    href: "/dashboard/fax",
+    icon: Printer,
+  },
+  {
     label: "Voicemails",
     href: "/dashboard/voicemails",
     icon: Voicemail,
@@ -88,6 +101,11 @@ const navItems = [
     label: "AI Receptionist",
     href: "/dashboard/ai-receptionist",
     icon: Bot,
+  },
+  {
+    label: "Call Scripts",
+    href: "/dashboard/scripts",
+    icon: FileText,
   },
   {
     label: "Call Queues",

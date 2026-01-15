@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Smartphone,
   Apple,
@@ -14,7 +14,13 @@ import {
   Shield,
   RefreshCw,
   ExternalLink,
+  Monitor,
 } from "lucide-react";
+
+interface BeforeInstallPromptEvent extends Event {
+  prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+}
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -62,6 +68,35 @@ export function MobileApps() {
     "ios"
   );
   const [showQRCode, setShowQRCode] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [isDesktopInstalled, setIsDesktopInstalled] = useState(false);
+
+  useEffect(() => {
+    // Check if already installed as PWA
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+      setIsDesktopInstalled(true);
+    }
+
+    // Listen for install prompt
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
+    };
+
+    window.addEventListener("beforeinstallprompt", handler);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, []);
+
+  const handleDesktopInstall = async () => {
+    if (deferredPrompt) {
+      await deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === "accepted") {
+        setIsDesktopInstalled(true);
+      }
+      setDeferredPrompt(null);
+    }
+  };
 
   const appStoreUrl = "https://apps.apple.com/app/smb-voice";
   const playStoreUrl = "https://play.google.com/store/apps/details?id=com.smbvoice";
@@ -336,20 +371,27 @@ export function MobileApps() {
           Desktop Applications
         </h4>
         <p className="text-gray-500 dark:text-gray-400 mb-4">
-          Download SMB Voice for your computer
+          Install SMB Voice on your computer for the best experience
         </p>
         <div className="flex justify-center gap-4 flex-wrap">
-          <a
-            href="/downloads/SMB-Voice-Windows-Portable.zip"
-            download
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#1E3A5F] hover:bg-[#2d4a6f] text-white rounded-xl font-medium transition-colors"
-          >
-            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801" />
-            </svg>
-            Windows (103 MB)
-            <Download className="h-4 w-4" />
-          </a>
+          {isDesktopInstalled ? (
+            <Button disabled className="gap-2 bg-green-500 hover:bg-green-500 text-white">
+              <Check className="h-4 w-4" />
+              Installed
+            </Button>
+          ) : deferredPrompt ? (
+            <Button onClick={handleDesktopInstall} className="gap-2 btn-primary">
+              <Monitor className="h-5 w-5" />
+              Install Desktop App
+              <Download className="h-4 w-4" />
+            </Button>
+          ) : (
+            <Button className="gap-2 btn-primary">
+              <Monitor className="h-5 w-5" />
+              Install via Browser
+              <ExternalLink className="h-4 w-4" />
+            </Button>
+          )}
           <Button variant="outline" className="gap-2 dark:border-gray-700" disabled>
             <Apple className="h-4 w-4" />
             macOS (Coming Soon)
@@ -360,7 +402,9 @@ export function MobileApps() {
           </Button>
         </div>
         <p className="text-xs text-gray-500 dark:text-gray-400 mt-4">
-          Windows: Extract the zip file and run SMB Voice.exe
+          {deferredPrompt
+            ? "Click to install as a native-like desktop application"
+            : "Open in Chrome or Edge and click the install icon in the address bar"}
         </p>
       </div>
     </div>

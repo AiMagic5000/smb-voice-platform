@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { constructWebhookEvent } from "@/lib/stripe/client";
+import { constructWebhookEvent, PRICING, listPaymentMethods } from "@/lib/stripe/client";
 import { db } from "@/lib/db";
-import { subscriptions, invoices, organizations } from "@/lib/db/schema";
+import { subscriptions, invoices, organizations, phoneNumbers } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import Stripe from "stripe";
+import { sendPaymentFailedEmail, sendTrialEndingEmail, sendPaymentConfirmationEmail } from "@/lib/email";
 
 // Explicit interface for subscription webhook data
 interface StripeSubscriptionData {
@@ -170,12 +171,13 @@ async function handleSubscriptionDeleted(subscription: StripeSubscriptionData) {
 async function handleInvoicePaid(invoice: StripeInvoiceData) {
   if (!invoice.subscription) return;
 
+  const organizationId = invoice.metadata?.organizationId;
   const subscriptionId = invoice.subscription as string;
 
   // Record the invoice
   await db.insert(invoices).values({
     id: invoice.id,
-    organizationId: invoice.metadata?.organizationId || "",
+    organizationId: organizationId || "",
     stripeInvoiceId: invoice.id,
     subscriptionId,
     amountDue: invoice.amount_due,
@@ -190,6 +192,60 @@ async function handleInvoicePaid(invoice: StripeInvoiceData) {
   });
 
   console.log(`Invoice ${invoice.id} paid: $${(invoice.amount_paid / 100).toFixed(2)}`);
+
+  // Send payment confirmation email
+  if (organizationId) {
+    try {
+      const [org] = await db
+        .select()
+        .from(organizations)
+        .where(eq(organizations.id, organizationId))
+        .limit(1);
+
+      if (org?.billingEmail) {
+        // Get subscription details
+        const [sub] = await db
+          .select()
+          .from(subscriptions)
+          .where(eq(subscriptions.stripeSubscriptionId, subscriptionId))
+          .limit(1);
+
+        // Get payment method details
+        let last4 = "****";
+        let brand = "Card";
+        if (org.stripeCustomerId) {
+          const paymentMethods = await listPaymentMethods(org.stripeCustomerId);
+          if (paymentMethods[0]?.card) {
+            last4 = paymentMethods[0].card.last4 || "****";
+            brand = paymentMethods[0].card.brand || "Card";
+          }
+        }
+
+        const planKey = (sub?.planId || "starter") as keyof typeof PRICING;
+        const plan = PRICING[planKey] || PRICING.starter;
+        const nextBillingDate = sub?.currentPeriodEnd
+          ? new Date(sub.currentPeriodEnd).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+          : "Next month";
+
+        await sendPaymentConfirmationEmail({
+          to: org.billingEmail,
+          customerName: org.name,
+          amount: invoice.amount_paid,
+          invoiceNumber: invoice.id,
+          paymentDate: new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }),
+          planName: plan.name,
+          nextBillingDate,
+          lastFourDigits: last4,
+          cardBrand: brand,
+          invoiceUrl: invoice.hosted_invoice_url || undefined,
+          dashboardUrl: `${process.env.NEXT_PUBLIC_APP_URL || "https://smbvoice.alwaysencrypted.com"}/dashboard/billing`,
+        });
+        console.log(`Payment confirmation email sent to ${org.billingEmail}`);
+      }
+    } catch (emailErr) {
+      console.error("Failed to send payment confirmation email:", emailErr);
+    }
+  }
 }
 
 async function handleInvoicePaymentFailed(invoice: StripeInvoiceData) {
@@ -223,7 +279,48 @@ async function handleInvoicePaymentFailed(invoice: StripeInvoiceData) {
 
   console.log(`Invoice ${invoice.id} payment failed`);
 
-  // TODO: Send payment failed email notification
+  // Send payment failed email notification
+  try {
+    const [org] = await db
+      .select()
+      .from(organizations)
+      .where(eq(organizations.id, organizationId))
+      .limit(1);
+
+    if (org?.billingEmail) {
+      // Get payment method details
+      let last4 = "****";
+      let brand = "Card";
+      if (org.stripeCustomerId) {
+        const paymentMethods = await listPaymentMethods(org.stripeCustomerId);
+        if (paymentMethods[0]?.card) {
+          last4 = paymentMethods[0].card.last4 || "****";
+          brand = paymentMethods[0].card.brand || "Card";
+        }
+      }
+
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://smbvoice.alwaysencrypted.com";
+
+      // Calculate retry date (3 days from now) and suspension date (7 days)
+      const retryDate = new Date();
+      retryDate.setDate(retryDate.getDate() + 3);
+
+      await sendPaymentFailedEmail({
+        to: org.billingEmail,
+        customerName: org.name,
+        amount: invoice.amount_due,
+        invoiceNumber: invoice.id,
+        lastFourDigits: last4,
+        cardBrand: brand,
+        updatePaymentUrl: `${baseUrl}/dashboard/billing`,
+        retryDate: retryDate.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }),
+        daysUntilSuspension: 7,
+      });
+      console.log(`Payment failed email sent to ${org.billingEmail}`);
+    }
+  } catch (emailErr) {
+    console.error("Failed to send payment failed email:", emailErr);
+  }
 }
 
 async function handleTrialWillEnd(subscription: StripeSubscriptionData) {
@@ -232,7 +329,56 @@ async function handleTrialWillEnd(subscription: StripeSubscriptionData) {
 
   console.log(`Trial ending soon for organization ${organizationId}`);
 
-  // TODO: Send trial ending notification email
+  // Send trial ending notification email
+  try {
+    const [org] = await db
+      .select()
+      .from(organizations)
+      .where(eq(organizations.id, organizationId))
+      .limit(1);
+
+    if (org?.billingEmail) {
+      // Get subscription details
+      const [sub] = await db
+        .select()
+        .from(subscriptions)
+        .where(eq(subscriptions.stripeSubscriptionId, subscription.id))
+        .limit(1);
+
+      // Get organization's phone number
+      const [phone] = await db
+        .select()
+        .from(phoneNumbers)
+        .where(eq(phoneNumbers.tenantId, org.clerkOrgId || organizationId))
+        .limit(1);
+
+      const planKey = (sub?.planId || "starter") as keyof typeof PRICING;
+      const plan = PRICING[planKey] || PRICING.starter;
+
+      // Calculate days remaining
+      const trialEndDate = subscription.trial_end
+        ? new Date(subscription.trial_end * 1000)
+        : new Date();
+      const now = new Date();
+      const daysRemaining = Math.max(0, Math.ceil((trialEndDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)));
+
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://smbvoice.alwaysencrypted.com";
+
+      await sendTrialEndingEmail({
+        to: org.billingEmail,
+        customerName: org.name,
+        trialEndDate: trialEndDate.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }),
+        daysRemaining,
+        planName: plan.name,
+        planPrice: plan.monthly,
+        phoneNumber: phone?.number,
+        upgradeUrl: `${baseUrl}/dashboard/billing`,
+      });
+      console.log(`Trial ending email sent to ${org.billingEmail}`);
+    }
+  } catch (emailErr) {
+    console.error("Failed to send trial ending email:", emailErr);
+  }
 }
 
 function mapStripeStatus(status: string): string {

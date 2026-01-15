@@ -55,6 +55,9 @@ import {
   Building,
   Wifi,
   UserCog,
+  Headset,
+  MousePointerClick,
+  Undo2,
 } from "lucide-react";
 
 const navItems = [
@@ -77,6 +80,16 @@ const navItems = [
     label: "Live Calls",
     href: "/dashboard/live-calls",
     icon: PhoneCall,
+  },
+  {
+    label: "Receptionist",
+    href: "/dashboard/receptionist",
+    icon: Headset,
+  },
+  {
+    label: "Callbacks",
+    href: "/dashboard/callbacks",
+    icon: Undo2,
   },
   {
     label: "Phone Numbers",
@@ -237,6 +250,11 @@ const navItems = [
     label: "Integrations",
     href: "/dashboard/integrations",
     icon: Puzzle,
+  },
+  {
+    label: "Web Widget",
+    href: "/dashboard/web-widget",
+    icon: MousePointerClick,
   },
   {
     label: "API Docs",

@@ -41,6 +41,7 @@ import {
   FileText,
   Music,
   Tag,
+  MonitorDot,
 } from "lucide-react";
 
 const navItems = [
@@ -168,6 +169,11 @@ const navItems = [
     label: "Analytics",
     href: "/dashboard/analytics",
     icon: BarChart3,
+  },
+  {
+    label: "Wallboard",
+    href: "/dashboard/wallboard",
+    icon: MonitorDot,
   },
   {
     label: "Team",

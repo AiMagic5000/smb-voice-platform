@@ -16,6 +16,13 @@ import {
   Zap,
 } from "lucide-react";
 
+// Gumroad checkout URLs - set in environment or use defaults
+const GUMROAD_URLS = {
+  starter: process.env.NEXT_PUBLIC_GUMROAD_STARTER_URL || "https://coreypearson.gumroad.com/l/smbvoice-starter",
+  professional: process.env.NEXT_PUBLIC_GUMROAD_PROFESSIONAL_URL || "https://coreypearson.gumroad.com/l/smbvoice-pro",
+  enterprise: process.env.NEXT_PUBLIC_GUMROAD_ENTERPRISE_URL || "https://coreypearson.gumroad.com/l/smbvoice-enterprise",
+};
+
 const plans = [
   {
     name: "Starter",
@@ -33,8 +40,9 @@ const plans = [
       "Voicemail Transcription",
       "Email Notifications",
     ],
-    cta: "Start Free Trial",
-    href: "/sign-up",
+    cta: "Get Started",
+    href: GUMROAD_URLS.starter,
+    external: true,
   },
   {
     name: "Professional",
@@ -54,8 +62,9 @@ const plans = [
       "Team Extensions (3 users)",
       "Call Analytics Dashboard",
     ],
-    cta: "Start Free Trial",
-    href: "/sign-up",
+    cta: "Get Started",
+    href: GUMROAD_URLS.professional,
+    external: true,
   },
   {
     name: "Enterprise",
@@ -78,6 +87,7 @@ const plans = [
     ],
     cta: "Contact Sales",
     href: "/contact",
+    external: false,
   },
 ];
 
@@ -206,14 +216,27 @@ export default function PricingPage() {
                   ))}
                 </ul>
 
-                <Button
-                  asChild
-                  className={`w-full h-12 ${
-                    plan.popular ? "btn-primary" : "btn-secondary"
-                  }`}
-                >
-                  <Link href={plan.href}>{plan.cta}</Link>
-                </Button>
+                {plan.external ? (
+                  <Button
+                    asChild
+                    className={`w-full h-12 ${
+                      plan.popular ? "btn-primary" : "btn-secondary"
+                    }`}
+                  >
+                    <a href={plan.href} target="_blank" rel="noopener noreferrer">
+                      {plan.cta}
+                    </a>
+                  </Button>
+                ) : (
+                  <Button
+                    asChild
+                    className={`w-full h-12 ${
+                      plan.popular ? "btn-primary" : "btn-secondary"
+                    }`}
+                  >
+                    <Link href={plan.href}>{plan.cta}</Link>
+                  </Button>
+                )}
               </motion.div>
             ))}
           </div>

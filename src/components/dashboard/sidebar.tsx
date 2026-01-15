@@ -70,6 +70,9 @@ import {
   Webhook,
   Database,
   ClipboardCheck,
+  BookOpen,
+  Send,
+  Tags,
 } from "lucide-react";
 
 const navItems = [
@@ -184,6 +187,16 @@ const navItems = [
     icon: FileText,
   },
   {
+    label: "Knowledge Base",
+    href: "/dashboard/knowledge-base",
+    icon: BookOpen,
+  },
+  {
+    label: "Outbound Campaigns",
+    href: "/dashboard/outbound-campaigns",
+    icon: Send,
+  },
+  {
     label: "Call Queues",
     href: "/dashboard/queues",
     icon: ListTree,
@@ -257,6 +270,11 @@ const navItems = [
     label: "Dispositions",
     href: "/dashboard/dispositions",
     icon: Tag,
+  },
+  {
+    label: "Call Tags",
+    href: "/dashboard/call-tags",
+    icon: Tags,
   },
   {
     label: "Team Presence",

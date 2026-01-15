@@ -37,11 +37,18 @@ export default function AuthLayout({
           </p>
           <div className="mt-8 flex items-center gap-4">
             <div className="flex -space-x-2">
-              {[1, 2, 3, 4].map((i) => (
+              {[
+                { initials: "JD", bg: "bg-blue-500" },
+                { initials: "SM", bg: "bg-green-500" },
+                { initials: "AK", bg: "bg-purple-500" },
+                { initials: "MR", bg: "bg-orange-500" },
+              ].map((user, i) => (
                 <div
                   key={i}
-                  className="w-10 h-10 rounded-full bg-white/20 border-2 border-white/40"
-                />
+                  className={`w-10 h-10 rounded-full ${user.bg} border-2 border-white/60 flex items-center justify-center text-white text-xs font-semibold`}
+                >
+                  {user.initials}
+                </div>
               ))}
             </div>
             <p className="text-white/70 text-sm">

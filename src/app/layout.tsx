@@ -160,6 +160,14 @@ function AppContent({ children }: { children: React.ReactNode }) {
             `,
           }}
         />
+        {/* Umami Analytics */}
+        {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
+          <script
+            defer
+            src={`${process.env.NEXT_PUBLIC_UMAMI_URL || 'https://analytics.alwaysencrypted.com'}/script.js`}
+            data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+          />
+        )}
       </head>
       <body className={`${inter.className} antialiased`}>
         <ServiceWorkerRegister />

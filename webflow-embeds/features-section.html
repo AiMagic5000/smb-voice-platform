@@ -1,0 +1,136 @@
+<!-- SMB Voice Features Section for Webflow -->
+<!-- Paste this into an HTML Embed element -->
+<style>
+.smb-features-section {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  padding: 80px 20px;
+  background: white;
+}
+.smb-features-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.smb-features-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.smb-features-title {
+  font-size: 38px;
+  font-weight: 800;
+  color: #1E3A5F;
+  margin: 0 0 16px;
+}
+.smb-features-subtitle {
+  font-size: 18px;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.smb-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+}
+.smb-feature-card {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 32px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.smb-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+.smb-feature-icon {
+  width: 56px;
+  height: 56px;
+  background: #FDF8E8;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.smb-feature-icon svg {
+  width: 28px;
+  height: 28px;
+  color: #C9A227;
+}
+.smb-feature-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1E3A5F;
+  margin: 0 0 12px;
+}
+.smb-feature-description {
+  font-size: 15px;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}
+</style>
+
+<section class="smb-features-section">
+  <div class="smb-features-container">
+    <div class="smb-features-header">
+      <h2 class="smb-features-title">Everything Your Business Needs</h2>
+      <p class="smb-features-subtitle">Professional phone features that rival enterprise systems, at a fraction of the cost.</p>
+    </div>
+
+    <div class="smb-features-grid">
+      <!-- AI Receptionist -->
+      <div class="smb-feature-card">
+        <div class="smb-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </div>
+        <h3 class="smb-feature-name">AI Receptionist</h3>
+        <p class="smb-feature-description">Never miss a call. Our AI answers 24/7, takes messages, schedules appointments, and routes calls intelligently.</p>
+      </div>
+
+      <!-- Business Number -->
+      <div class="smb-feature-card">
+        <div class="smb-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <h3 class="smb-feature-name">Professional Number</h3>
+        <p class="smb-feature-description">Get a local or toll-free number instantly. Port your existing number for free within 5-10 business days.</p>
+      </div>
+
+      <!-- Unlimited Calling -->
+      <div class="smb-feature-card">
+        <div class="smb-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="smb-feature-name">Unlimited Calling</h3>
+        <p class="smb-feature-description">Make and receive unlimited calls to the US and Canada. Crystal-clear HD voice quality on every call.</p>
+      </div>
+
+      <!-- Mobile Apps -->
+      <div class="smb-feature-card">
+        <div class="smb-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <h3 class="smb-feature-name">Mobile Apps</h3>
+        <p class="smb-feature-description">Take your business line anywhere. Native iOS and Android apps let you call and text on the go.</p>
+      </div>
+
+      <!-- SMS Messaging -->
+      <div class="smb-feature-card">
+        <div class="smb-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3 class="smb-feature-name">Business SMS</h3>
+        <p class="smb-feature-description">Send and receive text messages from your business number. Keep personal and business texts separate.</p>
+      </div>
+
+      <!-- Voicemail Transcription -->
+      <div class="smb-feature-card">
+        <div class="smb-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <h3 class="smb-feature-name">Voicemail Transcription</h3>
+        <p class="smb-feature-description">Read your voicemails as text. Get email notifications with full transcriptions delivered instantly.</p>
+      </div>
+    </div>
+  </div>
+</section>

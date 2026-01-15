@@ -1,0 +1,293 @@
+<!-- SMB Voice Pricing Section for Webflow -->
+<!-- Paste this into an HTML Embed element -->
+<style>
+.smb-pricing-section {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+.smb-pricing-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.smb-pricing-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.smb-pricing-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: #1E3A5F;
+  color: white;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.smb-pricing-title {
+  font-size: 42px;
+  font-weight: 800;
+  color: #1E3A5F;
+  margin: 0 0 16px;
+}
+.smb-pricing-subtitle {
+  font-size: 18px;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.smb-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.smb-plan-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border: 2px solid #e2e8f0;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+.smb-plan-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+}
+.smb-plan-card.popular {
+  border-color: #C9A227;
+  transform: scale(1.02);
+}
+.smb-plan-card.popular:hover {
+  transform: scale(1.02) translateY(-4px);
+}
+.smb-popular-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #C9A227;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.smb-plan-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1E3A5F;
+  margin: 0 0 8px;
+}
+.smb-plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.smb-price-amount {
+  font-size: 48px;
+  font-weight: 800;
+  color: #1E3A5F;
+}
+.smb-price-period {
+  font-size: 18px;
+  color: #64748b;
+}
+.smb-plan-description {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 24px;
+}
+.smb-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+.smb-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #475569;
+}
+.smb-feature-check {
+  width: 20px;
+  height: 20px;
+  background: #22c55e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.smb-feature-check svg {
+  width: 12px;
+  height: 12px;
+  color: white;
+}
+.smb-plan-cta {
+  display: block;
+  width: 100%;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.smb-plan-cta.primary {
+  background: #C9A227;
+  color: white;
+}
+.smb-plan-cta.primary:hover {
+  background: #b8921f;
+}
+.smb-plan-cta.secondary {
+  background: #1E3A5F;
+  color: white;
+}
+.smb-plan-cta.secondary:hover {
+  background: #16304d;
+}
+</style>
+
+<section class="smb-pricing-section">
+  <div class="smb-pricing-container">
+    <div class="smb-pricing-header">
+      <span class="smb-pricing-badge">Simple, Transparent Pricing</span>
+      <h2 class="smb-pricing-title">One Price. Everything Included.</h2>
+      <p class="smb-pricing-subtitle">No hidden fees, no surprises. Start with our 14-day free trial and see why thousands of businesses trust SMB Voice.</p>
+    </div>
+
+    <div class="smb-pricing-grid">
+      <!-- Starter Plan -->
+      <div class="smb-plan-card">
+        <h3 class="smb-plan-name">Starter</h3>
+        <div class="smb-plan-price">
+          <span class="smb-price-amount">$7.95</span>
+          <span class="smb-price-period">/month</span>
+        </div>
+        <p class="smb-plan-description">Perfect for solopreneurs and small businesses just getting started</p>
+        <ul class="smb-features-list">
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>1 Local or Toll-Free Number</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>Unlimited Calling (US & Canada)</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>500 SMS Messages</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>Basic AI Receptionist</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>Mobile App Access</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>Voicemail Transcription</span>
+          </li>
+        </ul>
+        <a href="https://coreypearson.gumroad.com/l/izcdvd" target="_blank" class="smb-plan-cta secondary">Get Started</a>
+      </div>
+
+      <!-- Professional Plan -->
+      <div class="smb-plan-card popular">
+        <span class="smb-popular-badge">Most Popular</span>
+        <h3 class="smb-plan-name">Professional</h3>
+        <div class="smb-plan-price">
+          <span class="smb-price-amount">$19.95</span>
+          <span class="smb-price-period">/month</span>
+        </div>
+        <p class="smb-plan-description">For growing businesses that need advanced features</p>
+        <ul class="smb-features-list">
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>3 Phone Numbers</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>Unlimited Calling (US & Canada)</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>2,000 SMS Messages</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>Advanced AI Receptionist</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>Call Recording</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>CRM Integrations</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>Team Extensions (3 users)</span>
+          </li>
+        </ul>
+        <a href="https://coreypearson.gumroad.com/l/ojjjt" target="_blank" class="smb-plan-cta primary">Get Started</a>
+      </div>
+
+      <!-- Enterprise Plan -->
+      <div class="smb-plan-card">
+        <h3 class="smb-plan-name">Enterprise</h3>
+        <div class="smb-plan-price">
+          <span class="smb-price-amount">$49.95</span>
+          <span class="smb-price-period">/month</span>
+        </div>
+        <p class="smb-plan-description">For teams that need the full power of SMB Voice</p>
+        <ul class="smb-features-list">
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>10 Phone Numbers</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>Unlimited Calling (US & Canada)</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>Unlimited SMS</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>Premium AI Receptionist</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>API Access</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>Unlimited Team Members</span>
+          </li>
+          <li class="smb-feature-item">
+            <span class="smb-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span>Dedicated Support</span>
+          </li>
+        </ul>
+        <a href="https://coreypearson.gumroad.com/l/ouowmw" target="_blank" class="smb-plan-cta secondary">Get Started</a>
+      </div>
+    </div>
+  </div>
+</section>

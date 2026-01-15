@@ -61,6 +61,9 @@ import {
   Eye,
   Megaphone,
   Radio as RadioIcon,
+  Award,
+  Trophy,
+  HardDrive,
 } from "lucide-react";
 
 const navItems = [
@@ -98,6 +101,11 @@ const navItems = [
     label: "Supervisor",
     href: "/dashboard/supervisor",
     icon: Eye,
+  },
+  {
+    label: "Agent Scorecard",
+    href: "/dashboard/scorecard",
+    icon: Trophy,
   },
   {
     label: "Phone Numbers",
@@ -163,6 +171,11 @@ const navItems = [
     label: "Call Queues",
     href: "/dashboard/queues",
     icon: ListTree,
+  },
+  {
+    label: "Skills Routing",
+    href: "/dashboard/skills",
+    icon: Award,
   },
   {
     label: "Ring Groups",
@@ -283,6 +296,11 @@ const navItems = [
     label: "Mobile App",
     href: "/dashboard/mobile-app",
     icon: Smartphone,
+  },
+  {
+    label: "Devices",
+    href: "/dashboard/devices",
+    icon: HardDrive,
   },
   {
     label: "System Status",

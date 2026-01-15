@@ -1,36 +1,171 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SMB Voice Platform
+
+Professional business phone system for small businesses. Simple, affordable, and powered by AI.
+
+**$7.95/month** - No contracts, no hidden fees.
+
+## Features
+
+- **Business Phone Number** - Local or toll-free numbers
+- **AI Receptionist** - 24/7 automated call handling
+- **Mobile Apps** - iOS, Android, and desktop
+- **Voicemail to Email** - Transcribed voicemails delivered to your inbox
+- **Call Recording** - Keep records of important calls
+- **Team Extensions** - Up to 5 team members included
+- **24/7 Support** - Real humans, always available
+
+## Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS + shadcn/ui
+- **Authentication**: Clerk.com (multi-tenant)
+- **Database**: Cognabase (self-hosted Supabase) + Drizzle ORM
+- **VoIP**: SignalWire + FusionPBX
+- **Email**: React Email + Resend
+- **Deployment**: Docker on Coolify
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+
+- npm or yarn
+- Clerk.com account
+- SignalWire account
+- Cognabase/Supabase instance
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repo-url>
+   cd smb-voice-platform
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables**
+   ```bash
+   cp .env.example .env.local
+   ```
+
+   Edit `.env.local` with your credentials:
+   - Clerk publishable and secret keys
+   - Database connection string
+   - SignalWire credentials
+   - SMTP settings
+
+4. **Run database migrations**
+   ```bash
+   npm run db:push
+   ```
+
+5. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000)
+
+### Production Build
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Docker Deployment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+docker build -t smb-voice .
+docker run -p 3000:3000 --env-file .env.local smb-voice
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Or with Docker Compose:
 
-## Learn More
+```bash
+docker-compose up -d
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── (auth)/            # Authentication pages
+│   ├── (dashboard)/       # Dashboard pages
+│   ├── (marketing)/       # Public marketing pages
+│   └── api/               # API routes
+├── components/
+│   ├── dashboard/         # Dashboard components
+│   ├── marketing/         # Marketing page components
+│   ├── shared/            # Shared components
+│   └── ui/                # shadcn/ui components
+├── lib/
+│   ├── db/                # Database schema and client
+│   └── email/             # Email templates
+└── types/                 # TypeScript types
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Environment Variables
 
-## Deploy on Vercel
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Clerk public key |
+| `CLERK_SECRET_KEY` | Clerk secret key |
+| `DATABASE_URL` | PostgreSQL connection string |
+| `SIGNALWIRE_PROJECT_ID` | SignalWire project ID |
+| `SIGNALWIRE_API_TOKEN` | SignalWire API token |
+| `SIGNALWIRE_SPACE_URL` | SignalWire space URL |
+| `RESEND_API_KEY` | Resend API key for emails |
+| `OPENAI_API_KEY` | OpenAI API key for AI features |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+See `.env.example` for all variables.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## API Routes
+
+| Route | Method | Description |
+|-------|--------|-------------|
+| `/api/health` | GET | Health check |
+| `/api/phone-numbers` | GET/POST | Manage phone numbers |
+| `/api/extensions` | GET/POST | Manage extensions |
+| `/api/webhooks/signalwire` | POST | SignalWire webhooks |
+| `/api/webhooks/clerk` | POST | Clerk webhooks |
+
+## Deployment to Coolify
+
+1. Create a new service in Coolify
+2. Connect your Git repository
+3. Set build command: `npm run build`
+4. Set start command: `npm start`
+5. Add environment variables
+6. Configure domain and SSL
+
+## Pricing
+
+**SMB Voice Basic** - $7.95/month
+
+Includes:
+- Business phone number
+- AI receptionist (24/7)
+- 5 team extensions
+- Voicemail to email
+- Call forwarding
+- Mobile & desktop apps
+- 500 minutes included
+- Call recording
+- 24/7 support
+
+## Support
+
+- **Phone**: 888-534-4145 (24/7)
+- **Email**: support@startmybusiness.us
+- **Website**: https://voice.startmybusiness.us
+
+## License
+
+Copyright 2026 Start My Business Inc. All rights reserved.

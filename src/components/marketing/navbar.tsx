@@ -41,9 +41,7 @@ export function Navbar() {
         <nav className="container-wide">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/" className="flex-shrink-0">
-              <Logo variant={isScrolled ? "default" : "default"} />
-            </Link>
+            <Logo size="md" />
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-8">

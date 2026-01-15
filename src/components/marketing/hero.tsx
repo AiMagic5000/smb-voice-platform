@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import {
   Phone,
   Bot,
@@ -158,15 +159,16 @@ export function Hero() {
                   </div>
 
                   {/* App header */}
-                  <div className="px-6 py-4 bg-white border-b border-gray-100">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#C9A227] to-[#DEB44A] flex items-center justify-center">
-                        <Phone className="h-5 w-5 text-white" />
-                      </div>
-                      <div>
-                        <p className="font-bold text-[#1E3A5F]">SMB Voice</p>
-                        <p className="text-xs text-green-500">Online</p>
-                      </div>
+                  <div className="px-4 py-3 bg-white border-b border-gray-100">
+                    <div className="flex items-center justify-between">
+                      <Image
+                        src="/logo.png"
+                        alt="Start My Business"
+                        width={120}
+                        height={40}
+                        className="object-contain"
+                      />
+                      <span className="text-xs text-green-500 font-medium">Online</span>
                     </div>
                   </div>
 

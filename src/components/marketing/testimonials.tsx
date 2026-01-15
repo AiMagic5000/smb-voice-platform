@@ -8,7 +8,7 @@ const testimonials = [
   {
     name: "Sarah Johnson",
     role: "Owner, Johnson Consulting",
-    image: "/testimonials/sarah.jpg",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
     content:
       "SMB Voice changed how I do business. The AI answers calls when I'm with clients, and I never miss a lead. Best $7.95 I spend each month!",
     rating: 5,
@@ -16,7 +16,7 @@ const testimonials = [
   {
     name: "Mike Chen",
     role: "Founder, Chen Marketing",
-    image: "/testimonials/mike.jpg",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
     content:
       "I was paying $80/month for a phone system I barely used. SMB Voice gives me everything for less than $8. The setup took 5 minutes.",
     rating: 5,
@@ -24,7 +24,7 @@ const testimonials = [
   {
     name: "Lisa Rodriguez",
     role: "Real Estate Agent",
-    image: "/testimonials/lisa.jpg",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
     content:
       "My clients think I have a full office staff. The AI receptionist is so good, people can't tell it's not a real person!",
     rating: 5,
@@ -32,7 +32,7 @@ const testimonials = [
   {
     name: "David Williams",
     role: "Contractor, Williams Home Services",
-    image: "/testimonials/david.jpg",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
     content:
       "Simple, affordable, and it just works. I can take calls from the job site, and voicemails come straight to my email. Exactly what I needed.",
     rating: 5,

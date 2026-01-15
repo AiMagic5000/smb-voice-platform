@@ -67,7 +67,7 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
           {/* Logo and contact */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
-            <Logo variant="light" className="mb-6" />
+            <Logo size="md" className="mb-6" />
             <p className="text-white/70 mb-6 max-w-sm">
               Professional business phone systems for small businesses. Simple,
               affordable, and powered by AI.

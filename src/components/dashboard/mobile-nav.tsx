@@ -103,7 +103,7 @@ export function MobileNav({ className }: MobileNavProps) {
           className
         )}
       >
-        <Logo />
+        <Logo size="sm" />
         <button
           onClick={() => setIsOpen(true)}
           className="p-2 rounded-xl hover:bg-gray-100 transition-colors"
@@ -136,7 +136,7 @@ export function MobileNav({ className }: MobileNavProps) {
             >
               {/* Header */}
               <div className="h-16 flex items-center justify-between px-4 border-b border-white/10">
-                <Logo variant="light" />
+                <Logo size="sm" />
                 <button
                   onClick={() => setIsOpen(false)}
                   className="p-2 rounded-xl hover:bg-white/10 transition-colors"

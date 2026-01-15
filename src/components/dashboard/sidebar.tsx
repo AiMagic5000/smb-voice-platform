@@ -448,7 +448,7 @@ export function Sidebar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <Logo variant="light" />
+              <Logo size="sm" />
             </motion.div>
           )}
         </AnimatePresence>

@@ -47,6 +47,9 @@ import {
   Calendar,
   FileBarChart,
   PhoneOutgoing,
+  PartyPopper,
+  AlertOctagon,
+  Server,
 } from "lucide-react";
 
 const navItems = [
@@ -54,6 +57,11 @@ const navItems = [
     label: "Dashboard",
     href: "/dashboard",
     icon: LayoutDashboard,
+  },
+  {
+    label: "Emergency Alerts",
+    href: "/dashboard/alerts",
+    icon: AlertOctagon,
   },
   {
     label: "Shared Inbox",
@@ -151,6 +159,11 @@ const navItems = [
     icon: Clock,
   },
   {
+    label: "Holiday Schedules",
+    href: "/dashboard/holidays",
+    icon: PartyPopper,
+  },
+  {
     label: "Recordings",
     href: "/dashboard/recordings",
     icon: Mic,
@@ -229,6 +242,11 @@ const navItems = [
     label: "Developer",
     href: "/dashboard/developer",
     icon: Code,
+  },
+  {
+    label: "SIP Trunks",
+    href: "/dashboard/sip-trunks",
+    icon: Server,
   },
   {
     label: "Billing",

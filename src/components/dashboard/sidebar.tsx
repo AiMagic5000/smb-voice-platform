@@ -50,6 +50,8 @@ import {
   PartyPopper,
   AlertOctagon,
   Server,
+  Headphones,
+  Radio,
 } from "lucide-react";
 
 const navItems = [
@@ -154,6 +156,11 @@ const navItems = [
     icon: Menu,
   },
   {
+    label: "Auto Attendant",
+    href: "/dashboard/auto-attendant",
+    icon: Headphones,
+  },
+  {
     label: "Business Hours",
     href: "/dashboard/hours",
     icon: Clock,
@@ -167,6 +174,16 @@ const navItems = [
     label: "Recordings",
     href: "/dashboard/recordings",
     icon: Mic,
+  },
+  {
+    label: "Recording Settings",
+    href: "/dashboard/recording-settings",
+    icon: Radio,
+  },
+  {
+    label: "Voicemail Settings",
+    href: "/dashboard/voicemail-settings",
+    icon: Voicemail,
   },
   {
     label: "Hold Music",

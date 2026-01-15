@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     const tenantId = orgId || userId;
 
     const body = await request.json();
-    const { phoneNumber, friendlyName } = body;
+    const { phoneNumber } = body;
 
     if (!phoneNumber) {
       return NextResponse.json(
@@ -82,7 +82,6 @@ export async function POST(request: NextRequest) {
         tenantId,
         organizationId: orgId || null,
         number: phoneNumber,
-        friendlyName: friendlyName || phoneNumber,
         type,
         signalwireId: signalWireId,
         routesTo: "ai",

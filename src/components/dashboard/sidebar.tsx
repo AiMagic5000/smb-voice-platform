@@ -39,6 +39,8 @@ import {
   Printer,
   Inbox,
   FileText,
+  Music,
+  Tag,
 } from "lucide-react";
 
 const navItems = [
@@ -136,6 +138,16 @@ const navItems = [
     label: "Recordings",
     href: "/dashboard/recordings",
     icon: Mic,
+  },
+  {
+    label: "Hold Music",
+    href: "/dashboard/hold-music",
+    icon: Music,
+  },
+  {
+    label: "Dispositions",
+    href: "/dashboard/dispositions",
+    icon: Tag,
   },
   {
     label: "Team Presence",

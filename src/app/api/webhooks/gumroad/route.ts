@@ -50,13 +50,12 @@ interface GumroadWebhookPayload {
   url_params?: Record<string, string>;
 }
 
-// Map Gumroad product IDs to plan tiers
+// Map Gumroad product permalinks to plan tiers
 const PRODUCT_TO_PLAN: Record<string, string> = {
-  // These will be populated based on your Gumroad product IDs
-  // Example: "prod_abc123": "starter"
-  "smbvoice-starter": "starter",
-  "smbvoice-pro": "professional",
-  "smbvoice-enterprise": "enterprise",
+  // Actual Gumroad product permalinks
+  "izcdvd": "starter",         // SMB Voice Starter - $7.95/month
+  "ojjjt": "professional",     // SMB Voice Professional - $19.95/month
+  "ouowmw": "enterprise",      // SMB Voice Enterprise - $49.95/month
 };
 
 export async function POST(request: NextRequest) {

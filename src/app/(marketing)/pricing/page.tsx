@@ -16,11 +16,11 @@ import {
   Zap,
 } from "lucide-react";
 
-// Gumroad checkout URLs - set in environment or use defaults
+// Gumroad checkout URLs
 const GUMROAD_URLS = {
-  starter: process.env.NEXT_PUBLIC_GUMROAD_STARTER_URL || "https://coreypearson.gumroad.com/l/smbvoice-starter",
-  professional: process.env.NEXT_PUBLIC_GUMROAD_PROFESSIONAL_URL || "https://coreypearson.gumroad.com/l/smbvoice-pro",
-  enterprise: process.env.NEXT_PUBLIC_GUMROAD_ENTERPRISE_URL || "https://coreypearson.gumroad.com/l/smbvoice-enterprise",
+  starter: "https://coreypearson.gumroad.com/l/izcdvd",
+  professional: "https://coreypearson.gumroad.com/l/ojjjt",
+  enterprise: "https://coreypearson.gumroad.com/l/ouowmw",
 };
 
 const plans = [

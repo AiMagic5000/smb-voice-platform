@@ -73,6 +73,9 @@ import {
   BookOpen,
   Send,
   Tags,
+  Bell,
+  HeartPulse,
+  PhoneIncoming,
 } from "lucide-react";
 
 const navItems = [
@@ -95,6 +98,11 @@ const navItems = [
     label: "Live Calls",
     href: "/dashboard/live-calls",
     icon: PhoneCall,
+  },
+  {
+    label: "Active Call",
+    href: "/dashboard/active-call",
+    icon: PhoneIncoming,
   },
   {
     label: "Receptionist",
@@ -355,6 +363,16 @@ const navItems = [
     label: "System Status",
     href: "/dashboard/status",
     icon: Activity,
+  },
+  {
+    label: "System Health",
+    href: "/dashboard/health",
+    icon: HeartPulse,
+  },
+  {
+    label: "Notifications",
+    href: "/dashboard/notifications",
+    icon: Bell,
   },
   {
     label: "Audit Logs",

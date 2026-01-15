@@ -2,13 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 import { phoneNumbers } from "@/lib/db/schema";
+import { getSignalWireClient } from "@/lib/signalwire";
+import { eq, and } from "drizzle-orm";
 
 /**
  * POST /api/phone-numbers/provision
- * Provision (purchase) a phone number
- *
- * Note: In production, this would integrate with SignalWire's
- * IncomingPhoneNumbers API. For now, creates a mock provisioned number.
+ * Provision (purchase) a phone number via SignalWire API
  */
 export async function POST(request: NextRequest) {
   try {
@@ -29,41 +28,75 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create a mock provisioned number for demo
-    // In production, this would call SignalWire's IncomingPhoneNumbers API
-    const provisionedNumber = {
-      sid: `PN${Date.now()}${Math.random().toString(36).substr(2, 9)}`,
-      phoneNumber,
-      friendlyName: friendlyName || phoneNumber,
-      capabilities: { voice: true, sms: true, mms: true },
-    };
+    // Check if SignalWire is configured
+    const hasSignalWireConfig =
+      process.env.SIGNALWIRE_PROJECT_ID &&
+      process.env.SIGNALWIRE_API_TOKEN &&
+      process.env.SIGNALWIRE_SPACE_URL;
 
-    // Save to database
+    let signalWireId: string;
+    let isMock = false;
 
-    const type = phoneNumber.startsWith("+1800") ||
+    if (hasSignalWireConfig) {
+      try {
+        // Purchase via SignalWire API
+        const client = getSignalWireClient();
+        const purchasedNumber = await client.purchaseNumber(phoneNumber);
+        signalWireId = purchasedNumber.id;
+
+        // Configure webhook URL for incoming calls
+        await client.configureCallForwarding(purchasedNumber.id, "");
+      } catch (signalWireError) {
+        console.error("SignalWire purchase error:", signalWireError);
+        return NextResponse.json(
+          {
+            error: "Failed to purchase number from SignalWire",
+            details:
+              signalWireError instanceof Error
+                ? signalWireError.message
+                : "Unknown error",
+          },
+          { status: 500 }
+        );
+      }
+    } else {
+      // Create mock provisioned number for demo
+      signalWireId = `PN${Date.now()}${Math.random().toString(36).substr(2, 9)}`;
+      isMock = true;
+    }
+
+    // Determine number type
+    const type =
+      phoneNumber.startsWith("+1800") ||
       phoneNumber.startsWith("+1888") ||
       phoneNumber.startsWith("+1877") ||
       phoneNumber.startsWith("+1866") ||
       phoneNumber.startsWith("+1855")
-      ? "tollfree"
-      : "local";
+        ? "tollfree"
+        : "local";
 
-    const [newNumber] = await db.insert(phoneNumbers).values({
-      tenantId,
-      organizationId: orgId || null,
-      number: phoneNumber,
-      type,
-      signalwireId: provisionedNumber.sid,
-      routesTo: "ai",
-      status: "active",
-      voiceEnabled: true,
-      smsEnabled: true,
-    }).returning();
+    // Save to database
+    const [newNumber] = await db
+      .insert(phoneNumbers)
+      .values({
+        tenantId,
+        organizationId: orgId || null,
+        number: phoneNumber,
+        friendlyName: friendlyName || phoneNumber,
+        type,
+        signalwireId: signalWireId,
+        routesTo: "ai",
+        status: "active",
+        voiceEnabled: true,
+        smsEnabled: true,
+      })
+      .returning();
 
     return NextResponse.json({
       success: true,
       phoneNumber: newNumber,
       message: `Successfully provisioned ${phoneNumber}`,
+      mock: isMock,
     });
   } catch (error) {
     console.error("Error provisioning phone number:", error);
@@ -98,7 +131,6 @@ export async function DELETE(request: NextRequest) {
     }
 
     // Get the phone number record
-    const { eq, and } = await import("drizzle-orm");
     const existingNumbers = await db
       .select()
       .from(phoneNumbers)
@@ -118,10 +150,23 @@ export async function DELETE(request: NextRequest) {
 
     const numberRecord = existingNumbers[0];
 
-    // In production, this would also call SignalWire to release the number
-    // For now, we just update the database
+    // Check if SignalWire is configured and release the number
+    const hasSignalWireConfig =
+      process.env.SIGNALWIRE_PROJECT_ID &&
+      process.env.SIGNALWIRE_API_TOKEN &&
+      process.env.SIGNALWIRE_SPACE_URL;
 
-    // Soft delete - update status to cancelled
+    if (hasSignalWireConfig && numberRecord.signalwireId) {
+      try {
+        const client = getSignalWireClient();
+        await client.releaseNumber(numberRecord.signalwireId);
+      } catch (signalWireError) {
+        console.error("SignalWire release error:", signalWireError);
+        // Continue with database update even if SignalWire fails
+      }
+    }
+
+    // Update status to cancelled
     await db
       .update(phoneNumbers)
       .set({ status: "cancelled" })

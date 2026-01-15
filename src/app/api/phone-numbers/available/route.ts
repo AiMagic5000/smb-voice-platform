@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
+import { getSignalWireClient } from "@/lib/signalwire";
 
 /**
  * GET /api/phone-numbers/available
- * Search for available phone numbers to purchase
- *
- * Note: In production, this would integrate with SignalWire's
- * AvailablePhoneNumbers API. For now, returns mock data.
+ * Search for available phone numbers to purchase via SignalWire API
  */
 export async function GET(request: NextRequest) {
   try {
@@ -19,21 +17,73 @@ export async function GET(request: NextRequest) {
     const type = searchParams.get("type") || "local";
     const areaCode = searchParams.get("areaCode");
     const contains = searchParams.get("contains");
-    const state = searchParams.get("state");
     const quantity = parseInt(searchParams.get("quantity") || "10");
 
-    // Generate mock numbers for demo
-    // In production, this would call SignalWire's AvailablePhoneNumbers API
-    const mockNumbers = generateMockNumbers(
-      type as "local" | "tollfree" | "mobile",
-      areaCode,
-      quantity
-    );
+    // Check if SignalWire is configured
+    const hasSignalWireConfig =
+      process.env.SIGNALWIRE_PROJECT_ID &&
+      process.env.SIGNALWIRE_API_TOKEN &&
+      process.env.SIGNALWIRE_SPACE_URL;
 
-    return NextResponse.json({
-      numbers: mockNumbers,
-      searchParams: { type, areaCode, contains, state },
-    });
+    if (!hasSignalWireConfig) {
+      // Return mock data if SignalWire not configured
+      const mockNumbers = generateMockNumbers(
+        type as "local" | "tollfree",
+        areaCode,
+        quantity
+      );
+      return NextResponse.json({
+        numbers: mockNumbers,
+        searchParams: { type, areaCode, contains },
+        mock: true,
+        message: "SignalWire not configured - showing demo numbers",
+      });
+    }
+
+    try {
+      // Use real SignalWire API
+      const client = getSignalWireClient();
+      const numbers = await client.searchAvailableNumbers({
+        type: type === "tollfree" ? "toll-free" : "local",
+        areaCode: areaCode || undefined,
+        contains: contains || undefined,
+        limit: quantity,
+      });
+
+      // Transform to consistent format
+      const formattedNumbers = numbers.map((n) => ({
+        phoneNumber: n.number,
+        type: n.type === "toll-free" ? "tollfree" : "local",
+        region: "US",
+        monthlyPrice: n.monthlyPrice,
+        setupFee: n.setupPrice,
+        capabilities: {
+          voice: true,
+          sms: true,
+          mms: n.type !== "toll-free",
+        },
+      }));
+
+      return NextResponse.json({
+        numbers: formattedNumbers,
+        searchParams: { type, areaCode, contains },
+        mock: false,
+      });
+    } catch (signalWireError) {
+      console.error("SignalWire API error:", signalWireError);
+      // Fall back to mock data on SignalWire error
+      const mockNumbers = generateMockNumbers(
+        type as "local" | "tollfree",
+        areaCode,
+        quantity
+      );
+      return NextResponse.json({
+        numbers: mockNumbers,
+        searchParams: { type, areaCode, contains },
+        mock: true,
+        error: "SignalWire API error - showing demo numbers",
+      });
+    }
   } catch (error) {
     console.error("Error searching phone numbers:", error);
     return NextResponse.json(
@@ -43,9 +93,9 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// Generate mock numbers for demo purposes
+// Generate mock numbers for demo/fallback purposes
 function generateMockNumbers(
-  type: "local" | "tollfree" | "mobile",
+  type: "local" | "tollfree",
   areaCode?: string | null,
   count: number = 10
 ) {
@@ -72,7 +122,8 @@ function generateMockNumbers(
     let state: string | undefined;
 
     if (type === "tollfree") {
-      const tfPrefix = tollfreePrefixes[Math.floor(Math.random() * tollfreePrefixes.length)];
+      const tfPrefix =
+        tollfreePrefixes[Math.floor(Math.random() * tollfreePrefixes.length)];
       phoneNumber = `+1${tfPrefix}${prefix}${line}`;
     } else {
       const location = areaCode

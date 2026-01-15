@@ -1,0 +1,21 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E3A5F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0F2A4F;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="96" fill="url(#bgGradient)"/>
+
+  <!-- Phone Icon Circle -->
+  <circle cx="256" cy="256" r="160" fill="#C9A227" fill-opacity="0.15"/>
+  <circle cx="256" cy="256" r="120" fill="#C9A227" fill-opacity="0.1"/>
+
+  <!-- Phone Icon -->
+  <path d="M320 344c-36 0-71.2-14.3-97-40-25.8-25.8-40-61-40-97 0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16 0 17.7 2.8 34.6 8 50.2 1.6 4.8.4 10.4-3.2 14l-28.4 28.4c24.8 46 62.6 83.8 108.6 108.6l28.4-28.4c3.6-3.6 9.2-4.8 14-3.2 15.6 5.2 32.5 8 50.2 8 8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16-36 0-71.2-14.3-97-40-25.8-25.8-40-61-40-97z" fill="#C9A227"/>
+
+  <!-- SMB Text -->
+  <text x="256" y="420" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="white" text-anchor="middle">SMB VOICE</text>
+</svg>

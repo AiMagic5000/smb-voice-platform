@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ServiceWorkerRegister } from "@/components/pwa/service-worker-register";
+import { IOSInstallPrompt } from "@/components/pwa/ios-install-prompt";
 import "./globals.css";
 
 // Check if Clerk is properly configured
@@ -124,8 +125,22 @@ function AppContent({ children }: { children: React.ReactNode }) {
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#1E3A5F" />
+        <meta name="theme-color" content="#C9A227" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="SMB Voice" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="application-name" content="SMB Voice" />
+        <meta name="msapplication-TileColor" content="#1E3A5F" />
+        <meta name="msapplication-TileImage" content="/icons/icon-144x144.png" />
+        {/* iOS Splash Screens */}
+        <link rel="apple-touch-startup-image" href="/splash/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" />
+        <link rel="apple-touch-startup-image" href="/splash/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" />
+        <link rel="apple-touch-startup-image" href="/splash/splash-828x1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" />
         {/* Prevent flash of wrong theme */}
         <script
           dangerouslySetInnerHTML={{
@@ -146,6 +161,7 @@ function AppContent({ children }: { children: React.ReactNode }) {
         <ServiceWorkerRegister />
         <ThemeProvider defaultTheme="system">
           {children}
+          <IOSInstallPrompt />
         </ThemeProvider>
         <Toaster
           position="top-right"

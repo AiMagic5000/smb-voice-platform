@@ -64,6 +64,9 @@ import {
   Award,
   Trophy,
   HardDrive,
+  Hash,
+  ShieldCheck,
+  ClipboardList,
 } from "lucide-react";
 
 const navItems = [
@@ -111,6 +114,11 @@ const navItems = [
     label: "Phone Numbers",
     href: "/dashboard/phone-numbers",
     icon: Phone,
+  },
+  {
+    label: "DID Inventory",
+    href: "/dashboard/did-inventory",
+    icon: Hash,
   },
   {
     label: "Number Porting",
@@ -263,6 +271,11 @@ const navItems = [
     icon: BarChart3,
   },
   {
+    label: "Call Surveys",
+    href: "/dashboard/surveys",
+    icon: ClipboardList,
+  },
+  {
     label: "Scheduled Reports",
     href: "/dashboard/reports",
     icon: FileBarChart,
@@ -311,6 +324,11 @@ const navItems = [
     label: "Audit Logs",
     href: "/dashboard/audit",
     icon: Shield,
+  },
+  {
+    label: "Compliance",
+    href: "/dashboard/compliance",
+    icon: ShieldCheck,
   },
   {
     label: "Developer",

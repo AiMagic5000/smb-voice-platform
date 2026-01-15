@@ -42,6 +42,11 @@ import {
   Music,
   Tag,
   MonitorDot,
+  ArrowLeftRight,
+  Activity,
+  Calendar,
+  FileBarChart,
+  PhoneOutgoing,
 } from "lucide-react";
 
 const navItems = [
@@ -64,6 +69,16 @@ const navItems = [
     label: "Phone Numbers",
     href: "/dashboard/phone-numbers",
     icon: Phone,
+  },
+  {
+    label: "Number Porting",
+    href: "/dashboard/porting",
+    icon: ArrowLeftRight,
+  },
+  {
+    label: "Caller ID",
+    href: "/dashboard/caller-id",
+    icon: PhoneOutgoing,
   },
   {
     label: "Extensions",
@@ -171,6 +186,11 @@ const navItems = [
     icon: BarChart3,
   },
   {
+    label: "Scheduled Reports",
+    href: "/dashboard/reports",
+    icon: FileBarChart,
+  },
+  {
     label: "Wallboard",
     href: "/dashboard/wallboard",
     icon: MonitorDot,
@@ -194,6 +214,11 @@ const navItems = [
     label: "Mobile App",
     href: "/dashboard/mobile-app",
     icon: Smartphone,
+  },
+  {
+    label: "System Status",
+    href: "/dashboard/status",
+    icon: Activity,
   },
   {
     label: "Audit Logs",

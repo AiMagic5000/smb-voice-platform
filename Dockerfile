@@ -3,16 +3,20 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Ensure devDependencies are installed for build
+ENV NODE_ENV=development
+
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
+# Install all dependencies including devDependencies
 RUN npm ci
 
 # Copy source code
 COPY . .
 
 # Build the application
+ENV NODE_ENV=production
 RUN npm run build
 
 # Production stage

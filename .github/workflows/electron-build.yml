@@ -138,14 +138,22 @@ jobs:
           find artifacts/smb-voice-linux -name "*.deb" -exec cp {} release/SMB-Voice.deb \;
           ls -la release/
 
+      - name: Get version
+        id: version
+        run: |
+          VERSION=$(cat desktop-app/package.json | jq -r '.version')
+          echo "version=v$VERSION" >> $GITHUB_OUTPUT
+          echo "Version: v$VERSION"
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ steps.version.outputs.version }}
           files: release/*
           generate_release_notes: true
           draft: false
           prerelease: false
-          name: SMB Voice ${{ github.ref_name || 'v1.0.0' }}
+          name: SMB Voice ${{ steps.version.outputs.version }}
           body: |
             ## SMB Voice Desktop App
 

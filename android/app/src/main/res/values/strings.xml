@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">SMB Voice</string>
+    <string name="title_activity_main">SMB Voice</string>
+    <string name="package_name">com.startmybusiness.voice</string>
+    <string name="custom_url_scheme">com.startmybusiness.voice</string>
+</resources>

@@ -647,18 +647,18 @@ export default function TermsPage() {
                   <span className="flex items-center justify-center w-8 h-8 bg-[#1E3A5F] text-white rounded-lg text-sm font-bold">14</span>
                   Disclaimers
                 </h2>
-                <div className="bg-gray-100 border border-gray-300 rounded-lg p-4 my-4 text-sm uppercase">
-                  <p className="mb-4">
+                <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-6 my-4 text-sm not-prose">
+                  <p className="mb-4 text-amber-900 font-medium leading-relaxed">
                     THE SERVICES ARE PROVIDED &ldquo;AS IS&rdquo; AND &ldquo;AS AVAILABLE&rdquo; WITHOUT WARRANTIES OF ANY KIND,
                     EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY,
                     FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT.
                   </p>
-                  <p className="mb-4">
+                  <p className="mb-4 text-amber-900 font-medium leading-relaxed">
                     WE DO NOT WARRANT THAT THE SERVICES WILL BE UNINTERRUPTED, ERROR-FREE, SECURE, OR FREE OF
                     VIRUSES OR OTHER HARMFUL COMPONENTS. WE DO NOT WARRANT THAT THE RESULTS OBTAINED FROM THE
                     USE OF THE SERVICES WILL BE ACCURATE OR RELIABLE.
                   </p>
-                  <p className="mb-0">
+                  <p className="mb-0 text-amber-900 font-medium leading-relaxed">
                     SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES, SO SOME OF THE ABOVE
                     EXCLUSIONS MAY NOT APPLY TO YOU.
                   </p>
@@ -670,20 +670,20 @@ export default function TermsPage() {
                   <span className="flex items-center justify-center w-8 h-8 bg-[#1E3A5F] text-white rounded-lg text-sm font-bold">15</span>
                   Limitation of Liability
                 </h2>
-                <div className="bg-gray-100 border border-gray-300 rounded-lg p-4 my-4 text-sm uppercase">
-                  <p className="mb-4">
+                <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-6 my-4 text-sm not-prose">
+                  <p className="mb-4 text-amber-900 font-medium leading-relaxed">
                     TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL START MY BUSINESS INC.,
                     ITS OFFICERS, DIRECTORS, EMPLOYEES, AGENTS, AFFILIATES, SUCCESSORS, OR ASSIGNS BE LIABLE FOR
                     ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, INCLUDING
                     BUT NOT LIMITED TO LOSS OF PROFITS, DATA, GOODWILL, USE, OR OTHER INTANGIBLE LOSSES,
                     REGARDLESS OF WHETHER WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
                   </p>
-                  <p className="mb-4">
+                  <p className="mb-4 text-amber-900 font-medium leading-relaxed">
                     OUR TOTAL AGGREGATE LIABILITY FOR ALL CLAIMS ARISING OUT OF OR RELATING TO THESE TERMS OR
                     THE SERVICES SHALL NOT EXCEED THE GREATER OF (A) THE AMOUNT YOU PAID TO US IN THE TWELVE
                     (12) MONTHS PRECEDING THE CLAIM, OR (B) ONE HUNDRED DOLLARS ($100.00).
                   </p>
-                  <p className="mb-0">
+                  <p className="mb-0 text-amber-900 font-medium leading-relaxed">
                     THE LIMITATIONS IN THIS SECTION APPLY REGARDLESS OF THE THEORY OF LIABILITY, WHETHER BASED
                     ON WARRANTY, CONTRACT, TORT (INCLUDING NEGLIGENCE), STATUTE, OR ANY OTHER LEGAL THEORY.
                   </p>

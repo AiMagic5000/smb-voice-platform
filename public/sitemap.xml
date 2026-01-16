@@ -7,10 +7,28 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://voice.startmybusiness.us/sign-in</loc>
+    <loc>https://voice.startmybusiness.us/pricing</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://voice.startmybusiness.us/about</loc>
     <lastmod>2026-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://voice.startmybusiness.us/contact</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://voice.startmybusiness.us/sign-in</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://voice.startmybusiness.us/sign-up</loc>
@@ -26,6 +44,12 @@
   </url>
   <url>
     <loc>https://voice.startmybusiness.us/privacy</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://voice.startmybusiness.us/sms-terms</loc>
     <lastmod>2026-01-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

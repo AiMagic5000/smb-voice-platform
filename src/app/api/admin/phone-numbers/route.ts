@@ -28,7 +28,6 @@ export async function GET(request: NextRequest) {
       .select({
         id: phoneNumbers.id,
         number: phoneNumbers.number,
-        friendlyName: phoneNumbers.friendlyName,
         type: phoneNumbers.type,
         status: phoneNumbers.status,
         voiceEnabled: phoneNumbers.voiceEnabled,
@@ -52,7 +51,6 @@ export async function GET(request: NextRequest) {
     const phoneNumbersWithOrg = phones.map((phone) => ({
       id: phone.id,
       number: phone.number,
-      friendlyName: phone.friendlyName,
       type: phone.type || "local",
       status: phone.status,
       voiceEnabled: phone.voiceEnabled,

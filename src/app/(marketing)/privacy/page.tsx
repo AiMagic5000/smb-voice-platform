@@ -256,52 +256,52 @@ export default function PrivacyPage() {
                   <li><strong>Public Sources:</strong> Publicly available business information</li>
                 </ul>
 
-                <div className="bg-gray-50 rounded-xl p-4 my-4">
+                <div className="bg-gray-50 rounded-xl p-4 my-4 not-prose">
                   <h4 className="font-semibold text-gray-900 mb-2">Categories of Personal Information Collected</h4>
                   <div className="overflow-x-auto">
                     <table className="min-w-full text-sm">
                       <thead>
-                        <tr className="bg-gray-100">
-                          <th className="px-3 py-2 text-left font-semibold">Category</th>
-                          <th className="px-3 py-2 text-left font-semibold">Examples</th>
-                          <th className="px-3 py-2 text-center font-semibold">Collected</th>
+                        <tr className="bg-gray-200">
+                          <th className="px-3 py-2 text-left font-semibold text-gray-900">Category</th>
+                          <th className="px-3 py-2 text-left font-semibold text-gray-900">Examples</th>
+                          <th className="px-3 py-2 text-center font-semibold text-gray-900">Collected</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-gray-200">
+                      <tbody className="divide-y divide-gray-200 bg-white">
                         <tr>
-                          <td className="px-3 py-2">Identifiers</td>
-                          <td className="px-3 py-2">Name, email, phone, IP address</td>
-                          <td className="px-3 py-2 text-center text-green-600">Yes</td>
+                          <td className="px-3 py-2 text-gray-900">Identifiers</td>
+                          <td className="px-3 py-2 text-gray-700">Name, email, phone, IP address</td>
+                          <td className="px-3 py-2 text-center text-green-600 font-medium">Yes</td>
                         </tr>
                         <tr>
-                          <td className="px-3 py-2">Commercial Information</td>
-                          <td className="px-3 py-2">Purchase history, subscription details</td>
-                          <td className="px-3 py-2 text-center text-green-600">Yes</td>
+                          <td className="px-3 py-2 text-gray-900">Commercial Information</td>
+                          <td className="px-3 py-2 text-gray-700">Purchase history, subscription details</td>
+                          <td className="px-3 py-2 text-center text-green-600 font-medium">Yes</td>
                         </tr>
                         <tr>
-                          <td className="px-3 py-2">Internet Activity</td>
-                          <td className="px-3 py-2">Browsing history, interactions</td>
-                          <td className="px-3 py-2 text-center text-green-600">Yes</td>
+                          <td className="px-3 py-2 text-gray-900">Internet Activity</td>
+                          <td className="px-3 py-2 text-gray-700">Browsing history, interactions</td>
+                          <td className="px-3 py-2 text-center text-green-600 font-medium">Yes</td>
                         </tr>
                         <tr>
-                          <td className="px-3 py-2">Geolocation</td>
-                          <td className="px-3 py-2">Approximate location (IP-based)</td>
-                          <td className="px-3 py-2 text-center text-green-600">Yes</td>
+                          <td className="px-3 py-2 text-gray-900">Geolocation</td>
+                          <td className="px-3 py-2 text-gray-700">Approximate location (IP-based)</td>
+                          <td className="px-3 py-2 text-center text-green-600 font-medium">Yes</td>
                         </tr>
                         <tr>
-                          <td className="px-3 py-2">Audio/Visual</td>
-                          <td className="px-3 py-2">Call recordings, voicemails</td>
-                          <td className="px-3 py-2 text-center text-green-600">Yes</td>
+                          <td className="px-3 py-2 text-gray-900">Audio/Visual</td>
+                          <td className="px-3 py-2 text-gray-700">Call recordings, voicemails</td>
+                          <td className="px-3 py-2 text-center text-green-600 font-medium">Yes</td>
                         </tr>
                         <tr>
-                          <td className="px-3 py-2">Professional Info</td>
-                          <td className="px-3 py-2">Business name, job title</td>
-                          <td className="px-3 py-2 text-center text-green-600">Yes</td>
+                          <td className="px-3 py-2 text-gray-900">Professional Info</td>
+                          <td className="px-3 py-2 text-gray-700">Business name, job title</td>
+                          <td className="px-3 py-2 text-center text-green-600 font-medium">Yes</td>
                         </tr>
                         <tr>
-                          <td className="px-3 py-2">Sensitive Personal Info</td>
-                          <td className="px-3 py-2">Social Security, health data</td>
-                          <td className="px-3 py-2 text-center text-red-600">No</td>
+                          <td className="px-3 py-2 text-gray-900">Sensitive Personal Info</td>
+                          <td className="px-3 py-2 text-gray-700">Social Security, health data</td>
+                          <td className="px-3 py-2 text-center text-red-600 font-medium">No</td>
                         </tr>
                       </tbody>
                     </table>
@@ -479,42 +479,42 @@ export default function PrivacyPage() {
                 </ul>
 
                 <h3>Specific Retention Periods:</h3>
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto not-prose">
                   <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden text-sm">
-                    <thead className="bg-gray-50">
+                    <thead className="bg-gray-200">
                       <tr>
-                        <th className="px-4 py-2 text-left font-semibold">Data Type</th>
-                        <th className="px-4 py-2 text-left font-semibold">Retention Period</th>
+                        <th className="px-4 py-2 text-left font-semibold text-gray-900">Data Type</th>
+                        <th className="px-4 py-2 text-left font-semibold text-gray-900">Retention Period</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-200">
+                    <tbody className="divide-y divide-gray-200 bg-white">
                       <tr>
-                        <td className="px-4 py-2">Account Information</td>
-                        <td className="px-4 py-2">Duration of account + 3 years</td>
+                        <td className="px-4 py-2 text-gray-900">Account Information</td>
+                        <td className="px-4 py-2 text-gray-700">Duration of account + 3 years</td>
                       </tr>
                       <tr className="bg-gray-50">
-                        <td className="px-4 py-2">Call Detail Records</td>
-                        <td className="px-4 py-2">7 years (regulatory requirement)</td>
+                        <td className="px-4 py-2 text-gray-900">Call Detail Records</td>
+                        <td className="px-4 py-2 text-gray-700">7 years (regulatory requirement)</td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-2">Voicemail Recordings</td>
-                        <td className="px-4 py-2">90 days (configurable)</td>
+                        <td className="px-4 py-2 text-gray-900">Voicemail Recordings</td>
+                        <td className="px-4 py-2 text-gray-700">90 days (configurable)</td>
                       </tr>
                       <tr className="bg-gray-50">
-                        <td className="px-4 py-2">Call Recordings</td>
-                        <td className="px-4 py-2">90 days (configurable)</td>
+                        <td className="px-4 py-2 text-gray-900">Call Recordings</td>
+                        <td className="px-4 py-2 text-gray-700">90 days (configurable)</td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-2">Billing Records</td>
-                        <td className="px-4 py-2">7 years (tax requirements)</td>
+                        <td className="px-4 py-2 text-gray-900">Billing Records</td>
+                        <td className="px-4 py-2 text-gray-700">7 years (tax requirements)</td>
                       </tr>
                       <tr className="bg-gray-50">
-                        <td className="px-4 py-2">Usage Logs</td>
-                        <td className="px-4 py-2">2 years</td>
+                        <td className="px-4 py-2 text-gray-900">Usage Logs</td>
+                        <td className="px-4 py-2 text-gray-700">2 years</td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-2">Marketing Preferences</td>
-                        <td className="px-4 py-2">Until you opt out</td>
+                        <td className="px-4 py-2 text-gray-900">Marketing Preferences</td>
+                        <td className="px-4 py-2 text-gray-700">Until you opt out</td>
                       </tr>
                     </tbody>
                   </table>
@@ -849,30 +849,30 @@ export default function PrivacyPage() {
                 </ul>
 
                 <h3>Types of Cookies We Use</h3>
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto not-prose">
                   <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden text-sm">
-                    <thead className="bg-gray-50">
+                    <thead className="bg-gray-200">
                       <tr>
-                        <th className="px-4 py-2 text-left font-semibold">Type</th>
-                        <th className="px-4 py-2 text-left font-semibold">Purpose</th>
-                        <th className="px-4 py-2 text-left font-semibold">Duration</th>
+                        <th className="px-4 py-2 text-left font-semibold text-gray-900">Type</th>
+                        <th className="px-4 py-2 text-left font-semibold text-gray-900">Purpose</th>
+                        <th className="px-4 py-2 text-left font-semibold text-gray-900">Duration</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-200">
+                    <tbody className="divide-y divide-gray-200 bg-white">
                       <tr>
-                        <td className="px-4 py-2 font-medium">Essential</td>
-                        <td className="px-4 py-2">Authentication, security, core functionality</td>
-                        <td className="px-4 py-2">Session</td>
+                        <td className="px-4 py-2 font-medium text-gray-900">Essential</td>
+                        <td className="px-4 py-2 text-gray-700">Authentication, security, core functionality</td>
+                        <td className="px-4 py-2 text-gray-700">Session</td>
                       </tr>
                       <tr className="bg-gray-50">
-                        <td className="px-4 py-2 font-medium">Functional</td>
-                        <td className="px-4 py-2">Preferences, settings, personalization</td>
-                        <td className="px-4 py-2">1 year</td>
+                        <td className="px-4 py-2 font-medium text-gray-900">Functional</td>
+                        <td className="px-4 py-2 text-gray-700">Preferences, settings, personalization</td>
+                        <td className="px-4 py-2 text-gray-700">1 year</td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-2 font-medium">Analytics</td>
-                        <td className="px-4 py-2">Usage statistics, performance monitoring</td>
-                        <td className="px-4 py-2">2 years</td>
+                        <td className="px-4 py-2 font-medium text-gray-900">Analytics</td>
+                        <td className="px-4 py-2 text-gray-700">Usage statistics, performance monitoring</td>
+                        <td className="px-4 py-2 text-gray-700">2 years</td>
                       </tr>
                     </tbody>
                   </table>

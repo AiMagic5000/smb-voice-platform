@@ -1,13 +1,20 @@
 // SMB Voice Service Worker
-const CACHE_NAME = 'smb-voice-v1';
+const CACHE_NAME = 'smb-voice-v2';
 const OFFLINE_URL = '/offline.html';
 
-// Assets to cache immediately
+// Assets to cache immediately for offline support
 const PRECACHE_ASSETS = [
   '/',
+  '/offline.html',
   '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png',
+  '/icons/icon-192x192.png',
+  '/icons/icon-512x512.png',
+  '/icons/icon-152x152.png',
+  '/apple-touch-icon.png',
+  '/dashboard',
+  '/pricing',
+  '/about',
+  '/contact',
 ];
 
 // Install event - cache core assets

@@ -46,7 +46,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: "X-Frame-Options",
-            value: "SAMEORIGIN",
+            value: "ALLOW-FROM https://startmybusiness.us",
           },
           {
             key: "X-Content-Type-Options",
@@ -70,6 +70,7 @@ const nextConfig: NextConfig = {
               "img-src 'self' data: blob: https: http:",
               "connect-src 'self' https://*.clerk.accounts.dev https://api.clerk.dev https://*.signalwire.com wss://*.signalwire.com https://analytics.alwaysencrypted.com",
               "frame-src 'self' https://*.clerk.accounts.dev",
+              "frame-ancestors 'self' https://startmybusiness.us https://*.startmybusiness.us",
               "worker-src 'self' blob:",
               "manifest-src 'self'",
             ].join("; "),

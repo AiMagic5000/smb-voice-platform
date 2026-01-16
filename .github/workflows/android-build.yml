@@ -1,14 +1,16 @@
 name: Build Android APK
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'src/**'
-      - 'android/**'
-      - 'capacitor.config.ts'
-      - 'package.json'
   workflow_dispatch:
+    inputs:
+      build_type:
+        description: 'Build type (debug/release)'
+        required: false
+        default: 'debug'
+        type: choice
+        options:
+          - debug
+          - release
 
 jobs:
   build-android:

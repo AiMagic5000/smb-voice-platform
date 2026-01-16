@@ -8,11 +8,12 @@
   "scripts": {
     "start": "electron .",
     "icons": "node generate-icons.js",
-    "build": "npm run icons && electron-builder",
-    "build:win": "npm run icons && electron-builder --win",
-    "build:mac": "npm run icons && electron-builder --mac",
-    "build:linux": "npm run icons && electron-builder --linux",
-    "build:all": "npm run icons && electron-builder -mwl"
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux",
+    "build:all": "electron-builder -mwl",
+    "regenerate-icons": "node generate-icons.js"
   },
   "build": {
     "appId": "com.startmybusiness.smbvoice",
@@ -62,7 +63,7 @@
           ]
         }
       ],
-      "icon": "assets/icon.icns",
+      "icon": "assets/icon-512.png",
       "category": "public.app-category.business"
     },
     "linux": {

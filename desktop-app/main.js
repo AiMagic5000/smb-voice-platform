@@ -27,7 +27,15 @@ function createWindow() {
     backgroundColor: '#1E3A5F'
   });
 
-  mainWindow.loadFile('index.html');
+  // Load the production website
+  mainWindow.loadURL('https://voice.startmybusiness.us/dashboard');
+
+  // Handle navigation
+  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
+    console.error('Failed to load:', errorDescription);
+    // Show offline page or retry
+    mainWindow.loadURL('https://voice.startmybusiness.us/dashboard');
+  });
 
   // Hide instead of close
   mainWindow.on('close', (event) => {

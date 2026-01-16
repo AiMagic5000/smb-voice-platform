@@ -58,16 +58,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Generate placeholder IDs for admin-created accounts
+    // These will be updated when user signs up via Clerk
+    const placeholderClerkOrgId = `admin_org_${Date.now()}`;
+    const placeholderClerkUserId = `admin_user_${Date.now()}`;
+    const placeholderSubId = `admin_sub_${Date.now()}`;
+
     // Create organization
     const [newOrg] = await db
       .insert(organizations)
       .values({
+        clerkOrgId: placeholderClerkOrgId,
         name: organizationName,
-        slug: organizationName.toLowerCase().replace(/[^a-z0-9]/g, "-"),
-        tier: tier,
-        ownerId: null, // Will be updated when user signs up
-        createdByAdmin: true,
-        adminNotes: notes || null,
+        domain: organizationName.toLowerCase().replace(/[^a-z0-9]/g, "-"),
+        plan: tier,
+        status: "active",
+        billingEmail: email,
       })
       .returning();
 
@@ -75,30 +81,36 @@ export async function POST(request: NextRequest) {
     const [newUser] = await db
       .insert(users)
       .values({
+        clerkUserId: placeholderClerkUserId,
         email: email,
         firstName: firstName || null,
         lastName: lastName || null,
-        role: role || "user",
+        role: role || "member",
         organizationId: newOrg.id,
-        status: "pending", // Will be "active" after they complete signup
-        createdByAdmin: true,
       })
       .returning();
 
-    // Create subscription
-    const [subscription] = await db
-      .insert(subscriptions)
-      .values({
-        organizationId: newOrg.id,
-        tier: tier,
-        status: skipPayment ? "active" : "pending",
-        gumroadSubscriptionId: skipPayment ? `admin_${Date.now()}` : null,
-        currentPeriodStart: new Date(),
-        currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
-        createdByAdmin: skipPayment,
-        adminNotes: skipPayment ? `Created by admin without payment: ${adminUser.email}` : null,
-      })
-      .returning();
+    // Create subscription (only if skipPayment is true, since we don't have real Stripe data)
+    let subscription = null;
+    if (skipPayment) {
+      const now = new Date();
+      const periodEnd = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days
+
+      [subscription] = await db
+        .insert(subscriptions)
+        .values({
+          id: placeholderSubId,
+          organizationId: newOrg.id,
+          stripeCustomerId: `admin_cus_${Date.now()}`,
+          stripeSubscriptionId: `admin_sub_${Date.now()}`,
+          stripePriceId: `price_${tier}`,
+          planId: tier,
+          status: "active",
+          currentPeriodStart: now,
+          currentPeriodEnd: periodEnd,
+        })
+        .returning();
+    }
 
     return NextResponse.json({
       success: true,
@@ -106,22 +118,22 @@ export async function POST(request: NextRequest) {
         id: newUser.id,
         email: newUser.email,
         role: newUser.role,
-        status: newUser.status,
       },
       organization: {
         id: newOrg.id,
         name: newOrg.name,
-        tier: newOrg.tier,
+        plan: newOrg.plan,
       },
-      subscription: {
+      subscription: subscription ? {
         id: subscription.id,
         status: subscription.status,
-        tier: subscription.tier,
-      },
+        planId: subscription.planId,
+      } : null,
       message: skipPayment
         ? "Account created with full access (payment skipped)"
-        : "Account created. User will need to complete Gumroad payment to activate.",
+        : "Account created. User will need to complete payment to activate.",
       signupLink: `https://voice.startmybusiness.us/sign-up?email=${encodeURIComponent(email)}&org=${newOrg.id}`,
+      notes: notes ? `Admin notes: ${notes}` : undefined,
     });
   } catch (error) {
     console.error("Error creating user:", error);
@@ -158,7 +170,6 @@ export async function PATCH(request: NextRequest) {
       organizationId,
       newTier,
       newRole,
-      newStatus,
       notes,
     } = body;
 
@@ -171,35 +182,30 @@ export async function PATCH(request: NextRequest) {
 
     const updates: Record<string, unknown> = {};
 
-    // Update user role/status
-    if (targetUserId && (newRole || newStatus)) {
-      const userUpdates: Record<string, unknown> = {};
-      if (newRole) userUpdates.role = newRole;
-      if (newStatus) userUpdates.status = newStatus;
-      userUpdates.updatedAt = new Date();
-
+    // Update user role
+    if (targetUserId && newRole) {
       await db
         .update(users)
-        .set(userUpdates)
+        .set({ role: newRole })
         .where(eq(users.id, targetUserId));
 
-      updates.user = userUpdates;
+      updates.user = { role: newRole };
     }
 
-    // Update organization tier
+    // Update organization plan
     if (organizationId && newTier) {
       await db
         .update(organizations)
-        .set({ tier: newTier, updatedAt: new Date() })
+        .set({ plan: newTier, updatedAt: new Date() })
         .where(eq(organizations.id, organizationId));
 
-      // Also update subscription
+      // Also update subscription planId
       await db
         .update(subscriptions)
-        .set({ tier: newTier, updatedAt: new Date() })
+        .set({ planId: newTier, updatedAt: new Date() })
         .where(eq(subscriptions.organizationId, organizationId));
 
-      updates.organization = { tier: newTier };
+      updates.organization = { plan: newTier };
     }
 
     return NextResponse.json({

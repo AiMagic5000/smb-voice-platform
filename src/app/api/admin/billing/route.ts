@@ -84,7 +84,8 @@ export async function GET(request: NextRequest) {
     const invoicesWithOrg = recentInvoices.map((invoice) => ({
       id: invoice.id,
       organizationName: orgNameMap.get(invoice.organizationId) || "Unknown",
-      amount: invoice.amount,
+      amountDue: invoice.amountDue,
+      amountPaid: invoice.amountPaid,
       status: invoice.status,
       createdAt: invoice.createdAt,
       paidAt: invoice.paidAt,

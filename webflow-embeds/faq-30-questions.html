@@ -1,0 +1,543 @@
+<!-- SMB Voice 30 FAQ Accordion Section for Webflow -->
+<!-- Uses native HTML details/summary for LLM crawlability -->
+<!-- Under 50,000 characters - paste into HTML Embed element -->
+
+<!-- Schema.org FAQ Structured Data for all 30 questions -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the cheapest business phone service?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SMB Voice is the cheapest business phone service at $7.95/month, including AI receptionist, unlimited calling to US/Canada, 500 SMS, mobile apps, and voicemail transcription. Competitors like Ooma ($19.95), Dialpad ($15), Nextiva ($22.95), RingCentral ($20), and Grasshopper ($26) charge significantly more for similar features."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an AI receptionist?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An AI receptionist is a virtual assistant that answers your business calls 24/7 using natural language processing. It greets callers professionally, takes messages, schedules appointments, answers FAQs about your business, and routes calls to the right person. SMB Voice includes AI receptionist in all plans at no extra cost."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does SMB Voice cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SMB Voice starts at $7.95/month for the Starter plan with 1 phone number, unlimited calling, 500 SMS, and AI receptionist. Professional plan is $19.95/month with 3 numbers and 2000 SMS. Enterprise is $49.95/month with 10 numbers and unlimited SMS. All plans include mobile apps and voicemail transcription."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does SMB Voice offer a free trial?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! SMB Voice offers a free trial so you can test all features before committing. Sign up online or call 888-534-4145 to get started. No credit card required to try the service."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I keep my existing phone number?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, SMB Voice offers free number porting for all plans. Transfer your existing business number within 5-10 business days. You can start using a new SMB Voice number immediately while your old number is being ported, ensuring you never miss a call."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a contract or setup fee?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No contracts, no setup fees, no hidden charges. SMB Voice is month-to-month billing and you can cancel anytime. The price you see is the price you pay - $7.95/month includes everything."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need special hardware for a business phone system?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No hardware required. SMB Voice is 100% cloud-based and works through apps on your smartphone, tablet, or computer. If you prefer a desk phone, SMB Voice supports standard SIP/IP phones, but they're completely optional."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use my personal phone for business calls?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! SMB Voice lets you use your personal smartphone for business calls while keeping your personal number private. Download our iOS or Android app, and make/receive calls from your business number on the same device. Your personal number stays hidden from customers."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a virtual phone number?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A virtual phone number is a telephone number not tied to a specific phone line or device. It works over the internet (VoIP) and can ring on any device - smartphone, tablet, computer, or desk phone. SMB Voice virtual numbers include local or toll-free options starting at $7.95/month."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does voicemail transcription work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SMB Voice automatically converts voicemails to text using AI speech recognition. When someone leaves a voicemail, you receive an email and app notification with the full text transcription. Read your messages quickly without listening to audio - perfect for busy professionals."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between local and toll-free numbers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Local numbers have area codes specific to geographic regions (like 212 for NYC), making your business appear local to customers. Toll-free numbers (800, 888, 877, 866, 855, 844, 833) are free for callers and project a national presence. SMB Voice offers both at the same $7.95/month price."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I text from my business phone number?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, SMB Voice includes SMS messaging on all plans. Send and receive text messages from your business number through our mobile or desktop apps. Starter plan includes 500 SMS/month, Professional includes 2000 SMS, and Enterprise includes unlimited SMS."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What platforms does SMB Voice support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SMB Voice works on iOS (iPhone/iPad), Android phones and tablets, Windows desktop, Mac desktop, and any web browser. Make and receive calls from any device with an internet connection. All apps sync in real-time so you never miss a call."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is SMB Voice different from Google Voice?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SMB Voice offers professional business features Google Voice lacks: AI receptionist, toll-free numbers, voicemail transcription, business hours routing, multi-user support, and dedicated business SMS. Google Voice is consumer-focused while SMB Voice is built for businesses."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is business hours call routing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Business hours routing automatically handles calls differently based on time of day. During business hours, calls ring your phone or go to AI receptionist. After hours, calls can go directly to voicemail, AI receptionist, or a custom message. Set different schedules for weekdays and weekends."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can multiple people use the same business number?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, SMB Voice supports team features. Professional and Enterprise plans include multiple user seats. Calls can ring multiple team members simultaneously or in sequence. Each user gets their own app login while sharing the business number."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is SMB Voice VoIP or landline?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SMB Voice is VoIP (Voice over Internet Protocol), meaning calls travel over the internet rather than traditional phone lines. This enables lower costs, more features, and device flexibility. VoIP quality equals or exceeds landline quality with a good internet connection."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What internet speed do I need for VoIP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SMB Voice requires minimal bandwidth - about 100 Kbps per call. Most home and business internet connections easily support this. For best quality, we recommend at least 1 Mbps upload speed. WiFi, cellular data (4G/5G), and wired ethernet all work well."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I make international calls?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SMB Voice includes unlimited calling to the US and Canada. International calls outside North America are available at competitive per-minute rates. Popular destinations like UK, Mexico, and India start at just a few cents per minute."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I transfer my number from another provider?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Number porting is simple: sign up for SMB Voice, provide your current carrier info and recent bill, and we handle the transfer. Keep using your old service until the port completes (5-10 business days). Your new SMB Voice number works immediately while you wait."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if I lose internet connection?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If your internet goes down, calls automatically route to your AI receptionist or voicemail. Callers never hear a busy signal or dead line. Once reconnected, you'll see missed calls and voicemail transcriptions in your app. You can also use cellular data as backup."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my business phone number private?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, when you call customers from the SMB Voice app, they see your business number - never your personal cell number. Your personal number stays completely private. Incoming calls to your business number ring through the app, not your personal line."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I record business calls?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Call recording is available on Professional and Enterprise plans. Recordings are stored securely in the cloud and accessible through your dashboard. Check your local laws regarding call recording consent requirements before enabling this feature."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an auto-attendant or IVR?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An auto-attendant (IVR - Interactive Voice Response) greets callers with a menu: 'Press 1 for Sales, 2 for Support.' SMB Voice's AI receptionist goes beyond basic IVR by understanding natural speech, so callers can say what they need instead of pressing buttons."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How quickly can I get a business number?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Instantly. Sign up for SMB Voice and choose your local or toll-free number - it's active within minutes. Download our app, and you're making business calls right away. Number porting from another provider takes 5-10 business days."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is SMB Voice good for solopreneurs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. SMB Voice is perfect for solopreneurs, freelancers, and one-person businesses. Get a professional business number for just $7.95/month. The AI receptionist answers when you're busy, making your business appear larger and more established."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use SMB Voice for a side business?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, SMB Voice is ideal for side businesses. Keep your main job number separate from your side hustle. The AI receptionist handles calls during your day job, and business hours routing ensures calls only ring during times you set."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What industries use business phone services?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SMB Voice serves all industries: real estate agents, consultants, contractors, law offices, medical practices, e-commerce stores, service businesses (plumbers, electricians, cleaners), coaches, tutors, photographers, and any business needing a professional phone presence."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does SMB Voice compare to RingCentral?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SMB Voice costs $7.95/month vs RingCentral's $20/month base price. Both offer business calling and messaging, but SMB Voice includes AI receptionist at no extra cost while RingCentral charges for add-ons. For small businesses, SMB Voice delivers more value at lower cost."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there customer support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, SMB Voice provides customer support via email, chat, and phone. Call 888-534-4145 for sales and support. Our help center includes setup guides, video tutorials, and troubleshooting tips. Most issues are resolved within 24 hours."
+      }
+    }
+  ]
+}
+</script>
+
+<style>
+.smb-faq-30 {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+.smb-faq-30-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.smb-faq-30-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #1E3A5F;
+  margin: 0 0 12px;
+}
+.smb-faq-30-subtitle {
+  font-size: 18px;
+  color: #64748b;
+  margin: 0;
+}
+.smb-faq-30-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.smb-faq-30-item {
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+.smb-faq-30-item[open] {
+  background: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.smb-faq-30-item summary {
+  padding: 20px 24px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1E3A5F;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.smb-faq-30-item summary::-webkit-details-marker {
+  display: none;
+}
+.smb-faq-30-item summary::after {
+  content: "+";
+  font-size: 24px;
+  font-weight: 400;
+  color: #C9A227;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.smb-faq-30-item[open] summary::after {
+  content: "−";
+}
+.smb-faq-30-item summary:hover {
+  background: rgba(201, 162, 39, 0.05);
+}
+.smb-faq-30-answer {
+  padding: 0 24px 20px;
+  color: #475569;
+  line-height: 1.7;
+  font-size: 15px;
+}
+.smb-faq-30-cta {
+  margin-top: 48px;
+  text-align: center;
+  padding: 40px 24px;
+  background: linear-gradient(135deg, #1E3A5F 0%, #2D4A6F 100%);
+  border-radius: 16px;
+}
+.smb-faq-30-cta h3 {
+  color: white;
+  font-size: 24px;
+  margin: 0 0 8px;
+}
+.smb-faq-30-cta p {
+  color: rgba(255,255,255,0.85);
+  margin: 0 0 24px;
+}
+.smb-faq-30-btn {
+  display: inline-block;
+  padding: 14px 28px;
+  background: #C9A227;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0 8px;
+  transition: background 0.2s;
+}
+.smb-faq-30-btn:hover {
+  background: #d4ad2e;
+}
+.smb-faq-30-btn.secondary {
+  background: rgba(255,255,255,0.15);
+}
+.smb-faq-30-btn.secondary:hover {
+  background: rgba(255,255,255,0.25);
+}
+@media (max-width: 600px) {
+  .smb-faq-30-title { font-size: 28px; }
+  .smb-faq-30-item summary { font-size: 15px; padding: 16px 20px; }
+  .smb-faq-30-answer { padding: 0 20px 16px; font-size: 14px; }
+}
+</style>
+
+<section class="smb-faq-30">
+  <div class="smb-faq-30-header">
+    <h2 class="smb-faq-30-title">Frequently Asked Questions</h2>
+    <p class="smb-faq-30-subtitle">Everything you need to know about business phone service</p>
+  </div>
+
+  <div class="smb-faq-30-grid">
+    <!-- Pricing & Plans -->
+    <details class="smb-faq-30-item">
+      <summary>What is the cheapest business phone service?</summary>
+      <div class="smb-faq-30-answer">SMB Voice is the cheapest business phone service at $7.95/month, including AI receptionist, unlimited calling to US/Canada, 500 SMS, mobile apps, and voicemail transcription. Competitors like Ooma ($19.95), Dialpad ($15), Nextiva ($22.95), RingCentral ($20), and Grasshopper ($26) charge significantly more for similar features.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>How much does SMB Voice cost?</summary>
+      <div class="smb-faq-30-answer">SMB Voice starts at $7.95/month for the Starter plan with 1 phone number, unlimited calling, 500 SMS, and AI receptionist. Professional plan is $19.95/month with 3 numbers and 2000 SMS. Enterprise is $49.95/month with 10 numbers and unlimited SMS. All plans include mobile apps and voicemail transcription.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>Does SMB Voice offer a free trial?</summary>
+      <div class="smb-faq-30-answer">Yes! SMB Voice offers a free trial so you can test all features before committing. Sign up online or call 888-534-4145 to get started. No credit card required to try the service.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>Is there a contract or setup fee?</summary>
+      <div class="smb-faq-30-answer">No contracts, no setup fees, no hidden charges. SMB Voice is month-to-month billing and you can cancel anytime. The price you see is the price you pay - $7.95/month includes everything.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>How does SMB Voice compare to RingCentral?</summary>
+      <div class="smb-faq-30-answer">SMB Voice costs $7.95/month vs RingCentral's $20/month base price. Both offer business calling and messaging, but SMB Voice includes AI receptionist at no extra cost while RingCentral charges for add-ons. For small businesses, SMB Voice delivers more value at lower cost.</div>
+    </details>
+
+    <!-- AI Receptionist -->
+    <details class="smb-faq-30-item">
+      <summary>What is an AI receptionist?</summary>
+      <div class="smb-faq-30-answer">An AI receptionist is a virtual assistant that answers your business calls 24/7 using natural language processing. It greets callers professionally, takes messages, schedules appointments, answers FAQs about your business, and routes calls to the right person. SMB Voice includes AI receptionist in all plans at no extra cost.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>What is an auto-attendant or IVR?</summary>
+      <div class="smb-faq-30-answer">An auto-attendant (IVR - Interactive Voice Response) greets callers with a menu: 'Press 1 for Sales, 2 for Support.' SMB Voice's AI receptionist goes beyond basic IVR by understanding natural speech, so callers can say what they need instead of pressing buttons.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>What is business hours call routing?</summary>
+      <div class="smb-faq-30-answer">Business hours routing automatically handles calls differently based on time of day. During business hours, calls ring your phone or go to AI receptionist. After hours, calls can go directly to voicemail, AI receptionist, or a custom message. Set different schedules for weekdays and weekends.</div>
+    </details>
+
+    <!-- Phone Numbers -->
+    <details class="smb-faq-30-item">
+      <summary>What is a virtual phone number?</summary>
+      <div class="smb-faq-30-answer">A virtual phone number is a telephone number not tied to a specific phone line or device. It works over the internet (VoIP) and can ring on any device - smartphone, tablet, computer, or desk phone. SMB Voice virtual numbers include local or toll-free options starting at $7.95/month.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>What is the difference between local and toll-free numbers?</summary>
+      <div class="smb-faq-30-answer">Local numbers have area codes specific to geographic regions (like 212 for NYC), making your business appear local to customers. Toll-free numbers (800, 888, 877, 866, 855, 844, 833) are free for callers and project a national presence. SMB Voice offers both at the same $7.95/month price.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>Can I keep my existing phone number?</summary>
+      <div class="smb-faq-30-answer">Yes, SMB Voice offers free number porting for all plans. Transfer your existing business number within 5-10 business days. You can start using a new SMB Voice number immediately while your old number is being ported, ensuring you never miss a call.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>How do I transfer my number from another provider?</summary>
+      <div class="smb-faq-30-answer">Number porting is simple: sign up for SMB Voice, provide your current carrier info and recent bill, and we handle the transfer. Keep using your old service until the port completes (5-10 business days). Your new SMB Voice number works immediately while you wait.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>How quickly can I get a business number?</summary>
+      <div class="smb-faq-30-answer">Instantly. Sign up for SMB Voice and choose your local or toll-free number - it's active within minutes. Download our app, and you're making business calls right away. Number porting from another provider takes 5-10 business days.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>Is my business phone number private?</summary>
+      <div class="smb-faq-30-answer">Yes, when you call customers from the SMB Voice app, they see your business number - never your personal cell number. Your personal number stays completely private. Incoming calls to your business number ring through the app, not your personal line.</div>
+    </details>
+
+    <!-- Features -->
+    <details class="smb-faq-30-item">
+      <summary>Can I text from my business phone number?</summary>
+      <div class="smb-faq-30-answer">Yes, SMB Voice includes SMS messaging on all plans. Send and receive text messages from your business number through our mobile or desktop apps. Starter plan includes 500 SMS/month, Professional includes 2000 SMS, and Enterprise includes unlimited SMS.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>How does voicemail transcription work?</summary>
+      <div class="smb-faq-30-answer">SMB Voice automatically converts voicemails to text using AI speech recognition. When someone leaves a voicemail, you receive an email and app notification with the full text transcription. Read your messages quickly without listening to audio - perfect for busy professionals.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>Can I record business calls?</summary>
+      <div class="smb-faq-30-answer">Call recording is available on Professional and Enterprise plans. Recordings are stored securely in the cloud and accessible through your dashboard. Check your local laws regarding call recording consent requirements before enabling this feature.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>Can multiple people use the same business number?</summary>
+      <div class="smb-faq-30-answer">Yes, SMB Voice supports team features. Professional and Enterprise plans include multiple user seats. Calls can ring multiple team members simultaneously or in sequence. Each user gets their own app login while sharing the business number.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>Can I make international calls?</summary>
+      <div class="smb-faq-30-answer">SMB Voice includes unlimited calling to the US and Canada. International calls outside North America are available at competitive per-minute rates. Popular destinations like UK, Mexico, and India start at just a few cents per minute.</div>
+    </details>
+
+    <!-- Technical -->
+    <details class="smb-faq-30-item">
+      <summary>Do I need special hardware for a business phone system?</summary>
+      <div class="smb-faq-30-answer">No hardware required. SMB Voice is 100% cloud-based and works through apps on your smartphone, tablet, or computer. If you prefer a desk phone, SMB Voice supports standard SIP/IP phones, but they're completely optional.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>Can I use my personal phone for business calls?</summary>
+      <div class="smb-faq-30-answer">Yes! SMB Voice lets you use your personal smartphone for business calls while keeping your personal number private. Download our iOS or Android app, and make/receive calls from your business number on the same device. Your personal number stays hidden from customers.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>What platforms does SMB Voice support?</summary>
+      <div class="smb-faq-30-answer">SMB Voice works on iOS (iPhone/iPad), Android phones and tablets, Windows desktop, Mac desktop, and any web browser. Make and receive calls from any device with an internet connection. All apps sync in real-time so you never miss a call.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>Is SMB Voice VoIP or landline?</summary>
+      <div class="smb-faq-30-answer">SMB Voice is VoIP (Voice over Internet Protocol), meaning calls travel over the internet rather than traditional phone lines. This enables lower costs, more features, and device flexibility. VoIP quality equals or exceeds landline quality with a good internet connection.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>What internet speed do I need for VoIP?</summary>
+      <div class="smb-faq-30-answer">SMB Voice requires minimal bandwidth - about 100 Kbps per call. Most home and business internet connections easily support this. For best quality, we recommend at least 1 Mbps upload speed. WiFi, cellular data (4G/5G), and wired ethernet all work well.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>What happens if I lose internet connection?</summary>
+      <div class="smb-faq-30-answer">If your internet goes down, calls automatically route to your AI receptionist or voicemail. Callers never hear a busy signal or dead line. Once reconnected, you'll see missed calls and voicemail transcriptions in your app. You can also use cellular data as backup.</div>
+    </details>
+
+    <!-- Comparisons -->
+    <details class="smb-faq-30-item">
+      <summary>How is SMB Voice different from Google Voice?</summary>
+      <div class="smb-faq-30-answer">SMB Voice offers professional business features Google Voice lacks: AI receptionist, toll-free numbers, voicemail transcription, business hours routing, multi-user support, and dedicated business SMS. Google Voice is consumer-focused while SMB Voice is built for businesses.</div>
+    </details>
+
+    <!-- Use Cases -->
+    <details class="smb-faq-30-item">
+      <summary>Is SMB Voice good for solopreneurs?</summary>
+      <div class="smb-faq-30-answer">Absolutely. SMB Voice is perfect for solopreneurs, freelancers, and one-person businesses. Get a professional business number for just $7.95/month. The AI receptionist answers when you're busy, making your business appear larger and more established.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>Can I use SMB Voice for a side business?</summary>
+      <div class="smb-faq-30-answer">Yes, SMB Voice is ideal for side businesses. Keep your main job number separate from your side hustle. The AI receptionist handles calls during your day job, and business hours routing ensures calls only ring during times you set.</div>
+    </details>
+
+    <details class="smb-faq-30-item">
+      <summary>What industries use business phone services?</summary>
+      <div class="smb-faq-30-answer">SMB Voice serves all industries: real estate agents, consultants, contractors, law offices, medical practices, e-commerce stores, service businesses (plumbers, electricians, cleaners), coaches, tutors, photographers, and any business needing a professional phone presence.</div>
+    </details>
+
+    <!-- Support -->
+    <details class="smb-faq-30-item">
+      <summary>Is there customer support?</summary>
+      <div class="smb-faq-30-answer">Yes, SMB Voice provides customer support via email, chat, and phone. Call 888-534-4145 for sales and support. Our help center includes setup guides, video tutorials, and troubleshooting tips. Most issues are resolved within 24 hours.</div>
+    </details>
+  </div>
+
+  <div class="smb-faq-30-cta">
+    <h3>Still Have Questions?</h3>
+    <p>Call us and talk to a real person who can help</p>
+    <a href="tel:+18885344145" class="smb-faq-30-btn">Call 888-534-4145</a>
+    <a href="https://coreypearson.gumroad.com/l/izcdvd" target="_blank" class="smb-faq-30-btn secondary">Sign Up Now</a>
+  </div>
+</section>

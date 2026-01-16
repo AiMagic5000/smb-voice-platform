@@ -1,0 +1,1396 @@
+<!-- SMB Voice Landing Page Clone for Webflow -->
+<!-- Accurate clone of https://smbvoice.alwaysencrypted.com/ -->
+<!-- Under 50,000 characters - Single HTML embed -->
+
+<style>
+/* Reset & Base */
+.smb-landing * { box-sizing: border-box; margin: 0; padding: 0; }
+.smb-landing {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  color: #1E3A5F;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Color Variables */
+.smb-landing {
+  --gold: #C9A227;
+  --gold-light: #DEB44A;
+  --gold-50: #FDF8E8;
+  --navy: #1E3A5F;
+  --navy-light: #2D4A6F;
+  --navy-dark: #0F2A4F;
+  --gray-text: #64748b;
+  --white: #FFFFFF;
+}
+
+/* Container */
+.smb-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Navigation */
+.smb-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0 24px;
+  background: transparent;
+  transition: all 0.3s;
+}
+.smb-nav.scrolled {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.smb-nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+}
+.smb-nav-logo {
+  display: flex;
+  align-items: center;
+}
+.smb-nav-logo img {
+  height: 32px;
+  width: auto;
+}
+.smb-nav-links {
+  display: flex;
+  gap: 32px;
+}
+.smb-nav-links a {
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.smb-nav.scrolled .smb-nav-links a {
+  color: #475569;
+}
+.smb-nav-links a:hover {
+  color: var(--gold);
+}
+.smb-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.smb-nav-phone {
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.smb-nav.scrolled .smb-nav-phone {
+  color: #475569;
+}
+.smb-nav-signin {
+  color: var(--navy);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.smb-nav-signin:hover {
+  background: rgba(30, 58, 95, 0.1);
+}
+
+/* Hero Section */
+.smb-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, var(--navy-light) 100%);
+  overflow: hidden;
+}
+
+/* Hero Grid Pattern */
+.smb-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Hero Gradient Orbs */
+.smb-hero-orb-1 {
+  position: absolute;
+  top: -160px;
+  right: -160px;
+  width: 384px;
+  height: 384px;
+  background: rgba(201, 162, 39, 0.2);
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+.smb-hero-orb-2 {
+  position: absolute;
+  bottom: -160px;
+  left: -160px;
+  width: 384px;
+  height: 384px;
+  background: rgba(201, 162, 39, 0.1);
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* Floating Shape */
+.smb-hero-shape {
+  position: absolute;
+  top: 25%;
+  right: 25%;
+  width: 80px;
+  height: 80px;
+  background: rgba(201, 162, 39, 0.3);
+  border-radius: 16px;
+  transform: rotate(12deg);
+  animation: float 5s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: rotate(12deg) translateY(0); }
+  50% { transform: rotate(20deg) translateY(-20px); }
+}
+
+/* Hero Content Grid */
+.smb-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 24px 80px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Hero Badge */
+.smb-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+.smb-hero-badge svg {
+  width: 16px;
+  height: 16px;
+  color: var(--gold);
+}
+
+/* Hero Headline */
+.smb-hero h1 {
+  font-size: 64px;
+  font-weight: 800;
+  color: white;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+.smb-hero h1 .gold {
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hero Subheadline */
+.smb-hero-sub {
+  font-size: 20px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.6;
+  margin-bottom: 32px;
+  max-width: 500px;
+}
+
+/* Hero CTAs */
+.smb-hero-ctas {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.smb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 18px;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.smb-btn-primary {
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  color: white;
+  box-shadow: 0 8px 20px rgba(201, 162, 39, 0.3);
+}
+.smb-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(201, 162, 39, 0.4);
+}
+.smb-btn-outline {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.smb-btn-outline:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Hero Trust */
+.smb-hero-trust {
+  display: inline-flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  color: rgba(255,255,255,0.7);
+  font-size: 14px;
+}
+.smb-hero-trust span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+.smb-hero-trust svg {
+  width: 16px;
+  height: 16px;
+  color: #10b981;
+}
+
+/* Phone Mockup */
+.smb-phone-wrapper {
+  position: relative;
+}
+.smb-phone-glow {
+  position: absolute;
+  inset: 0;
+  background: rgba(201, 162, 39, 0.3);
+  border-radius: 50px;
+  filter: blur(60px);
+  transform: scale(0.9);
+}
+.smb-phone {
+  position: relative;
+  width: 320px;
+  margin: 0 auto;
+  background: #1a1a1a;
+  border-radius: 44px;
+  padding: 12px;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+}
+.smb-phone-screen {
+  background: #f9fafb;
+  border-radius: 36px;
+  overflow: hidden;
+}
+.smb-phone-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: white;
+}
+.smb-phone-time {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+}
+.smb-phone-battery {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.smb-phone-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: white;
+  border-bottom: 1px solid #f0f0f0;
+}
+.smb-phone-logo {
+  height: 28px;
+  width: auto;
+}
+.smb-phone-online {
+  font-size: 12px;
+  color: #10b981;
+  font-weight: 500;
+}
+.smb-phone-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 16px;
+}
+.smb-phone-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.smb-phone-action-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+.smb-phone-action-icon.green { background: #10b981; }
+.smb-phone-action-icon.purple { background: #8b5cf6; }
+.smb-phone-action-icon.blue { background: #3b82f6; }
+.smb-phone-action-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.smb-phone-action span {
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+}
+.smb-phone-calls {
+  margin: 0 16px 16px;
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.smb-phone-calls-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+}
+.smb-phone-call {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+.smb-phone-call:last-child { border-bottom: none; }
+.smb-phone-call-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.smb-phone-call-icon svg {
+  width: 14px;
+  height: 14px;
+}
+.smb-phone-call-icon.incoming { background: #dcfce7; color: #10b981; }
+.smb-phone-call-icon.outgoing { background: #dbeafe; color: #3b82f6; }
+.smb-phone-call-icon.ai { background: #f3e8ff; color: #8b5cf6; }
+.smb-phone-call-info { flex: 1; }
+.smb-phone-call-name { font-size: 14px; font-weight: 500; color: #333; }
+.smb-phone-call-time { font-size: 12px; color: #999; }
+
+/* Floating Cards */
+.smb-float-card {
+  position: absolute;
+  background: white;
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.smb-float-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.smb-float-card-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.smb-float-card-icon.green { background: #dcfce7; color: #10b981; }
+.smb-float-card-icon.purple { background: #f3e8ff; color: #8b5cf6; }
+.smb-float-card-text h4 { font-size: 14px; font-weight: 600; color: #333; }
+.smb-float-card-text p { font-size: 12px; color: #999; }
+.smb-float-left { left: -60px; top: 25%; }
+.smb-float-right { right: -40px; bottom: 33%; }
+
+/* Hero Wave */
+.smb-hero-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+.smb-hero-wave svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Features Section */
+.smb-features {
+  padding: 100px 24px;
+  background: white;
+}
+.smb-section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.smb-section-badge {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 50px;
+  background: var(--gold-50);
+  color: #9E7E1E;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.smb-section-header h2 {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 16px;
+}
+.smb-section-header p {
+  font-size: 18px;
+  color: var(--gray-text);
+  max-width: 600px;
+  margin: 0 auto;
+}
+.smb-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.smb-feature-card {
+  background: #f9fafb;
+  padding: 32px;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+.smb-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+.smb-feature-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--gold-50);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: var(--gold);
+}
+.smb-feature-icon svg {
+  width: 28px;
+  height: 28px;
+}
+.smb-feature-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+.smb-feature-card p {
+  color: var(--gray-text);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Testimonials */
+.smb-testimonials {
+  padding: 100px 24px;
+  background: #f9fafb;
+}
+.smb-testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto 48px;
+}
+.smb-testimonial {
+  background: white;
+  padding: 28px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+.smb-testimonial-stars {
+  color: var(--gold);
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+.smb-testimonial p {
+  color: #475569;
+  font-size: 15px;
+  font-style: italic;
+  margin-bottom: 20px;
+  line-height: 1.7;
+}
+.smb-testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.smb-testimonial-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+.smb-testimonial-name {
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 15px;
+}
+.smb-testimonial-title {
+  font-size: 13px;
+  color: var(--gray-text);
+}
+.smb-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+.smb-stat h4 {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.smb-stat p {
+  font-size: 14px;
+  color: var(--gray-text);
+}
+
+/* Pricing */
+.smb-pricing {
+  padding: 100px 24px;
+  background: #f9fafb;
+}
+.smb-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.smb-pricing-card {
+  background: white;
+  border-radius: 24px;
+  padding: 36px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  position: relative;
+  border: 2px solid #e5e7eb;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.smb-pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+}
+.smb-pricing-card.featured {
+  border-color: var(--gold);
+  border-width: 2px;
+  overflow: hidden;
+  transform: scale(1.02);
+}
+.smb-pricing-card.featured:hover {
+  transform: scale(1.02) translateY(-4px);
+  box-shadow: 0 20px 60px rgba(201, 162, 39, 0.2);
+}
+.smb-pricing-badge {
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  color: white;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  margin: -36px -36px 24px -36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.smb-pricing-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+.smb-pricing-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.smb-pricing-icon.gold {
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  color: white;
+}
+.smb-pricing-icon.navy {
+  background: rgba(30, 58, 95, 0.1);
+  color: var(--navy);
+}
+.smb-pricing-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.smb-pricing-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.smb-pricing-subtitle {
+  font-size: 14px;
+  color: var(--gray-text);
+  margin-bottom: 16px;
+}
+.smb-pricing-price {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+}
+.smb-pricing-dollar {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--gray-text);
+  margin-bottom: 4px;
+}
+.smb-pricing-amount {
+  font-size: 52px;
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1;
+}
+.smb-pricing-cents {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.smb-pricing-period {
+  font-size: 16px;
+  color: var(--gray-text);
+  margin-bottom: 4px;
+}
+.smb-pricing-features {
+  list-style: none;
+  margin-bottom: 32px;
+  flex: 1;
+}
+.smb-pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+  color: #475569;
+}
+.smb-pricing-features li:last-child { border-bottom: none; }
+.smb-pricing-check {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.smb-pricing-check.gold {
+  background: rgba(201, 162, 39, 0.2);
+  color: var(--gold);
+}
+.smb-pricing-check.green {
+  background: #dcfce7;
+  color: #10b981;
+}
+.smb-pricing-check svg {
+  width: 12px;
+  height: 12px;
+  stroke-width: 3;
+}
+.smb-pricing-cta { text-align: center; }
+.smb-pricing-cta .smb-btn {
+  width: 100%;
+  justify-content: center;
+  font-size: 16px;
+  padding: 14px 28px;
+}
+.smb-btn-gold {
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  color: white;
+  box-shadow: 0 8px 24px rgba(201, 162, 39, 0.35);
+}
+.smb-btn-gold:hover {
+  box-shadow: 0 12px 32px rgba(201, 162, 39, 0.45);
+}
+.smb-btn-navy {
+  background: var(--navy);
+  color: white;
+}
+.smb-btn-navy:hover {
+  background: var(--navy-light);
+}
+
+/* Trust Signals */
+.smb-pricing-trust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 48px;
+  font-size: 14px;
+  color: var(--gray-text);
+}
+.smb-pricing-trust span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.smb-pricing-trust svg {
+  width: 16px;
+  height: 16px;
+  color: #10b981;
+}
+
+/* CTA */
+.smb-cta {
+  padding: 100px 24px;
+  background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, var(--navy-light) 100%);
+  text-align: center;
+}
+.smb-cta h2 {
+  font-size: 42px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 16px;
+}
+.smb-cta p {
+  font-size: 18px;
+  color: rgba(255,255,255,0.8);
+  max-width: 500px;
+  margin: 0 auto 32px;
+}
+.smb-cta-btns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Footer */
+.smb-footer {
+  padding: 60px 24px 32px;
+  background: #0a1628;
+  color: rgba(255,255,255,0.7);
+}
+.smb-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: 48px;
+  max-width: 1200px;
+  margin: 0 auto 48px;
+}
+.smb-footer-brand img {
+  height: 32px;
+  width: auto;
+  margin-bottom: 16px;
+  filter: brightness(0) invert(1);
+}
+.smb-footer-brand p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.smb-footer-contact a {
+  color: var(--gold);
+  text-decoration: none;
+}
+.smb-footer-col h4 {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.smb-footer-col ul { list-style: none; }
+.smb-footer-col li { margin-bottom: 10px; }
+.smb-footer-col a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+.smb-footer-col a:hover { color: var(--gold); }
+.smb-footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  text-align: center;
+  font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .smb-hero-grid { grid-template-columns: 1fr; text-align: center; }
+  .smb-hero h1 { font-size: 48px; }
+  .smb-hero-sub { margin: 0 auto 32px; }
+  .smb-hero-ctas { justify-content: center; }
+  .smb-hero-trust { justify-content: center; }
+  .smb-phone-wrapper { display: none; }
+  .smb-nav-links { display: none; }
+  .smb-pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+  .smb-pricing-card.featured { transform: none; }
+}
+@media (max-width: 768px) {
+  .smb-hero h1 { font-size: 36px; }
+  .smb-section-header h2 { font-size: 32px; }
+  .smb-stats { grid-template-columns: repeat(2, 1fr); }
+  .smb-footer-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="smb-landing">
+  <!-- Navigation -->
+  <nav class="smb-nav">
+    <div class="smb-nav-inner">
+      <a href="/" class="smb-nav-logo">
+        <img src="https://smbvoice.alwaysencrypted.com/logo.png" alt="Start My Business" />
+      </a>
+      <div class="smb-nav-links">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="smb-nav-right">
+        <a href="tel:888-534-4145" class="smb-nav-phone">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          888-534-4145
+        </a>
+        <a href="https://coreypearson.gumroad.com/l/izcdvd" target="_blank" class="smb-btn smb-btn-primary" style="padding: 10px 20px; font-size: 14px;">Start Free Trial</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="smb-hero">
+    <div class="smb-hero-orb-1"></div>
+    <div class="smb-hero-orb-2"></div>
+    <div class="smb-hero-shape"></div>
+
+    <div class="smb-hero-grid">
+      <!-- Left Content -->
+      <div>
+        <div class="smb-hero-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+          <span>AI-Powered Business Phone</span>
+        </div>
+        <h1>Your Business Phone.<br><span class="gold">Just $7.95/month.</span></h1>
+        <p class="smb-hero-sub">Get a professional business phone number, AI receptionist, and mobile apps. Set up in 5 minutes. No tech skills needed.</p>
+        <div class="smb-hero-ctas">
+          <a href="https://coreypearson.gumroad.com/l/izcdvd" target="_blank" class="smb-btn smb-btn-primary">
+            Start Free Trial
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a href="#demo" class="smb-btn smb-btn-outline">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Watch Demo
+          </a>
+        </div>
+        <div class="smb-hero-trust">
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            No credit card required
+          </span>
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Cancel anytime
+          </span>
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            24/7 support
+          </span>
+        </div>
+      </div>
+
+      <!-- Phone Mockup -->
+      <div class="smb-phone-wrapper">
+        <div class="smb-phone-glow"></div>
+        <div class="smb-phone">
+          <div class="smb-phone-screen">
+            <div class="smb-phone-status">
+              <span class="smb-phone-time">9:41</span>
+              <div class="smb-phone-battery">
+                <div style="width:16px;height:8px;background:#ccc;border-radius:2px;"></div>
+                <div style="width:20px;height:10px;background:#10b981;border-radius:2px;"></div>
+              </div>
+            </div>
+            <div class="smb-phone-header">
+              <img src="https://smbvoice.alwaysencrypted.com/logo.png" alt="Start My Business" class="smb-phone-logo" />
+              <span class="smb-phone-online">Online</span>
+            </div>
+            <div class="smb-phone-actions">
+              <div class="smb-phone-action">
+                <div class="smb-phone-action-icon green">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <span>Call</span>
+              </div>
+              <div class="smb-phone-action">
+                <div class="smb-phone-action-icon purple">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+                </div>
+                <span>AI</span>
+              </div>
+              <div class="smb-phone-action">
+                <div class="smb-phone-action-icon blue">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                </div>
+                <span>Apps</span>
+              </div>
+            </div>
+            <div class="smb-phone-calls">
+              <div class="smb-phone-calls-title">Recent Calls</div>
+              <div class="smb-phone-call">
+                <div class="smb-phone-call-icon incoming">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div class="smb-phone-call-info">
+                  <div class="smb-phone-call-name">John Smith</div>
+                  <div class="smb-phone-call-time">2 min ago</div>
+                </div>
+              </div>
+              <div class="smb-phone-call">
+                <div class="smb-phone-call-icon outgoing">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div class="smb-phone-call-info">
+                  <div class="smb-phone-call-name">Sarah Davis</div>
+                  <div class="smb-phone-call-time">1 hour ago</div>
+                </div>
+              </div>
+              <div class="smb-phone-call">
+                <div class="smb-phone-call-icon ai">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+                </div>
+                <div class="smb-phone-call-info">
+                  <div class="smb-phone-call-name">AI Answered</div>
+                  <div class="smb-phone-call-time">3 hours ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Floating Cards -->
+        <div class="smb-float-card smb-float-left">
+          <div class="smb-float-card-icon green">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+          </div>
+          <div class="smb-float-card-text">
+            <h4>Secure</h4>
+            <p>Encrypted calls</p>
+          </div>
+        </div>
+        <div class="smb-float-card smb-float-right">
+          <div class="smb-float-card-icon purple">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+          </div>
+          <div class="smb-float-card-text">
+            <h4>AI Ready</h4>
+            <p>24/7 answering</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wave -->
+    <div class="smb-hero-wave">
+      <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="smb-features" id="features">
+    <div class="smb-container">
+      <div class="smb-section-header">
+        <span class="smb-section-badge">Powerful Features</span>
+        <h2>Everything Your Business Needs</h2>
+        <p>Professional phone features that rival enterprise systems, at a fraction of the cost.</p>
+      </div>
+      <div class="smb-features-grid">
+        <div class="smb-feature-card">
+          <div class="smb-feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <h3>Your Own Business Number</h3>
+          <p>Get a local or toll-free number instantly. Port your existing number for free within 5-10 business days.</p>
+        </div>
+        <div class="smb-feature-card">
+          <div class="smb-feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+          </div>
+          <h3>AI Answers Your Calls</h3>
+          <p>Never miss a call. Our AI receptionist works 24/7, takes messages, schedules appointments, and routes calls.</p>
+        </div>
+        <div class="smb-feature-card">
+          <div class="smb-feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+          </div>
+          <h3>Works on Any Device</h3>
+          <p>iOS, Android, Windows, Mac, and web browser. Make and receive calls from anywhere with internet.</p>
+        </div>
+        <div class="smb-feature-card">
+          <div class="smb-feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Set Up in 5 Minutes</h3>
+          <p>No technical skills needed. Choose your number, download the app, and start taking business calls immediately.</p>
+        </div>
+        <div class="smb-feature-card">
+          <div class="smb-feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3>Simple Pricing</h3>
+          <p>Starting at $7.95/month. No contracts, no setup fees, no hidden charges. Everything included.</p>
+        </div>
+        <div class="smb-feature-card">
+          <div class="smb-feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Real Human Support</h3>
+          <p>Call us at 888-534-4145. Real people, not bots. We're here to help your business succeed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="smb-testimonials">
+    <div class="smb-container">
+      <div class="smb-section-header">
+        <span class="smb-section-badge">Customer Stories</span>
+        <h2>Loved by Thousands</h2>
+        <p>See why business owners switch to SMB Voice.</p>
+      </div>
+      <div class="smb-testimonials-grid">
+        <div class="smb-testimonial">
+          <div class="smb-testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"SMB Voice changed how I do business. The AI answers calls when I'm with clients, and I never miss an opportunity."</p>
+          <div class="smb-testimonial-author">
+            <div class="smb-testimonial-avatar">SJ</div>
+            <div>
+              <div class="smb-testimonial-name">Sarah Johnson</div>
+              <div class="smb-testimonial-title">Johnson Consulting</div>
+            </div>
+          </div>
+        </div>
+        <div class="smb-testimonial">
+          <div class="smb-testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Switched from an $80/month service. SMB Voice has everything I need at a fraction of the price. Game changer."</p>
+          <div class="smb-testimonial-author">
+            <div class="smb-testimonial-avatar">MC</div>
+            <div>
+              <div class="smb-testimonial-name">Mike Chen</div>
+              <div class="smb-testimonial-title">Chen Marketing</div>
+            </div>
+          </div>
+        </div>
+        <div class="smb-testimonial">
+          <div class="smb-testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"My clients think I have a full office staff. The professional greeting makes my small business look established."</p>
+          <div class="smb-testimonial-author">
+            <div class="smb-testimonial-avatar">LR</div>
+            <div>
+              <div class="smb-testimonial-name">Lisa Rodriguez</div>
+              <div class="smb-testimonial-title">Real Estate Agent</div>
+            </div>
+          </div>
+        </div>
+        <div class="smb-testimonial">
+          <div class="smb-testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"I can take calls from the job site, office, or home. Voicemail-to-email means I never miss important messages."</p>
+          <div class="smb-testimonial-author">
+            <div class="smb-testimonial-avatar">DW</div>
+            <div>
+              <div class="smb-testimonial-name">David Williams</div>
+              <div class="smb-testimonial-title">Williams Home Services</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="smb-stats">
+        <div class="smb-stat">
+          <h4>10,000+</h4>
+          <p>Happy customers</p>
+        </div>
+        <div class="smb-stat">
+          <h4>4.9/5</h4>
+          <p>Average rating</p>
+        </div>
+        <div class="smb-stat">
+          <h4>99%</h4>
+          <p>Would recommend</p>
+        </div>
+        <div class="smb-stat">
+          <h4>24/7</h4>
+          <p>Support available</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="smb-pricing" id="pricing">
+    <div class="smb-container">
+      <div class="smb-section-header">
+        <span class="smb-section-badge">Simple Pricing</span>
+        <h2>Choose Your Plan. <span style="background: linear-gradient(90deg, #C9A227, #DEB44A); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">No Hidden Fees.</span></h2>
+        <p>No contracts. No setup fees. Cancel anytime. Start with what you need and upgrade as you grow.</p>
+      </div>
+      <div class="smb-pricing-grid">
+        <!-- Starter Plan -->
+        <div class="smb-pricing-card">
+          <div class="smb-pricing-icon navy">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div class="smb-pricing-header">
+            <div class="smb-pricing-name">Starter</div>
+            <div class="smb-pricing-subtitle">Perfect for solopreneurs</div>
+            <div class="smb-pricing-price">
+              <span class="smb-pricing-dollar">$</span>
+              <span class="smb-pricing-amount">7</span>
+              <span class="smb-pricing-cents">.95</span>
+              <span class="smb-pricing-period">/mo</span>
+            </div>
+          </div>
+          <ul class="smb-pricing-features">
+            <li><span class="smb-pricing-check green"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> 1 business phone number</li>
+            <li><span class="smb-pricing-check green"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> 500 SMS messages/month</li>
+            <li><span class="smb-pricing-check green"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Basic AI receptionist</li>
+            <li><span class="smb-pricing-check green"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Unlimited US & Canada calling</li>
+            <li><span class="smb-pricing-check green"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Voicemail transcription</li>
+            <li><span class="smb-pricing-check green"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Mobile & desktop apps</li>
+            <li><span class="smb-pricing-check green"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Business hours routing</li>
+          </ul>
+          <div class="smb-pricing-cta">
+            <a href="https://coreypearson.gumroad.com/l/izcdvd" target="_blank" class="smb-btn smb-btn-navy">Get Starter</a>
+          </div>
+        </div>
+
+        <!-- Professional Plan -->
+        <div class="smb-pricing-card featured">
+          <div class="smb-pricing-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Most Popular
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="smb-pricing-icon gold">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+          </div>
+          <div class="smb-pricing-header">
+            <div class="smb-pricing-name">Professional</div>
+            <div class="smb-pricing-subtitle">Best for growing businesses</div>
+            <div class="smb-pricing-price">
+              <span class="smb-pricing-dollar">$</span>
+              <span class="smb-pricing-amount">19</span>
+              <span class="smb-pricing-cents">.95</span>
+              <span class="smb-pricing-period">/mo</span>
+            </div>
+          </div>
+          <ul class="smb-pricing-features">
+            <li><span class="smb-pricing-check gold"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> 3 business phone numbers</li>
+            <li><span class="smb-pricing-check gold"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> 1,500 SMS messages/month</li>
+            <li><span class="smb-pricing-check gold"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Advanced AI receptionist</li>
+            <li><span class="smb-pricing-check gold"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Unlimited US & Canada calling</li>
+            <li><span class="smb-pricing-check gold"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Call recording & analytics</li>
+            <li><span class="smb-pricing-check gold"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Team extensions (up to 10)</li>
+            <li><span class="smb-pricing-check gold"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Custom greetings & IVR</li>
+            <li><span class="smb-pricing-check gold"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Priority support</li>
+          </ul>
+          <div class="smb-pricing-cta">
+            <a href="https://coreypearson.gumroad.com/l/ojjjt" target="_blank" class="smb-btn smb-btn-gold">Get Professional</a>
+          </div>
+        </div>
+
+        <!-- Enterprise Plan -->
+        <div class="smb-pricing-card">
+          <div class="smb-pricing-icon navy">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>
+          </div>
+          <div class="smb-pricing-header">
+            <div class="smb-pricing-name">Enterprise</div>
+            <div class="smb-pricing-subtitle">For established businesses</div>
+            <div class="smb-pricing-price">
+              <span class="smb-pricing-dollar">$</span>
+              <span class="smb-pricing-amount">49</span>
+              <span class="smb-pricing-cents">.95</span>
+              <span class="smb-pricing-period">/mo</span>
+            </div>
+          </div>
+          <ul class="smb-pricing-features">
+            <li><span class="smb-pricing-check green"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> 10 business phone numbers</li>
+            <li><span class="smb-pricing-check green"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Unlimited SMS messages</li>
+            <li><span class="smb-pricing-check green"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Premium AI receptionist</li>
+            <li><span class="smb-pricing-check green"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Unlimited US & Canada calling</li>
+            <li><span class="smb-pricing-check green"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Full API access</li>
+            <li><span class="smb-pricing-check green"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Unlimited team extensions</li>
+            <li><span class="smb-pricing-check green"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> CRM integrations</li>
+            <li><span class="smb-pricing-check green"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Dedicated account manager</li>
+          </ul>
+          <div class="smb-pricing-cta">
+            <a href="https://coreypearson.gumroad.com/l/ouowmw" target="_blank" class="smb-btn smb-btn-navy">Get Enterprise</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust Signals -->
+      <div class="smb-pricing-trust">
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          No credit card required to start
+        </span>
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Cancel anytime
+        </span>
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          24/7 support included
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="smb-cta">
+    <div class="smb-container">
+      <h2>Ready to Get Started?</h2>
+      <p>Join 10,000+ businesses using SMB Voice. Set up your professional business phone in minutes.</p>
+      <div class="smb-cta-btns">
+        <a href="https://coreypearson.gumroad.com/l/izcdvd" target="_blank" class="smb-btn smb-btn-primary">Start Free Trial</a>
+        <a href="tel:888-534-4145" class="smb-btn smb-btn-outline">Call 888-534-4145</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="smb-footer">
+    <div class="smb-footer-grid">
+      <div class="smb-footer-brand">
+        <img src="https://smbvoice.alwaysencrypted.com/logo.png" alt="Start My Business" />
+        <p>Professional business phone service for small businesses. Get a dedicated number with AI receptionist starting at just $7.95/month.</p>
+        <div class="smb-footer-contact">
+          Phone: <a href="tel:888-534-4145">888-534-4145</a><br>
+          Email: <a href="mailto:support@startmybusiness.us">support@startmybusiness.us</a>
+        </div>
+      </div>
+      <div class="smb-footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#downloads">Downloads</a></li>
+        </ul>
+      </div>
+      <div class="smb-footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/careers">Careers</a></li>
+          <li><a href="/press">Press</a></li>
+        </ul>
+      </div>
+      <div class="smb-footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/cookies">Cookie Policy</a></li>
+          <li><a href="/accessibility">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="smb-footer-bottom">
+      &copy; 2026 Start My Business Inc. All rights reserved.
+    </div>
+  </footer>
+</div>
+
+<script>
+// Nav scroll effect
+window.addEventListener('scroll', function() {
+  const nav = document.querySelector('.smb-nav');
+  if (window.scrollY > 50) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+});
+</script>

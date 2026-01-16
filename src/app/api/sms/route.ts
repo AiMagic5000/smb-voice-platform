@@ -4,6 +4,8 @@ import { db } from "@/lib/db";
 import { smsMessages, conversations, phoneNumbers } from "@/lib/db/schema";
 import { eq, and, desc, or } from "drizzle-orm";
 import { withRateLimit, rateLimitConfigs } from "@/lib/rate-limit";
+import { checkSmsLimit, getOrganizationByClerkId, createLimitExceededResponse, recordUsage } from "@/lib/usage-tracker";
+import { OVERAGE_PRICING } from "@/lib/tier-limits";
 
 // GET - List SMS conversations or messages
 async function handleGet(request: NextRequest) {
@@ -82,6 +84,30 @@ async function handlePost(request: NextRequest) {
         { error: "Missing required fields: to, message" },
         { status: 400 }
       );
+    }
+
+    // Check SMS tier limits
+    let organizationId: string | null = null;
+    let willIncurOverage = false;
+
+    if (orgId) {
+      const org = await getOrganizationByClerkId(orgId);
+      if (org) {
+        organizationId = org.id;
+        const smsCheck = await checkSmsLimit(org.id);
+        willIncurOverage = smsCheck.willIncurOverage;
+
+        // Optionally, you could block SMS if limit exceeded (hard limit mode)
+        // Uncomment below to enforce hard limits instead of overage billing
+        /*
+        if (!smsCheck.allowed) {
+          return NextResponse.json(
+            createLimitExceededResponse('sms', smsCheck.reason || 'SMS limit exceeded'),
+            { status: 403 }
+          );
+        }
+        */
+      }
     }
 
     // Validate phone number ownership

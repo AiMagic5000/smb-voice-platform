@@ -1,0 +1,432 @@
+<!-- SMB Voice Complete Landing Page for Webflow -->
+<!-- Single HTML file containing: Hero, Features, Pricing, FAQ, CTA -->
+<!-- Add to Webflow HTML Embed element in page body -->
+<!-- Note: Add meta-tags-head.html content to Page Settings > Head Code separately -->
+
+<style>
+/* Global Styles */
+.smb-page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  color: #1e293b;
+  line-height: 1.6;
+}
+.smb-page * { box-sizing: border-box; }
+
+/* Hero Section */
+.smb-hero {
+  background: linear-gradient(135deg, #1E3A5F 0%, #2D4A6F 100%);
+  padding: 100px 20px 80px;
+  text-align: center;
+  color: white;
+}
+.smb-hero-container { max-width: 900px; margin: 0 auto; }
+.smb-hero-badge {
+  display: inline-block;
+  padding: 10px 24px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+}
+.smb-hero-title {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0 0 24px;
+}
+@media (max-width: 768px) { .smb-hero-title { font-size: 32px; } }
+.smb-hero-highlight { color: #C9A227; }
+.smb-hero-subtitle {
+  font-size: 20px;
+  opacity: 0.9;
+  max-width: 700px;
+  margin: 0 auto 40px;
+}
+.smb-hero-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.smb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 28px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.smb-btn-primary { background: #C9A227; color: white; }
+.smb-btn-primary:hover { background: #d4ad2e; transform: translateY(-2px); }
+.smb-btn-secondary { background: rgba(255,255,255,0.1); color: white; border: 2px solid rgba(255,255,255,0.3); }
+.smb-btn-secondary:hover { background: rgba(255,255,255,0.2); }
+.smb-btn-dark { background: #1E3A5F; color: white; }
+.smb-btn-dark:hover { background: #16304d; }
+.smb-hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+.smb-stat { text-align: center; }
+.smb-stat-value { font-size: 36px; font-weight: 800; color: #C9A227; }
+.smb-stat-label { font-size: 14px; opacity: 0.8; margin-top: 4px; }
+
+/* Features Section */
+.smb-features {
+  padding: 80px 20px;
+  background: white;
+}
+.smb-container { max-width: 1200px; margin: 0 auto; }
+.smb-section-header { text-align: center; margin-bottom: 60px; }
+.smb-section-title { font-size: 36px; font-weight: 800; color: #1E3A5F; margin: 0 0 16px; }
+.smb-section-subtitle { font-size: 18px; color: #64748b; max-width: 600px; margin: 0 auto; }
+.smb-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+.smb-feature-card {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 28px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.smb-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+.smb-feature-icon {
+  width: 56px;
+  height: 56px;
+  background: #FDF8E8;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.smb-feature-icon svg { width: 28px; height: 28px; color: #C9A227; }
+.smb-feature-name { font-size: 20px; font-weight: 700; color: #1E3A5F; margin: 0 0 12px; }
+.smb-feature-desc { font-size: 15px; color: #64748b; margin: 0; }
+
+/* Pricing Section */
+.smb-pricing {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+.smb-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.smb-plan-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border: 2px solid #e2e8f0;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+.smb-plan-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+}
+.smb-plan-card.popular {
+  border-color: #C9A227;
+  transform: scale(1.02);
+}
+.smb-plan-card.popular:hover { transform: scale(1.02) translateY(-4px); }
+.smb-popular-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #C9A227;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.smb-plan-name { font-size: 22px; font-weight: 700; color: #1E3A5F; margin: 0 0 8px; }
+.smb-plan-price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 8px; }
+.smb-price-amount { font-size: 48px; font-weight: 800; color: #1E3A5F; }
+.smb-price-period { font-size: 18px; color: #64748b; }
+.smb-plan-desc { font-size: 14px; color: #64748b; margin-bottom: 24px; }
+.smb-features-list { list-style: none; padding: 0; margin: 0 0 24px; }
+.smb-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #475569;
+}
+.smb-check {
+  width: 20px;
+  height: 20px;
+  background: #22c55e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.smb-check svg { width: 12px; height: 12px; color: white; }
+
+/* FAQ Section */
+.smb-faq {
+  padding: 80px 20px;
+  background: white;
+}
+.smb-faq-container { max-width: 800px; margin: 0 auto; }
+.smb-faq-list { display: flex; flex-direction: column; gap: 16px; }
+.smb-faq-item {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 24px;
+}
+.smb-faq-question {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1E3A5F;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.smb-faq-q {
+  background: #C9A227;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.smb-faq-answer { font-size: 16px; color: #64748b; margin: 0; padding-left: 40px; line-height: 1.7; }
+
+/* CTA Section */
+.smb-cta {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #1E3A5F 0%, #2D4A6F 100%);
+  text-align: center;
+  color: white;
+}
+.smb-cta-title { font-size: 36px; font-weight: 800; margin: 0 0 16px; }
+.smb-cta-subtitle { font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto 32px; }
+.smb-cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.smb-cta-note { font-size: 14px; opacity: 0.7; margin-top: 24px; }
+
+/* Promo Box */
+.smb-promo {
+  background: linear-gradient(135deg, #C9A227 0%, #d4ad2e 100%);
+  color: white;
+  padding: 32px;
+  border-radius: 16px;
+  text-align: center;
+  margin: 40px auto;
+  max-width: 800px;
+}
+.smb-promo h3 { font-size: 24px; margin: 0 0 12px; }
+.smb-promo p { margin: 0 0 16px; opacity: 0.95; }
+.smb-promo-price { font-size: 48px; font-weight: 800; }
+</style>
+
+<div class="smb-page">
+  <!-- Hero Section -->
+  <section class="smb-hero">
+    <div class="smb-hero-container">
+      <span class="smb-hero-badge">Professional Business Phone - $7.95/mo</span>
+      <h1 class="smb-hero-title">
+        Your Business Deserves a <span class="smb-hero-highlight">Professional Phone System</span>
+      </h1>
+      <p class="smb-hero-subtitle">
+        Get a local or toll-free business number with AI receptionist, unlimited calling, mobile apps, and more - all for less than the cost of your morning coffee.
+      </p>
+      <div class="smb-hero-buttons">
+        <a href="tel:+18885344145" class="smb-btn smb-btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Call for 2 Months FREE
+        </a>
+        <a href="https://coreypearson.gumroad.com/l/izcdvd" target="_blank" class="smb-btn smb-btn-secondary">Sign Up Online</a>
+      </div>
+      <div class="smb-hero-stats">
+        <div class="smb-stat"><div class="smb-stat-value">50K+</div><div class="smb-stat-label">Businesses Served</div></div>
+        <div class="smb-stat"><div class="smb-stat-value">99.99%</div><div class="smb-stat-label">Uptime Guarantee</div></div>
+        <div class="smb-stat"><div class="smb-stat-value">24/7</div><div class="smb-stat-label">AI Receptionist</div></div>
+        <div class="smb-stat"><div class="smb-stat-value">4.9/5</div><div class="smb-stat-label">Customer Rating</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Promo Box -->
+  <div class="smb-promo">
+    <h3>The Cheapest Business Phone Service</h3>
+    <p>Get started with professional business phone features for less than a cup of coffee per day.</p>
+    <p>Call <a href="tel:+18885344145" style="color:white;font-weight:700;">888-534-4145</a> or sign up online</p>
+    <p style="margin:0;"><span class="smb-promo-price">$7.95</span>/month - all features included</p>
+  </div>
+
+  <!-- Features Section -->
+  <section class="smb-features">
+    <div class="smb-container">
+      <div class="smb-section-header">
+        <h2 class="smb-section-title">Everything Your Business Needs</h2>
+        <p class="smb-section-subtitle">Professional phone features that rival enterprise systems, at a fraction of the cost.</p>
+      </div>
+      <div class="smb-features-grid">
+        <div class="smb-feature-card">
+          <div class="smb-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div>
+          <h3 class="smb-feature-name">AI Receptionist</h3>
+          <p class="smb-feature-desc">Never miss a call. Our AI answers 24/7, takes messages, schedules appointments, and routes calls intelligently.</p>
+        </div>
+        <div class="smb-feature-card">
+          <div class="smb-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <h3 class="smb-feature-name">Professional Number</h3>
+          <p class="smb-feature-desc">Get a local or toll-free number instantly. Port your existing number for free within 5-10 business days.</p>
+        </div>
+        <div class="smb-feature-card">
+          <div class="smb-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3 class="smb-feature-name">Unlimited Calling</h3>
+          <p class="smb-feature-desc">Make and receive unlimited calls to the US and Canada. Crystal-clear HD voice quality on every call.</p>
+        </div>
+        <div class="smb-feature-card">
+          <div class="smb-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+          <h3 class="smb-feature-name">Mobile Apps</h3>
+          <p class="smb-feature-desc">Take your business line anywhere. Native iOS and Android apps let you call and text on the go.</p>
+        </div>
+        <div class="smb-feature-card">
+          <div class="smb-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <h3 class="smb-feature-name">Business SMS</h3>
+          <p class="smb-feature-desc">Send and receive text messages from your business number. Keep personal and business texts separate.</p>
+        </div>
+        <div class="smb-feature-card">
+          <div class="smb-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <h3 class="smb-feature-name">Voicemail Transcription</h3>
+          <p class="smb-feature-desc">Read your voicemails as text. Get email notifications with full transcriptions delivered instantly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="smb-pricing">
+    <div class="smb-container">
+      <div class="smb-section-header">
+        <h2 class="smb-section-title">Simple, Transparent Pricing</h2>
+        <p class="smb-section-subtitle">No hidden fees, no surprises. Cancel anytime.</p>
+      </div>
+      <div class="smb-pricing-grid">
+        <!-- Starter -->
+        <div class="smb-plan-card">
+          <h3 class="smb-plan-name">Starter</h3>
+          <div class="smb-plan-price"><span class="smb-price-amount">$7.95</span><span class="smb-price-period">/month</span></div>
+          <p class="smb-plan-desc">Perfect for solopreneurs and small businesses</p>
+          <ul class="smb-features-list">
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>1 Local or Toll-Free Number</span></li>
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>Unlimited Calling (US & Canada)</span></li>
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>500 SMS Messages</span></li>
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>Basic AI Receptionist</span></li>
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>Mobile App Access</span></li>
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>Voicemail Transcription</span></li>
+          </ul>
+          <a href="https://coreypearson.gumroad.com/l/izcdvd" target="_blank" class="smb-btn smb-btn-dark" style="width:100%;justify-content:center;">Get Started</a>
+        </div>
+        <!-- Professional -->
+        <div class="smb-plan-card popular">
+          <span class="smb-popular-badge">Most Popular</span>
+          <h3 class="smb-plan-name">Professional</h3>
+          <div class="smb-plan-price"><span class="smb-price-amount">$19.95</span><span class="smb-price-period">/month</span></div>
+          <p class="smb-plan-desc">For growing businesses with advanced needs</p>
+          <ul class="smb-features-list">
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>3 Phone Numbers</span></li>
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>Unlimited Calling (US & Canada)</span></li>
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>2,000 SMS Messages</span></li>
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>Advanced AI Receptionist</span></li>
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>Call Recording</span></li>
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>Team Extensions (3 users)</span></li>
+          </ul>
+          <a href="https://coreypearson.gumroad.com/l/ojjjt" target="_blank" class="smb-btn smb-btn-primary" style="width:100%;justify-content:center;">Get Started</a>
+        </div>
+        <!-- Enterprise -->
+        <div class="smb-plan-card">
+          <h3 class="smb-plan-name">Enterprise</h3>
+          <div class="smb-plan-price"><span class="smb-price-amount">$49.95</span><span class="smb-price-period">/month</span></div>
+          <p class="smb-plan-desc">For teams needing full power</p>
+          <ul class="smb-features-list">
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>10 Phone Numbers</span></li>
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>Unlimited Calling (US & Canada)</span></li>
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>Unlimited SMS</span></li>
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>Premium AI Receptionist</span></li>
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>API Access</span></li>
+            <li class="smb-feature-item"><span class="smb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span>Unlimited Team Members</span></li>
+          </ul>
+          <a href="https://coreypearson.gumroad.com/l/ouowmw" target="_blank" class="smb-btn smb-btn-dark" style="width:100%;justify-content:center;">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="smb-faq">
+    <div class="smb-faq-container">
+      <div class="smb-section-header">
+        <h2 class="smb-section-title">Frequently Asked Questions</h2>
+      </div>
+      <div class="smb-faq-list">
+        <div class="smb-faq-item">
+          <div class="smb-faq-question"><span class="smb-faq-q">Q</span><span>What is the cheapest business phone service?</span></div>
+          <p class="smb-faq-answer">SMB Voice is the cheapest business phone service at $7.95/month. Most competitors like Ooma ($19.95), Dialpad ($15), and Nextiva ($22.95) charge significantly more for similar features.</p>
+        </div>
+        <div class="smb-faq-item">
+          <div class="smb-faq-question"><span class="smb-faq-q">Q</span><span>What is an AI receptionist?</span></div>
+          <p class="smb-faq-answer">An AI receptionist answers your business calls 24/7 with natural conversation. It takes messages, schedules appointments, answers FAQs, and routes calls to the right person. SMB Voice includes AI receptionist in all plans.</p>
+        </div>
+        <div class="smb-faq-item">
+          <div class="smb-faq-question"><span class="smb-faq-q">Q</span><span>Can I keep my existing phone number?</span></div>
+          <p class="smb-faq-answer">Yes! SMB Voice offers free number porting. Transfer your existing business number within 5-10 business days. Use a new number immediately while your old one transfers.</p>
+        </div>
+        <div class="smb-faq-item">
+          <div class="smb-faq-question"><span class="smb-faq-q">Q</span><span>Do I need special equipment?</span></div>
+          <p class="smb-faq-answer">No hardware required. SMB Voice works on your existing smartphone, tablet, or computer through our apps. If you prefer a desk phone, we support standard SIP/IP phones.</p>
+        </div>
+        <div class="smb-faq-item">
+          <div class="smb-faq-question"><span class="smb-faq-q">Q</span><span>Is there a contract or setup fee?</span></div>
+          <p class="smb-faq-answer">No contracts, no setup fees, no hidden charges. Pay month-to-month and cancel anytime. The $7.95/month price includes everything.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="smb-cta">
+    <h2 class="smb-cta-title">Ready to Get Started?</h2>
+    <p class="smb-cta-subtitle">Join 10,000+ businesses using SMB Voice. Get a professional business phone in minutes.</p>
+    <div class="smb-cta-buttons">
+      <a href="tel:+18885344145" class="smb-btn smb-btn-primary">Call 888-534-4145</a>
+      <a href="https://coreypearson.gumroad.com/l/izcdvd" target="_blank" class="smb-btn smb-btn-secondary">Sign Up Online</a>
+    </div>
+    <p class="smb-cta-note">Start your free trial today - no credit card required</p>
+  </section>
+</div>

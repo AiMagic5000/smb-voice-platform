@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { phoneNumbers } from "@/lib/db/schema";
 import { getSignalWireClient } from "@/lib/signalwire";
 import { eq, and } from "drizzle-orm";
+import { checkPhoneNumberLimit, getOrganizationByClerkId, createLimitExceededResponse } from "@/lib/usage-tracker";
 
 /**
  * POST /api/phone-numbers/provision
@@ -17,6 +18,20 @@ export async function POST(request: NextRequest) {
     }
 
     const tenantId = orgId || userId;
+
+    // Check tier limits before provisioning
+    if (orgId) {
+      const org = await getOrganizationByClerkId(orgId);
+      if (org) {
+        const limitCheck = await checkPhoneNumberLimit(org.id);
+        if (!limitCheck.allowed) {
+          return NextResponse.json(
+            createLimitExceededResponse('phone_numbers', limitCheck.reason || 'Phone number limit exceeded'),
+            { status: 403 }
+          );
+        }
+      }
+    }
 
     const body = await request.json();
     const { phoneNumber } = body;

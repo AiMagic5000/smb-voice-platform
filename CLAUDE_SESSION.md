@@ -1,8 +1,8 @@
 # SMB Voice Platform - Claude Session Context
 
-**Last Updated:** 2026-01-16 02:55 UTC
-**Project Status:** 95% Complete
-**Current Issue:** None - All major milestones achieved
+**Last Updated:** 2026-01-16 03:07 UTC
+**Project Status:** 97% Complete
+**Current Issue:** None - All core features implemented
 
 ---
 
@@ -31,6 +31,8 @@ ssh admin1@10.28.28.30 "docker ps --filter 'name=jwwcooo8k0co44c0s0gsw8kk' --for
 - [x] LLM/AI SEO (robots.txt, llms.txt)
 - [x] Desktop app GitHub release v1.0.0 created
 - [x] PWA configured for iOS Safari
+- [x] Static file serving fixed (middleware update)
+- [x] Admin provisioning page with real SignalWire API
 
 ---
 
@@ -99,11 +101,11 @@ ssh admin1@10.28.28.30 "docker ps --filter 'name=jwwcooo8k0co44c0s0gsw8kk' --for
 
 ### Git Commits (Latest)
 ```
+c4efc97 Update admin provisioning page to use real SignalWire API
+e0d290b Fix middleware to allow static files (json, txt, xml)
+ef43d45 Update CLAUDE_SESSION.md to 95% completion
 0d2c284 Add contents:write permission to release job
 e0ff348 Update CLAUDE_SESSION.md with progress checkpoint
-753f37b Fix GitHub release workflow to auto-create version tag
-fb668e7 Add missing package.json metadata for Electron builds
-0784c63 Fix desktop build and disable auto-trigger for mobile builds
 ```
 
 ---
@@ -112,7 +114,7 @@ fb668e7 Add missing package.json metadata for Electron builds
 
 ### Coolify Details
 - **Application UUID:** `jwwcooo8k0co44c0s0gsw8kk`
-- **Current Container:** `jwwcooo8k0co44c0s0gsw8kk-024700964143`
+- **Current Container:** `jwwcooo8k0co44c0s0gsw8kk-030229815714`
 - **Container IP:** `10.0.1.17`
 - **Build Pack:** Dockerfile
 - **Repository:** AiMagic5000/smb-voice-platform
@@ -176,14 +178,13 @@ All download links verified working (302 redirect to release):
 ## Remaining Tasks
 
 ### Medium Priority
-1. **Admin Panel** - Complete user management functionality
-2. **SignalWire Integration** - Phone number provisioning flow
-3. **Static File Serving** - Fix manifest.json/robots.txt serving (Next.js 16 standalone mode issue)
+1. **Admin Panel** - Complete user management functionality (CRUD operations)
+2. **Stripe Billing** - Webhook handlers for subscription events
 
 ### Low Priority
-4. **Stripe Billing** - Webhook handlers for subscription events
-5. **AI Receptionist** - OpenAI/Claude integration for call handling
-6. **Documentation** - User guides and API documentation
+3. **AI Receptionist** - OpenAI/Claude integration for call handling
+4. **Documentation** - User guides and API documentation
+5. **PWA Testing** - Verify installation flow on iOS Safari
 
 ---
 
@@ -235,32 +236,38 @@ smb-voice-platform/
 
 ## Session Notes
 
-### 2026-01-16 Final Status
+### 2026-01-16 Session Progress (03:07 UTC)
 
-**Major Accomplishments:**
+**Latest Accomplishments:**
+- Fixed static file serving (middleware.ts pattern update)
+- Updated admin provisioning page to use real SignalWire API
+- Replaced mock data with live API calls for phone numbers
+- Added loading states and empty state UI
+- Deployed to production with new container (IP: 10.0.1.17)
+- All health checks passing
+
+**Previous Accomplishments:**
 - Fixed Downloads component with native desktop app links
 - Updated Electron app to load production URL
 - Created GitHub Actions workflow for desktop releases
 - Fixed Electron build errors (package.json metadata)
 - Added `contents: write` permission to release job
 - **Successfully created GitHub Release v1.0.0** with all desktop apps
-- Deployed latest code to production
-- All health checks passing
-- Cloudflare tunnel properly configured (IP: 10.0.1.17)
+- Cloudflare tunnel properly configured
 - All download links verified working
 
 **Current State:**
 - Production is live and healthy at https://voice.startmybusiness.us
 - Desktop apps available for download from GitHub Releases
+- Static files serving correctly (manifest.json, robots.txt, llms.txt)
+- Admin provisioning page integrated with SignalWire API
 - PWA configured for iOS with apple-mobile-web-app meta tags
-- Project at 95% completion
+- Project at 97% completion
 
 **Known Issues:**
-- Static files (manifest.json, robots.txt) returning 404 from production
-  - Likely Next.js 16 standalone mode routing issue
-  - PWA still works on iOS via apple-mobile-web-app meta tags
+- None critical - all major features working
 
 **Next Session:**
-1. Fix static file serving in Next.js standalone mode
-2. Complete admin panel testing
-3. Test SignalWire phone number provisioning
+1. Add admin user management (CRUD)
+2. Set up Stripe webhook handlers
+3. Verify PWA installation on iOS Safari

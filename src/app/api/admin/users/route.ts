@@ -31,8 +31,8 @@ export async function GET(request: NextRequest) {
         firstName: users.firstName,
         lastName: users.lastName,
         role: users.role,
+        organizationId: users.organizationId,
         createdAt: users.createdAt,
-        lastLoginAt: users.lastLoginAt,
       })
       .from(users)
       .orderBy(desc(users.createdAt));

@@ -34,11 +34,7 @@ const config: CapacitorConfig = {
       style: 'DARK',
       backgroundColor: '#0F172A',
     },
-    Keyboard: {
-      resize: 'body',
-      style: 'DARK',
-      resizeOnFullScreen: true,
-    },
+    // Keyboard plugin configured at runtime
   },
 };
 

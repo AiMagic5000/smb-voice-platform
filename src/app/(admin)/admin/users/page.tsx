@@ -56,12 +56,6 @@ interface User {
   lastLoginAt: string | null;
 }
 
-interface Organization {
-  id: string;
-  name: string;
-  tier: string;
-}
-
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -213,22 +207,8 @@ export default function AdminUsersPage() {
     );
   };
 
-  const getTierBadge = (tier: string) => {
-    const badges: Record<string, { bg: string; text: string; label: string }> = {
-      starter: { bg: "bg-slate-500/20", text: "text-slate-400", label: "Starter" },
-      professional: { bg: "bg-blue-500/20", text: "text-blue-400", label: "Professional" },
-      enterprise: { bg: "bg-[#C9A227]/20", text: "text-[#C9A227]", label: "Enterprise" },
-    };
-    const badge = badges[tier] || badges.starter;
-    return (
-      <span className={`px-2 py-1 rounded-full text-xs font-medium ${badge.bg} ${badge.text}`}>
-        {badge.label}
-      </span>
-    );
-  };
-
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>

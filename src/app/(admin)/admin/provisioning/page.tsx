@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Phone,
   Search,
@@ -10,54 +10,125 @@ import {
   Globe,
   Check,
   X,
-  Loader2
+  Loader2,
+  AlertCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-// Mock available numbers
-const mockAvailableNumbers = [
-  { number: "+1 (555) 100-1001", type: "Local", areaCode: "555", city: "New York, NY", price: 1.00 },
-  { number: "+1 (555) 100-1002", type: "Local", areaCode: "555", city: "New York, NY", price: 1.00 },
-  { number: "+1 (555) 200-2001", type: "Local", areaCode: "555", city: "Los Angeles, CA", price: 1.00 },
-  { number: "+1 (555) 200-2002", type: "Local", areaCode: "555", city: "Los Angeles, CA", price: 1.00 },
-  { number: "+1 (800) 555-0001", type: "Toll Free", areaCode: "800", city: "Nationwide", price: 2.00 },
-  { number: "+1 (888) 555-0002", type: "Toll Free", areaCode: "888", city: "Nationwide", price: 2.00 },
-  { number: "+1 (877) 555-0003", type: "Toll Free", areaCode: "877", city: "Nationwide", price: 2.00 },
-];
+interface AvailableNumber {
+  phoneNumber: string;
+  type: string;
+  region: string;
+  city?: string;
+  state?: string;
+  monthlyPrice: number;
+  setupFee: number;
+  capabilities: {
+    voice: boolean;
+    sms: boolean;
+    mms: boolean;
+  };
+}
 
-// Mock provisioned numbers
-const mockProvisionedNumbers = [
-  { number: "+1 (555) 123-4567", type: "Local", client: "ABC Corporation", status: "active", assignedDate: "2026-01-10" },
-  { number: "+1 (555) 234-5678", type: "Local", client: "XYZ Industries", status: "active", assignedDate: "2026-01-08" },
-  { number: "+1 (800) 555-1234", type: "Toll Free", client: "Global Services", status: "active", assignedDate: "2026-01-05" },
-  { number: "+1 (555) 345-6789", type: "Local", client: "Tech Startup", status: "active", assignedDate: "2026-01-12" },
-];
+interface ProvisionedNumber {
+  id: string;
+  number: string;
+  type: string;
+  client: string;
+  status: string;
+  assignedDate: string;
+}
 
 export default function ProvisioningPage() {
   const [searchAreaCode, setSearchAreaCode] = useState("");
   const [searchType, setSearchType] = useState<"local" | "tollfree">("local");
   const [isSearching, setIsSearching] = useState(false);
-  const [availableNumbers, setAvailableNumbers] = useState(mockAvailableNumbers);
+  const [isProvisioning, setIsProvisioning] = useState(false);
+  const [availableNumbers, setAvailableNumbers] = useState<AvailableNumber[]>([]);
+  const [provisionedNumbers, setProvisionedNumbers] = useState<ProvisionedNumber[]>([]);
   const [selectedNumbers, setSelectedNumbers] = useState<string[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [isMockData, setIsMockData] = useState(false);
+  const [isLoadingProvisioned, setIsLoadingProvisioned] = useState(true);
 
-  const handleSearch = () => {
+  // Fetch provisioned numbers on mount
+  const fetchProvisionedNumbers = useCallback(async () => {
+    setIsLoadingProvisioned(true);
+    try {
+      const response = await fetch("/api/phone-numbers");
+      if (response.ok) {
+        const data = await response.json();
+        setProvisionedNumbers(data.phoneNumbers || []);
+      }
+    } catch (err) {
+      console.error("Failed to fetch provisioned numbers:", err);
+    } finally {
+      setIsLoadingProvisioned(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchProvisionedNumbers();
+  }, [fetchProvisionedNumbers]);
+
+  const handleSearch = async () => {
     setIsSearching(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSearching(false);
-      // Filter mock data based on search
-      const filtered = mockAvailableNumbers.filter(n => {
-        if (searchType === "tollfree") {
-          return n.type === "Toll Free";
-        }
-        if (searchAreaCode) {
-          return n.areaCode.includes(searchAreaCode);
-        }
-        return n.type === "Local";
+    setError(null);
+    try {
+      const params = new URLSearchParams({
+        type: searchType,
+        quantity: "10",
       });
-      setAvailableNumbers(filtered);
-    }, 1000);
+      if (searchAreaCode) {
+        params.set("areaCode", searchAreaCode);
+      }
+
+      const response = await fetch(`/api/phone-numbers/available?${params.toString()}`);
+      if (!response.ok) {
+        throw new Error("Failed to search numbers");
+      }
+
+      const data = await response.json();
+      setAvailableNumbers(data.numbers || []);
+      setIsMockData(data.mock === true);
+      if (data.mock && data.message) {
+        setError(data.message);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Search failed");
+      setAvailableNumbers([]);
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  const handleProvision = async () => {
+    if (selectedNumbers.length === 0) return;
+    setIsProvisioning(true);
+    setError(null);
+
+    try {
+      const response = await fetch("/api/phone-numbers/provision", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ numbers: selectedNumbers }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to provision numbers");
+      }
+
+      // Refresh provisioned numbers list
+      await fetchProvisionedNumbers();
+      setSelectedNumbers([]);
+      setAvailableNumbers([]);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Provisioning failed");
+    } finally {
+      setIsProvisioning(false);
+    }
   };
 
   const toggleNumberSelection = (number: string) => {
@@ -66,6 +137,15 @@ export default function ProvisioningPage() {
         ? prev.filter(n => n !== number)
         : [...prev, number]
     );
+  };
+
+  // Format phone number for display
+  const formatPhoneNumber = (phone: string) => {
+    const cleaned = phone.replace(/\D/g, "");
+    if (cleaned.length === 11 && cleaned.startsWith("1")) {
+      return `+1 (${cleaned.slice(1, 4)}) ${cleaned.slice(4, 7)}-${cleaned.slice(7)}`;
+    }
+    return phone;
   };
 
   return (
@@ -135,14 +215,35 @@ export default function ProvisioningPage() {
           </Button>
         </div>
 
+        {/* Error/Info Message */}
+        {error && (
+          <div className={`mt-4 p-4 rounded-lg flex items-center gap-3 ${
+            isMockData ? "bg-amber-50 border border-amber-200" : "bg-red-50 border border-red-200"
+          }`}>
+            <AlertCircle className={`h-5 w-5 ${isMockData ? "text-amber-500" : "text-red-500"}`} />
+            <p className={`text-sm ${isMockData ? "text-amber-700" : "text-red-700"}`}>{error}</p>
+          </div>
+        )}
+
         {/* Available Numbers */}
         {availableNumbers.length > 0 && (
           <div className="mt-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-medium text-gray-900">Available Numbers</h3>
+              <h3 className="font-medium text-gray-900">
+                Available Numbers
+                {isMockData && <span className="text-xs text-amber-600 ml-2">(Demo)</span>}
+              </h3>
               {selectedNumbers.length > 0 && (
-                <Button className="bg-[#1E3A5F] hover:bg-[#2D4A6F] text-white">
-                  <Plus className="h-4 w-4 mr-2" />
+                <Button
+                  onClick={handleProvision}
+                  disabled={isProvisioning}
+                  className="bg-[#1E3A5F] hover:bg-[#2D4A6F] text-white"
+                >
+                  {isProvisioning ? (
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  ) : (
+                    <Plus className="h-4 w-4 mr-2" />
+                  )}
                   Provision {selectedNumbers.length} Number{selectedNumbers.length > 1 ? "s" : ""}
                 </Button>
               )}
@@ -150,26 +251,28 @@ export default function ProvisioningPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {availableNumbers.map((num) => (
                 <button
-                  key={num.number}
-                  onClick={() => toggleNumberSelection(num.number)}
+                  key={num.phoneNumber}
+                  onClick={() => toggleNumberSelection(num.phoneNumber)}
                   className={`p-4 rounded-xl border-2 text-left transition-colors ${
-                    selectedNumbers.includes(num.number)
+                    selectedNumbers.includes(num.phoneNumber)
                       ? "border-[#C9A227] bg-amber-50"
                       : "border-gray-200 hover:border-gray-300"
                   }`}
                 >
                   <div className="flex items-start justify-between">
                     <div>
-                      <p className="font-medium text-gray-900">{num.number}</p>
-                      <p className="text-sm text-gray-500">{num.city}</p>
-                      <p className="text-sm text-[#C9A227] font-medium mt-1">${num.price.toFixed(2)}/mo</p>
+                      <p className="font-medium text-gray-900">{formatPhoneNumber(num.phoneNumber)}</p>
+                      <p className="text-sm text-gray-500">
+                        {num.city && num.state ? `${num.city}, ${num.state}` : num.type === "tollfree" ? "Nationwide" : num.region}
+                      </p>
+                      <p className="text-sm text-[#C9A227] font-medium mt-1">${num.monthlyPrice.toFixed(2)}/mo</p>
                     </div>
                     <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                      selectedNumbers.includes(num.number)
+                      selectedNumbers.includes(num.phoneNumber)
                         ? "border-[#C9A227] bg-[#C9A227]"
                         : "border-gray-300"
                     }`}>
-                      {selectedNumbers.includes(num.number) && (
+                      {selectedNumbers.includes(num.phoneNumber) && (
                         <Check className="h-4 w-4 text-white" />
                       )}
                     </div>
@@ -185,69 +288,88 @@ export default function ProvisioningPage() {
       <div className="bg-white rounded-xl border border-gray-200">
         <div className="p-6 border-b border-gray-200 flex items-center justify-between">
           <h2 className="text-lg font-semibold text-gray-900">Provisioned Numbers</h2>
-          <Button variant="outline" size="icon">
-            <RefreshCw className="h-4 w-4" />
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={fetchProvisionedNumbers}
+            disabled={isLoadingProvisioned}
+          >
+            <RefreshCw className={`h-4 w-4 ${isLoadingProvisioned ? "animate-spin" : ""}`} />
           </Button>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                  Number
-                </th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                  Type
-                </th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                  Assigned To
-                </th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                  Assigned Date
-                </th>
-                <th className="text-right px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {mockProvisionedNumbers.map((num, i) => (
-                <tr key={i} className="hover:bg-gray-50">
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      <Phone className="h-4 w-4 text-gray-400" />
-                      <span className="font-medium text-gray-900">{num.number}</span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium ${
-                      num.type === "Toll Free" ? "bg-purple-100 text-purple-700" : "bg-blue-100 text-blue-700"
-                    }`}>
-                      {num.type}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-gray-700">{num.client}</td>
-                  <td className="px-6 py-4">
-                    <span className="inline-flex px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 capitalize">
-                      {num.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-gray-500 text-sm">
-                    {new Date(num.assignedDate).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700">
-                      <X className="h-4 w-4 mr-1" />
-                      Release
-                    </Button>
-                  </td>
+          {isLoadingProvisioned ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
+            </div>
+          ) : provisionedNumbers.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-12 text-gray-500">
+              <Phone className="h-12 w-12 text-gray-300 mb-4" />
+              <p className="text-lg font-medium">No Numbers Provisioned</p>
+              <p className="text-sm">Search and provision numbers above to get started</p>
+            </div>
+          ) : (
+            <table className="w-full">
+              <thead className="bg-gray-50 border-b border-gray-200">
+                <tr>
+                  <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Number
+                  </th>
+                  <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Type
+                  </th>
+                  <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Assigned To
+                  </th>
+                  <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Assigned Date
+                  </th>
+                  <th className="text-right px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {provisionedNumbers.map((num) => (
+                  <tr key={num.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <Phone className="h-4 w-4 text-gray-400" />
+                        <span className="font-medium text-gray-900">{formatPhoneNumber(num.number)}</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium ${
+                        num.type === "tollfree" ? "bg-purple-100 text-purple-700" : "bg-blue-100 text-blue-700"
+                      }`}>
+                        {num.type === "tollfree" ? "Toll Free" : "Local"}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-gray-700">{num.client || "Unassigned"}</td>
+                    <td className="px-6 py-4">
+                      <span className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium capitalize ${
+                        num.status === "active" ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-600"
+                      }`}>
+                        {num.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-gray-500 text-sm">
+                      {num.assignedDate ? new Date(num.assignedDate).toLocaleDateString() : "-"}
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700">
+                        <X className="h-4 w-4 mr-1" />
+                        Release
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>

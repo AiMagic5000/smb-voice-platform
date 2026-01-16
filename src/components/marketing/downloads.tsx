@@ -7,6 +7,7 @@ import {
   Monitor,
   Download,
   Check,
+  ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -14,6 +15,9 @@ interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>;
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
+
+// GitHub releases base URL - update with actual releases URL
+const RELEASES_BASE_URL = "https://github.com/AiMagic5000/smb-voice-platform/releases/latest/download";
 
 export function Downloads() {
   const [deferredPrompt, setDeferredPrompt] =
@@ -74,6 +78,7 @@ export function Downloads() {
       icon: Apple,
       description: "iOS 15.0+",
       action: "Install via Safari",
+      type: "pwa",
     },
     {
       id: "android",
@@ -81,25 +86,30 @@ export function Downloads() {
       icon: Smartphone,
       description: "Android 8.0+",
       action: deferredPrompt ? "Install Now" : "Install via Chrome",
+      type: "pwa",
     },
     {
       id: "windows",
       name: "Windows",
       icon: Monitor,
       description: "Windows 10+",
-      action: deferredPrompt ? "Install Now" : "Install via Edge/Chrome",
+      action: "Download .exe",
+      downloadUrl: `${RELEASES_BASE_URL}/SMB-Voice-Setup.exe`,
+      type: "native",
     },
     {
       id: "mac",
       name: "macOS",
       icon: Apple,
       description: "macOS 11+",
-      action: deferredPrompt ? "Install Now" : "Install via Chrome",
+      action: "Download .dmg",
+      downloadUrl: `${RELEASES_BASE_URL}/SMB-Voice.dmg`,
+      type: "native",
     },
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-[#1E3A5F] to-[#2d4a6f]">
+    <section className="py-20 bg-gradient-to-br from-[#1E3A5F] to-[#2d4a6f]" id="downloads">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white/80 text-sm mb-4">
@@ -111,7 +121,7 @@ export function Downloads() {
           </h2>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
             Get the full experience on any device. Install our app for faster
-            access, push notifications, and offline features.
+            access, push notifications, and native calling features.
           </p>
         </div>
 
@@ -167,7 +177,7 @@ export function Downloads() {
                     {p.description}
                   </p>
 
-                  {isInstalled && isCurrentPlatform ? (
+                  {isInstalled && isCurrentPlatform && p.type === "pwa" ? (
                     <Button
                       disabled
                       className="w-full bg-green-500 hover:bg-green-500 text-white"
@@ -175,10 +185,24 @@ export function Downloads() {
                       <Check className="h-4 w-4 mr-2" />
                       Installed
                     </Button>
+                  ) : p.type === "native" && p.downloadUrl ? (
+                    <Button
+                      asChild
+                      className={`w-full ${
+                        isCurrentPlatform
+                          ? "btn-primary"
+                          : "bg-white/20 hover:bg-white/30 text-white border-0"
+                      }`}
+                    >
+                      <a href={p.downloadUrl} download>
+                        <Download className="h-4 w-4 mr-2" />
+                        {p.action}
+                      </a>
+                    </Button>
                   ) : (
                     <Button
                       onClick={
-                        deferredPrompt && (p.id === "android" || p.id === "windows" || p.id === "mac")
+                        deferredPrompt && (p.id === "android")
                           ? handleInstall
                           : undefined
                       }
@@ -198,6 +222,18 @@ export function Downloads() {
           })}
         </div>
 
+        {/* Linux Download */}
+        <div className="mt-6 text-center">
+          <a
+            href={`${RELEASES_BASE_URL}/SMB-Voice.AppImage`}
+            className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm transition-colors"
+          >
+            <Download className="h-4 w-4" />
+            Download for Linux (.AppImage)
+            <ExternalLink className="h-3 w-3" />
+          </a>
+        </div>
+
         {/* Install Instructions for iOS */}
         {platform === "ios" && !isInstalled && (
           <div className="mt-8 max-w-md mx-auto p-4 bg-white/10 rounded-xl text-white text-center">
@@ -212,19 +248,39 @@ export function Downloads() {
           </div>
         )}
 
+        {/* Install Instructions for Windows PWA as fallback */}
+        {platform === "windows" && (
+          <div className="mt-8 max-w-md mx-auto p-4 bg-white/10 rounded-xl text-white text-center">
+            <p className="text-sm mb-2 font-medium">Alternative: Install as Web App</p>
+            <p className="text-sm text-white/70">
+              In Chrome/Edge, click the install icon in the address bar or use Menu → Install SMB Voice
+            </p>
+          </div>
+        )}
+
         {/* Features */}
         <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
           {[
             "Push Notifications",
-            "Offline Access",
-            "Faster Load Times",
-            "Native Feel",
+            "Native Calling",
+            "System Tray",
+            "Auto-Updates",
           ].map((feature) => (
             <div key={feature} className="flex items-center gap-2 text-white/80">
               <Check className="h-4 w-4 text-[#C9A227]" />
               <span className="text-sm">{feature}</span>
             </div>
           ))}
+        </div>
+
+        {/* App Store badges placeholder */}
+        <div className="mt-12 flex flex-wrap justify-center gap-4">
+          <div className="px-4 py-2 bg-white/5 rounded-lg text-white/40 text-sm border border-white/10">
+            App Store - Coming Soon
+          </div>
+          <div className="px-4 py-2 bg-white/5 rounded-lg text-white/40 text-sm border border-white/10">
+            Google Play - Coming Soon
+          </div>
         </div>
       </div>
     </section>

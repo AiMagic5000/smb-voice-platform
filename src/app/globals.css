@@ -342,3 +342,91 @@ html {
 .status-busy {
   @apply bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)];
 }
+
+/* ============================================
+   EMBED MODE - For iframe embedding
+   ============================================ */
+
+/* Embed mode container */
+.embed-mode {
+  overflow-x: hidden;
+}
+
+/* Main content in embed mode - no padding for fixed navbar */
+.embed-main {
+  padding-top: 0 !important;
+}
+
+/* Fix heights in embed mode */
+.embed-mode section {
+  min-height: auto !important;
+}
+
+/* Override min-h-screen in embed mode */
+.embed-mode .min-h-screen {
+  min-height: auto !important;
+  min-height: 100dvh !important; /* Dynamic viewport height for mobile */
+}
+
+/* Hero section adjustments in embed mode */
+.embed-mode .bg-gradient-hero {
+  min-height: 100dvh;
+  min-height: -webkit-fill-available; /* iOS Safari fallback */
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* Mobile-specific embed fixes */
+@media (max-width: 768px) {
+  .embed-mode {
+    /* Ensure smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .embed-mode .bg-gradient-hero {
+    min-height: auto;
+    padding-top: 1.5rem;
+    padding-bottom: 3rem;
+  }
+
+  /* Adjust hero text size for embedded mobile view */
+  .embed-mode h1 {
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .embed-mode .text-4xl {
+    font-size: 1.75rem !important;
+  }
+
+  .embed-mode .text-5xl {
+    font-size: 2rem !important;
+  }
+
+  /* Ensure buttons are tappable */
+  .embed-mode .btn-primary,
+  .embed-mode .btn-secondary {
+    min-height: 48px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* Tablet embed fixes */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .embed-mode .bg-gradient-hero {
+    min-height: auto;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* Ensure all sections scroll naturally */
+.embed-mode section {
+  position: relative !important;
+}
+
+/* Fix any remaining fixed elements in embed mode */
+.embed-mode [class*="fixed"] {
+  position: relative !important;
+}

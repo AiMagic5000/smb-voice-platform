@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
     const extensionId = searchParams.get("extensionId");
     const phoneNumberId = searchParams.get("phoneNumberId");
 
-    let query = db
+    const query = db
       .select({
         id: callForwardingRules.id,
         tenantId: callForwardingRules.tenantId,

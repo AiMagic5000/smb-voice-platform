@@ -47,7 +47,7 @@ async function handleGet(request: NextRequest) {
     }
 
     // Get contacts
-    let query = db
+    const query = db
       .select()
       .from(contacts)
       .where(and(...conditions));

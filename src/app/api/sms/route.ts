@@ -131,7 +131,7 @@ async function handlePost(request: NextRequest) {
     }
 
     // Find or create conversation
-    let conversation = await db
+    const conversation = await db
       .select()
       .from(conversations)
       .where(

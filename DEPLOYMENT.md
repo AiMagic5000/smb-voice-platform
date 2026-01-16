@@ -64,10 +64,9 @@ SIGNALWIRE_PROJECT_ID=...
 SIGNALWIRE_API_TOKEN=...
 SIGNALWIRE_SPACE_URL=...
 
-# Stripe ($7.95/month billing)
-STRIPE_SECRET_KEY=sk_live_...
-STRIPE_PUBLISHABLE_KEY=pk_live_...
-STRIPE_WEBHOOK_SECRET=whsec_...
+# Gumroad ($7.95/month billing)
+GUMROAD_ACCESS_TOKEN=...
+GUMROAD_SELLER_ID=...
 
 # Email (Resend)
 RESEND_API_KEY=re_...
@@ -76,19 +75,25 @@ RESEND_API_KEY=re_...
 OPENAI_API_KEY=sk-...
 ```
 
-## Stripe Webhook Setup
-After deployment, configure Stripe webhook:
+## Gumroad Webhook Setup
+After deployment, configure Gumroad webhook (primary payment processor):
 
-1. Go to Stripe Dashboard → Developers → Webhooks
-2. Add endpoint: `https://voice.startmybusiness.us/api/webhooks/stripe`
-3. Select events:
-   - `customer.subscription.created`
-   - `customer.subscription.updated`
-   - `customer.subscription.deleted`
-   - `customer.subscription.trial_will_end`
-   - `invoice.paid`
-   - `invoice.payment_failed`
-4. Copy webhook secret to `STRIPE_WEBHOOK_SECRET`
+1. Go to Gumroad Settings → Advanced → Ping
+2. Add endpoint: `https://voice.startmybusiness.us/api/webhooks/gumroad`
+3. Events handled:
+   - `sale` - New subscription purchase
+   - `refund` - Refund processed
+   - `cancellation` - Subscription cancelled
+   - `subscription_updated` - Plan changed
+   - `subscription_ended` - Subscription expired
+   - `subscription_restarted` - Subscription reactivated
+
+### Gumroad Product IDs
+| Product | Permalink | Price |
+|---------|-----------|-------|
+| Starter | izcdvd | $7.95/month |
+| Professional | ojjjt | $19.95/month |
+| Enterprise | ouowmw | $49.95/month |
 
 ## SignalWire Webhook Setup
 Configure SignalWire for incoming calls:

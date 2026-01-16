@@ -28,8 +28,9 @@ export async function GET(request: NextRequest) {
       .select({
         id: organizations.id,
         name: organizations.name,
-        slug: organizations.slug,
-        tier: organizations.tier,
+        domain: organizations.domain,
+        plan: organizations.plan,
+        status: organizations.status,
         createdAt: organizations.createdAt,
       })
       .from(organizations)
@@ -63,11 +64,11 @@ export async function GET(request: NextRequest) {
     const clients = orgs.map((org) => ({
       id: org.id,
       name: org.name,
-      slug: org.slug,
-      tier: org.tier || "starter",
+      slug: org.domain,
+      tier: org.plan || "starter",
       phoneCount: phoneCountMap.get(org.id) || 0,
       createdAt: org.createdAt,
-      status: subStatusMap.get(org.id) || "active",
+      status: subStatusMap.get(org.id) || org.status || "active",
     }));
 
     return NextResponse.json({

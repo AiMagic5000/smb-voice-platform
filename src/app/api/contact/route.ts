@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { contactFormSchema } from "@/lib/validations";
+import {
+  sendContactFormEmail,
+  sendContactAutoReply,
+  SUPPORT_EMAIL,
+} from "@/lib/email";
 
 // POST /api/contact - Handle contact form submissions
 export async function POST(request: NextRequest) {
@@ -30,11 +35,29 @@ export async function POST(request: NextRequest) {
       timestamp: new Date().toISOString(),
     });
 
-    // TODO: Send email notification to support team
-    // TODO: Store in database for follow-up
+    // Send email notification to support team
+    const notificationResult = await sendContactFormEmail({
+      to: SUPPORT_EMAIL,
+      firstName,
+      lastName,
+      email,
+      phone,
+      message,
+    });
 
-    // Simulate processing delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    if (!notificationResult.success) {
+      console.error("Failed to send notification email:", notificationResult.error);
+    }
+
+    // Send auto-reply to customer
+    const autoReplyResult = await sendContactAutoReply({
+      to: email,
+      firstName,
+    });
+
+    if (!autoReplyResult.success) {
+      console.error("Failed to send auto-reply email:", autoReplyResult.error);
+    }
 
     return NextResponse.json({
       success: true,

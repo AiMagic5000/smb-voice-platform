@@ -333,6 +333,100 @@ export async function sendTrialEndingEmail({
   }
 }
 
+export async function sendContactFormEmail({
+  to,
+  firstName,
+  lastName,
+  email,
+  phone,
+  message,
+}: {
+  to: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  message: string;
+}) {
+  if (!resend) {
+    console.warn("Resend not configured, logging contact form submission");
+    console.log("Contact form email would be sent to:", to);
+    return { success: true };
+  }
+
+  try {
+    const { data, error } = await resend.emails.send({
+      from: defaultFrom,
+      to,
+      replyTo: email,
+      subject: `New Contact Form Submission from ${firstName} ${lastName}`,
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${firstName} ${lastName}</p>
+        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+        <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
+        <h3>Message:</h3>
+        <p style="white-space: pre-wrap;">${message}</p>
+      `,
+    });
+
+    if (error) {
+      console.error("Failed to send contact form email:", error);
+      return { success: false, error };
+    }
+
+    return { success: true, messageId: data?.id };
+  } catch (error) {
+    console.error("Error sending contact form email:", error);
+    return { success: false, error };
+  }
+}
+
+export async function sendContactAutoReply({
+  to,
+  firstName,
+}: {
+  to: string;
+  firstName: string;
+}) {
+  if (!resend) {
+    console.warn("Resend not configured, skipping auto-reply");
+    return { success: true };
+  }
+
+  try {
+    const { data, error } = await resend.emails.send({
+      from: defaultFrom,
+      to,
+      subject: "Thank you for contacting SMB Voice!",
+      html: `
+        <h2>Hi ${firstName},</h2>
+        <p>Thank you for reaching out to SMB Voice! We've received your message and our team will get back to you within 24 hours.</p>
+        <p><strong>Need immediate assistance?</strong><br>
+        Call us at <a href="tel:888-534-4145">888-534-4145</a><br>
+        Monday - Friday, 9am - 6pm CT</p>
+        <p>Best regards,<br><strong>The SMB Voice Team</strong></p>
+        <hr>
+        <p style="color: #666; font-size: 12px;">SMB Voice - Professional Business Phone for $7.95/month<br>
+        <a href="https://voice.startmybusiness.us">voice.startmybusiness.us</a></p>
+      `,
+    });
+
+    if (error) {
+      console.error("Failed to send contact auto-reply:", error);
+      return { success: false, error };
+    }
+
+    return { success: true, messageId: data?.id };
+  } catch (error) {
+    console.error("Error sending contact auto-reply:", error);
+    return { success: false, error };
+  }
+}
+
+// Support email address
+export const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || "support@startmybusiness.us";
+
 // Export all templates
 export {
   WelcomeEmail,

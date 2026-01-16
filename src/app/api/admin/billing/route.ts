@@ -61,7 +61,8 @@ export async function GET(request: NextRequest) {
       .select({
         id: invoices.id,
         organizationId: invoices.organizationId,
-        amount: invoices.amount,
+        amountDue: invoices.amountDue,
+        amountPaid: invoices.amountPaid,
         status: invoices.status,
         createdAt: invoices.createdAt,
         paidAt: invoices.paidAt,

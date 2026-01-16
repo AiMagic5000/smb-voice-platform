@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Logo } from "@/components/shared/logo";
-import { Phone, Mail, MapPin, ArrowRight } from "lucide-react";
+import { Phone, Mail, MapPin, ArrowRight, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -14,10 +14,10 @@ const footerLinks = {
     { label: "Download Apps", href: "/downloads" },
   ],
   company: [
+    { label: "Start My Business Home", href: "https://startmybusiness.us", external: true },
     { label: "About Us", href: "/about" },
     { label: "Contact", href: "/contact" },
     { label: "Careers", href: "/careers" },
-    { label: "Press", href: "/press" },
   ],
   legal: [
     { label: "Privacy Policy", href: "/privacy" },
@@ -118,12 +118,22 @@ export function Footer() {
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-white/70 hover:text-white transition-colors"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      className="flex items-center gap-2 text-[#C9A227] hover:text-[#DEB44A] transition-colors font-medium"
+                    >
+                      <Home className="h-4 w-4" />
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="text-white/70 hover:text-white transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

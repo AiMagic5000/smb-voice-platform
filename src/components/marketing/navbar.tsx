@@ -5,9 +5,10 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/shared/logo";
-import { Menu, X, Phone, ArrowRight } from "lucide-react";
+import { Menu, X, Phone, ArrowRight, Home } from "lucide-react";
 
 const navLinks = [
+  { label: "SMB Home", href: "https://startmybusiness.us", external: true },
   { label: "Features", href: "/#features" },
   { label: "Pricing", href: "/#pricing" },
   { label: "FAQ", href: "/#faq" },
@@ -46,17 +47,32 @@ export function Navbar() {
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-8">
               {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`text-sm font-medium transition-colors ${
-                    isScrolled
-                      ? "text-gray-600 hover:text-[#1E3A5F]"
-                      : "text-gray-700 hover:text-[#1E3A5F]"
-                  }`}
-                >
-                  {link.label}
-                </Link>
+                link.external ? (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className={`text-sm font-medium transition-colors flex items-center gap-1 ${
+                      isScrolled
+                        ? "text-gray-600 hover:text-[#1E3A5F]"
+                        : "text-gray-700 hover:text-[#1E3A5F]"
+                    }`}
+                  >
+                    <Home className="h-4 w-4" />
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`text-sm font-medium transition-colors ${
+                      isScrolled
+                        ? "text-gray-600 hover:text-[#1E3A5F]"
+                        : "text-gray-700 hover:text-[#1E3A5F]"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                )
               ))}
             </div>
 
@@ -134,13 +150,24 @@ export function Navbar() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.1 }}
                     >
-                      <Link
-                        href={link.href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="block py-3 px-4 text-lg font-medium text-[#1E3A5F] hover:bg-gray-50 rounded-xl transition-colors"
-                      >
-                        {link.label}
-                      </Link>
+                      {link.external ? (
+                        <a
+                          href={link.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="flex items-center gap-2 py-3 px-4 text-lg font-medium text-[#C9A227] hover:bg-[#FDF8E8] rounded-xl transition-colors"
+                        >
+                          <Home className="h-5 w-5" />
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="block py-3 px-4 text-lg font-medium text-[#1E3A5F] hover:bg-gray-50 rounded-xl transition-colors"
+                        >
+                          {link.label}
+                        </Link>
+                      )}
                     </motion.div>
                   ))}
                 </nav>

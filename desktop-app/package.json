@@ -3,7 +3,16 @@
   "version": "1.0.0",
   "description": "SMB Voice Desktop Softphone",
   "main": "main.js",
-  "author": "Start My Business Inc.",
+  "author": {
+    "name": "Start My Business Inc.",
+    "email": "support@startmybusiness.us",
+    "url": "https://startmybusiness.us"
+  },
+  "homepage": "https://voice.startmybusiness.us",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AiMagic5000/smb-voice-platform"
+  },
   "license": "UNLICENSED",
   "scripts": {
     "start": "electron .",
@@ -82,7 +91,8 @@
         }
       ],
       "icon": "assets/icon.png",
-      "category": "Network"
+      "category": "Network",
+      "maintainer": "Start My Business Inc. <support@startmybusiness.us>"
     },
     "nsis": {
       "oneClick": false,

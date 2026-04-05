@@ -108,7 +108,7 @@ export function Hero() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="h-14 px-8 border-white/30 text-white hover:bg-white/10 gap-2"
+                className="h-14 px-8 bg-transparent border-white/30 text-white hover:bg-white/10 gap-2"
               >
                 <Link href="#demo">
                   <Play className="h-5 w-5" />

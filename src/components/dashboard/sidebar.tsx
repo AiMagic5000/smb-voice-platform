@@ -82,347 +82,85 @@ import {
   Crown,
 } from "lucide-react";
 
-const navItems = [
-  {
-    label: "Dashboard",
-    href: "/dashboard",
-    icon: LayoutDashboard,
-  },
-  {
-    label: "Emergency Alerts",
-    href: "/dashboard/alerts",
-    icon: AlertOctagon,
-  },
-  {
-    label: "Shared Inbox",
-    href: "/dashboard/inbox",
-    icon: Inbox,
-  },
-  {
-    label: "Live Calls",
-    href: "/dashboard/live-calls",
-    icon: PhoneCall,
-  },
-  {
-    label: "Active Call",
-    href: "/dashboard/active-call",
-    icon: PhoneIncoming,
-  },
-  {
-    label: "Receptionist",
-    href: "/dashboard/receptionist",
-    icon: Headset,
-  },
-  {
-    label: "Callbacks",
-    href: "/dashboard/callbacks",
-    icon: Undo2,
-  },
-  {
-    label: "Supervisor",
-    href: "/dashboard/supervisor",
-    icon: Eye,
-  },
-  {
-    label: "Agent Scorecard",
-    href: "/dashboard/scorecard",
-    icon: Trophy,
-  },
-  {
-    label: "Quality Assurance",
-    href: "/dashboard/qa",
-    icon: ClipboardCheck,
-  },
-  {
-    label: "Phone Numbers",
-    href: "/dashboard/phone-numbers",
-    icon: Phone,
-  },
-  {
-    label: "DID Inventory",
-    href: "/dashboard/did-inventory",
-    icon: Hash,
-  },
-  {
-    label: "Number Porting",
-    href: "/dashboard/porting",
-    icon: ArrowLeftRight,
-  },
-  {
-    label: "Caller ID",
-    href: "/dashboard/caller-id",
-    icon: PhoneOutgoing,
-  },
-  {
-    label: "Extensions",
-    href: "/dashboard/extensions",
-    icon: Users,
-  },
-  {
-    label: "Call History",
-    href: "/dashboard/calls",
-    icon: History,
-  },
-  {
-    label: "Messaging",
-    href: "/dashboard/messaging",
-    icon: MessageSquare,
-  },
-  {
-    label: "Fax",
-    href: "/dashboard/fax",
-    icon: Printer,
-  },
-  {
-    label: "Voicemails",
-    href: "/dashboard/voicemails",
-    icon: Voicemail,
-  },
-  {
-    label: "Contacts",
-    href: "/dashboard/contacts",
-    icon: UserCircle,
-  },
-  {
-    label: "Speed Dial",
-    href: "/dashboard/speed-dial",
-    icon: Zap,
-  },
-  {
-    label: "AI Receptionist",
-    href: "/dashboard/ai-receptionist",
-    icon: Bot,
-  },
-  {
-    label: "Call Scripts",
-    href: "/dashboard/scripts",
-    icon: FileText,
-  },
-  {
-    label: "Knowledge Base",
-    href: "/dashboard/knowledge-base",
-    icon: BookOpen,
-  },
-  {
-    label: "Outbound Campaigns",
-    href: "/dashboard/outbound-campaigns",
-    icon: Send,
-  },
-  {
-    label: "Call Queues",
-    href: "/dashboard/queues",
-    icon: ListTree,
-  },
-  {
-    label: "Skills Routing",
-    href: "/dashboard/skills",
-    icon: Award,
-  },
-  {
-    label: "Ring Groups",
-    href: "/dashboard/ring-groups",
-    icon: CircleDot,
-  },
-  {
-    label: "Hunt Groups",
-    href: "/dashboard/hunt-groups",
-    icon: Target,
-  },
-  {
-    label: "Paging",
-    href: "/dashboard/paging",
-    icon: Megaphone,
-  },
-  {
-    label: "Intercom",
-    href: "/dashboard/intercom",
-    icon: RadioIcon,
-  },
-  {
-    label: "Phone Menu (IVR)",
-    href: "/dashboard/ivr",
-    icon: Menu,
-  },
-  {
-    label: "Auto Attendant",
-    href: "/dashboard/auto-attendant",
-    icon: Headphones,
-  },
-  {
-    label: "Business Hours",
-    href: "/dashboard/hours",
-    icon: Clock,
-  },
-  {
-    label: "Holiday Schedules",
-    href: "/dashboard/holidays",
-    icon: PartyPopper,
-  },
-  {
-    label: "Recordings",
-    href: "/dashboard/recordings",
-    icon: Mic,
-  },
-  {
-    label: "Recording Settings",
-    href: "/dashboard/recording-settings",
-    icon: Radio,
-  },
-  {
-    label: "Voicemail Settings",
-    href: "/dashboard/voicemail-settings",
-    icon: Voicemail,
-  },
-  {
-    label: "Hold Music",
-    href: "/dashboard/hold-music",
-    icon: Music,
-  },
-  {
-    label: "Dispositions",
-    href: "/dashboard/dispositions",
-    icon: Tag,
-  },
-  {
-    label: "Call Tags",
-    href: "/dashboard/call-tags",
-    icon: Tags,
-  },
-  {
-    label: "Team Presence",
-    href: "/dashboard/presence",
-    icon: UsersRound,
-  },
-  {
-    label: "Blocklist",
-    href: "/dashboard/blocklist",
-    icon: Ban,
-  },
-  {
-    label: "E911 Config",
-    href: "/dashboard/e911",
-    icon: MapPin,
-  },
-  {
-    label: "Analytics",
-    href: "/dashboard/analytics",
-    icon: BarChart3,
-  },
-  {
-    label: "Call Surveys",
-    href: "/dashboard/surveys",
-    icon: ClipboardList,
-  },
-  {
-    label: "Scheduled Reports",
-    href: "/dashboard/reports",
-    icon: FileBarChart,
-  },
-  {
-    label: "Wallboard",
-    href: "/dashboard/wallboard",
-    icon: MonitorDot,
-  },
-  {
-    label: "Team",
-    href: "/dashboard/team",
-    icon: Users,
-  },
-  {
-    label: "Integrations",
-    href: "/dashboard/integrations",
-    icon: Puzzle,
-  },
-  {
-    label: "Custom Fields",
-    href: "/dashboard/custom-fields",
-    icon: Database,
-  },
-  {
-    label: "Web Widget",
-    href: "/dashboard/web-widget",
-    icon: MousePointerClick,
-  },
-  {
-    label: "API Docs",
-    href: "/dashboard/api-docs",
-    icon: FileCode,
-  },
-  {
-    label: "Webhooks",
-    href: "/dashboard/webhooks",
-    icon: Webhook,
-  },
-  {
-    label: "Mobile App",
-    href: "/dashboard/mobile-app",
-    icon: Smartphone,
-  },
-  {
-    label: "Devices",
-    href: "/dashboard/devices",
-    icon: HardDrive,
-  },
-  {
-    label: "System Status",
-    href: "/dashboard/status",
-    icon: Activity,
-  },
-  {
-    label: "System Health",
-    href: "/dashboard/health",
-    icon: HeartPulse,
-  },
-  {
-    label: "Notifications",
-    href: "/dashboard/notifications",
-    icon: Bell,
-  },
-  {
-    label: "Audit Logs",
-    href: "/dashboard/audit",
-    icon: Shield,
-  },
-  {
-    label: "Compliance",
-    href: "/dashboard/compliance",
-    icon: ShieldCheck,
-  },
-  {
-    label: "Developer",
-    href: "/dashboard/developer",
-    icon: Code,
-  },
-  {
-    label: "SIP Trunks",
-    href: "/dashboard/sip-trunks",
-    icon: Server,
-  },
-  {
-    label: "Locations",
-    href: "/dashboard/locations",
-    icon: Building,
-  },
-  {
-    label: "Network Test",
-    href: "/dashboard/network-test",
-    icon: Wifi,
-  },
-  {
-    label: "Billing",
-    href: "/dashboard/billing",
-    icon: CreditCard,
-  },
-  {
-    label: "Account",
-    href: "/dashboard/account",
-    icon: UserCog,
-  },
-  {
-    label: "Settings",
-    href: "/dashboard/settings",
-    icon: Settings,
-  },
+// FREE features - accessible to all users
+const freeNavItems = [
+  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { label: "Phone Numbers", href: "/dashboard/phone-numbers", icon: Phone },
+  { label: "Extensions", href: "/dashboard/extensions", icon: Users },
+  { label: "Active Call", href: "/dashboard/active-call", icon: PhoneIncoming },
+  { label: "Call History", href: "/dashboard/calls", icon: History },
+  { label: "Messaging", href: "/dashboard/messaging", icon: MessageSquare },
+  { label: "Voicemails", href: "/dashboard/voicemails", icon: Voicemail },
+  { label: "Contacts", href: "/dashboard/contacts", icon: UserCircle },
+  { label: "Caller ID", href: "/dashboard/caller-id", icon: PhoneOutgoing },
+  { label: "Speed Dial", href: "/dashboard/speed-dial", icon: Zap },
+  { label: "Business Hours", href: "/dashboard/hours", icon: Clock },
+  { label: "Voicemail Settings", href: "/dashboard/voicemail-settings", icon: Voicemail },
+  { label: "Blocklist", href: "/dashboard/blocklist", icon: Ban },
+  { label: "E911 Config", href: "/dashboard/e911", icon: MapPin },
+  { label: "Mobile App", href: "/dashboard/mobile-app", icon: Smartphone },
+  { label: "Notifications", href: "/dashboard/notifications", icon: Bell },
+  { label: "System Status", href: "/dashboard/status", icon: Activity },
+  { label: "System Health", href: "/dashboard/health", icon: HeartPulse },
+  { label: "Billing", href: "/dashboard/billing", icon: CreditCard },
+  { label: "Account", href: "/dashboard/account", icon: UserCog },
+  { label: "Settings", href: "/dashboard/settings", icon: Settings },
+];
+
+// PRO features - require upgrade
+const proNavItems = [
+  { label: "AI Receptionist", href: "/dashboard/ai-receptionist", icon: Bot },
+  { label: "Receptionist Console", href: "/dashboard/receptionist", icon: Headset },
+  { label: "Live Calls", href: "/dashboard/live-calls", icon: PhoneCall },
+  { label: "Shared Inbox", href: "/dashboard/inbox", icon: Inbox },
+  { label: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
+  { label: "Scheduled Reports", href: "/dashboard/reports", icon: FileBarChart },
+  { label: "Wallboard", href: "/dashboard/wallboard", icon: MonitorDot },
+  { label: "Call Queues", href: "/dashboard/queues", icon: ListTree },
+  { label: "Ring Groups", href: "/dashboard/ring-groups", icon: CircleDot },
+  { label: "Hunt Groups", href: "/dashboard/hunt-groups", icon: Target },
+  { label: "Skills Routing", href: "/dashboard/skills", icon: Award },
+  { label: "Phone Menu (IVR)", href: "/dashboard/ivr", icon: Menu },
+  { label: "Auto Attendant", href: "/dashboard/auto-attendant", icon: Headphones },
+  { label: "Outbound Campaigns", href: "/dashboard/outbound-campaigns", icon: Send },
+  { label: "Call Scripts", href: "/dashboard/scripts", icon: FileText },
+  { label: "Knowledge Base", href: "/dashboard/knowledge-base", icon: BookOpen },
+  { label: "Recordings", href: "/dashboard/recordings", icon: Mic },
+  { label: "Recording Settings", href: "/dashboard/recording-settings", icon: Radio },
+  { label: "Callbacks", href: "/dashboard/callbacks", icon: Undo2 },
+  { label: "Supervisor", href: "/dashboard/supervisor", icon: Eye },
+  { label: "Agent Scorecard", href: "/dashboard/scorecard", icon: Trophy },
+  { label: "Quality Assurance", href: "/dashboard/qa", icon: ClipboardCheck },
+  { label: "Team", href: "/dashboard/team", icon: Users },
+  { label: "Team Presence", href: "/dashboard/presence", icon: UsersRound },
+  { label: "Fax", href: "/dashboard/fax", icon: Printer },
+  { label: "DID Inventory", href: "/dashboard/did-inventory", icon: Hash },
+  { label: "Number Porting", href: "/dashboard/porting", icon: ArrowLeftRight },
+  { label: "Holiday Schedules", href: "/dashboard/holidays", icon: PartyPopper },
+  { label: "Hold Music", href: "/dashboard/hold-music", icon: Music },
+  { label: "Dispositions", href: "/dashboard/dispositions", icon: Tag },
+  { label: "Call Tags", href: "/dashboard/call-tags", icon: Tags },
+  { label: "Call Surveys", href: "/dashboard/surveys", icon: ClipboardList },
+  { label: "Paging", href: "/dashboard/paging", icon: Megaphone },
+  { label: "Intercom", href: "/dashboard/intercom", icon: RadioIcon },
+  { label: "Emergency Alerts", href: "/dashboard/alerts", icon: AlertOctagon },
+  { label: "Conference Rooms", href: "/dashboard/conferences", icon: Users },
+  { label: "Call Park", href: "/dashboard/call-park", icon: PhoneCall },
+  { label: "Integrations", href: "/dashboard/integrations", icon: Puzzle },
+  { label: "Custom Fields", href: "/dashboard/custom-fields", icon: Database },
+  { label: "Web Widget", href: "/dashboard/web-widget", icon: MousePointerClick },
+  { label: "API Docs", href: "/dashboard/api-docs", icon: FileCode },
+  { label: "Webhooks", href: "/dashboard/webhooks", icon: Webhook },
+  { label: "Devices", href: "/dashboard/devices", icon: HardDrive },
+  { label: "SIP Trunks", href: "/dashboard/sip-trunks", icon: Server },
+  { label: "Locations", href: "/dashboard/locations", icon: Building },
+  { label: "Network Test", href: "/dashboard/network-test", icon: Wifi },
+  { label: "Audit Logs", href: "/dashboard/audit", icon: Shield },
+  { label: "Compliance", href: "/dashboard/compliance", icon: ShieldCheck },
+  { label: "Developer", href: "/dashboard/developer", icon: Code },
+  { label: "Email Templates", href: "/dashboard/email-templates", icon: FileText },
+  { label: "SMS Templates", href: "/dashboard/sms-templates", icon: MessageSquare },
+  { label: "Call Quality", href: "/dashboard/call-quality", icon: Activity },
 ];
 
 const bottomItems = [
@@ -479,45 +217,9 @@ export function Sidebar() {
 
       {/* Navigation */}
       <nav className="flex-1 py-6 px-3 space-y-1 overflow-y-auto">
-        {navItems.map((item) => {
+        {/* Free features */}
+        {freeNavItems.map((item) => {
           const isActive = pathname === item.href;
-          const isPro = isProFeature(item.href);
-
-          if (isPro) {
-            return (
-              <button
-                key={item.href}
-                onClick={() =>
-                  setUpgradeModal({
-                    open: true,
-                    feature: getProFeatureName(item.href),
-                  })
-                }
-                className="w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all text-white/40 hover:text-white/60 hover:bg-white/5"
-              >
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-white/5 relative">
-                  <item.icon className="h-5 w-5" />
-                  <Lock className="h-3 w-3 absolute -top-0.5 -right-0.5 text-[#C9A227]" />
-                </div>
-                <AnimatePresence mode="wait">
-                  {!isCollapsed && (
-                    <motion.span
-                      initial={{ opacity: 0, width: 0 }}
-                      animate={{ opacity: 1, width: "auto" }}
-                      exit={{ opacity: 0, width: 0 }}
-                      className="font-medium whitespace-nowrap overflow-hidden flex-1 text-left"
-                    >
-                      {item.label}
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-                {!isCollapsed && (
-                  <Crown className="h-3.5 w-3.5 text-[#C9A227] flex-shrink-0" />
-                )}
-              </button>
-            );
-          }
-
           return (
             <Link
               key={item.href}
@@ -552,6 +254,57 @@ export function Sidebar() {
             </Link>
           );
         })}
+
+        {/* Pro divider */}
+        <div className="py-3 px-3">
+          <div className="flex items-center gap-2">
+            <div className="flex-1 h-px bg-white/10" />
+            {!isCollapsed && (
+              <span className="text-xs font-semibold text-[#C9A227] uppercase tracking-wider flex items-center gap-1.5">
+                <Crown className="h-3 w-3" />
+                Pro Features
+              </span>
+            )}
+            {isCollapsed && (
+              <Crown className="h-4 w-4 text-[#C9A227]" />
+            )}
+            <div className="flex-1 h-px bg-white/10" />
+          </div>
+        </div>
+
+        {/* Pro features */}
+        {proNavItems.map((item) => (
+          <button
+            key={item.href}
+            onClick={() =>
+              setUpgradeModal({
+                open: true,
+                feature: getProFeatureName(item.href),
+              })
+            }
+            className="w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all text-white/40 hover:text-white/60 hover:bg-white/5"
+          >
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-white/5 relative">
+              <item.icon className="h-5 w-5" />
+              <Lock className="h-3 w-3 absolute -top-0.5 -right-0.5 text-[#C9A227]" />
+            </div>
+            <AnimatePresence mode="wait">
+              {!isCollapsed && (
+                <motion.span
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: "auto" }}
+                  exit={{ opacity: 0, width: 0 }}
+                  className="font-medium whitespace-nowrap overflow-hidden flex-1 text-left"
+                >
+                  {item.label}
+                </motion.span>
+              )}
+            </AnimatePresence>
+            {!isCollapsed && (
+              <Crown className="h-3.5 w-3.5 text-[#C9A227] flex-shrink-0" />
+            )}
+          </button>
+        ))}
       </nav>
 
       {/* Bottom items */}

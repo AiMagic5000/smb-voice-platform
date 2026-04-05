@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/shared/logo";
+import { isProFeature, getProFeatureName } from "@/lib/upgrade-config";
+import { UpgradeModal } from "./upgrade-modal";
 import {
   LayoutDashboard,
   Phone,
@@ -76,6 +78,8 @@ import {
   Bell,
   HeartPulse,
   PhoneIncoming,
+  Lock,
+  Crown,
 } from "lucide-react";
 
 const navItems = [
@@ -432,8 +436,18 @@ const bottomItems = [
 export function Sidebar() {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [upgradeModal, setUpgradeModal] = useState<{ open: boolean; feature: string }>({
+    open: false,
+    feature: "",
+  });
 
   return (
+    <>
+    <UpgradeModal
+      isOpen={upgradeModal.open}
+      onClose={() => setUpgradeModal({ open: false, feature: "" })}
+      featureName={upgradeModal.feature}
+    />
     <motion.aside
       initial={false}
       animate={{ width: isCollapsed ? 80 : 280 }}
@@ -467,6 +481,43 @@ export function Sidebar() {
       <nav className="flex-1 py-6 px-3 space-y-1 overflow-y-auto">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
+          const isPro = isProFeature(item.href);
+
+          if (isPro) {
+            return (
+              <button
+                key={item.href}
+                onClick={() =>
+                  setUpgradeModal({
+                    open: true,
+                    feature: getProFeatureName(item.href),
+                  })
+                }
+                className="w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all text-white/40 hover:text-white/60 hover:bg-white/5"
+              >
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-white/5 relative">
+                  <item.icon className="h-5 w-5" />
+                  <Lock className="h-3 w-3 absolute -top-0.5 -right-0.5 text-[#C9A227]" />
+                </div>
+                <AnimatePresence mode="wait">
+                  {!isCollapsed && (
+                    <motion.span
+                      initial={{ opacity: 0, width: 0 }}
+                      animate={{ opacity: 1, width: "auto" }}
+                      exit={{ opacity: 0, width: 0 }}
+                      className="font-medium whitespace-nowrap overflow-hidden flex-1 text-left"
+                    >
+                      {item.label}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+                {!isCollapsed && (
+                  <Crown className="h-3.5 w-3.5 text-[#C9A227] flex-shrink-0" />
+                )}
+              </button>
+            );
+          }
+
           return (
             <Link
               key={item.href}
@@ -538,5 +589,6 @@ export function Sidebar() {
         })}
       </div>
     </motion.aside>
+    </>
   );
 }

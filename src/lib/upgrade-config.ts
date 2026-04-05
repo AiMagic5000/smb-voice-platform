@@ -1,0 +1,112 @@
+// Features included in FREE tier (core phone system functionality)
+export const FREE_FEATURES = new Set([
+  "/dashboard",
+  "/dashboard/phone-numbers",
+  "/dashboard/extensions",
+  "/dashboard/calls",
+  "/dashboard/messaging",
+  "/dashboard/voicemails",
+  "/dashboard/contacts",
+  "/dashboard/voicemail-settings",
+  "/dashboard/business-hours",
+  "/dashboard/hours",
+  "/dashboard/blocklist",
+  "/dashboard/e911",
+  "/dashboard/caller-id",
+  "/dashboard/greetings",
+  "/dashboard/forwarding",
+  "/dashboard/speed-dial",
+  "/dashboard/notifications",
+  "/dashboard/billing",
+  "/dashboard/account",
+  "/dashboard/settings",
+  "/dashboard/help",
+  "/dashboard/status",
+  "/dashboard/health",
+  "/dashboard/mobile-app",
+  "/dashboard/active-call",
+])
+
+// Everything else requires upgrade
+export const PRO_FEATURE_NAMES: Record<string, string> = {
+  "/dashboard/ai-receptionist": "AI Receptionist",
+  "/dashboard/receptionist": "Live Receptionist Console",
+  "/dashboard/analytics": "Advanced Analytics",
+  "/dashboard/reports": "Scheduled Reports",
+  "/dashboard/wallboard": "Live Wallboard",
+  "/dashboard/team": "Team Management",
+  "/dashboard/presence": "Team Presence",
+  "/dashboard/supervisor": "Supervisor Panel",
+  "/dashboard/scorecard": "Agent Scorecard",
+  "/dashboard/qa": "Quality Assurance",
+  "/dashboard/recordings": "Call Recordings",
+  "/dashboard/recording-settings": "Recording Settings",
+  "/dashboard/ivr": "Phone Menu (IVR)",
+  "/dashboard/auto-attendant": "Auto Attendant",
+  "/dashboard/queues": "Call Queues",
+  "/dashboard/ring-groups": "Ring Groups",
+  "/dashboard/hunt-groups": "Hunt Groups",
+  "/dashboard/skills": "Skills Routing",
+  "/dashboard/outbound-campaigns": "Outbound Campaigns",
+  "/dashboard/scripts": "Call Scripts",
+  "/dashboard/knowledge-base": "Knowledge Base",
+  "/dashboard/fax": "Business Fax",
+  "/dashboard/inbox": "Shared Inbox",
+  "/dashboard/live-calls": "Live Call Monitor",
+  "/dashboard/callbacks": "Callback Queue",
+  "/dashboard/integrations": "Integrations",
+  "/dashboard/webhooks": "Webhooks",
+  "/dashboard/api-docs": "API Access",
+  "/dashboard/developer": "Developer Tools",
+  "/dashboard/custom-fields": "Custom Fields",
+  "/dashboard/web-widget": "Web Widget",
+  "/dashboard/sip-trunks": "SIP Trunks",
+  "/dashboard/did-inventory": "DID Inventory",
+  "/dashboard/porting": "Number Porting",
+  "/dashboard/hold-music": "Custom Hold Music",
+  "/dashboard/holidays": "Holiday Schedules",
+  "/dashboard/dispositions": "Call Dispositions",
+  "/dashboard/call-tags": "Call Tags",
+  "/dashboard/surveys": "Call Surveys",
+  "/dashboard/paging": "Overhead Paging",
+  "/dashboard/intercom": "Intercom",
+  "/dashboard/devices": "Device Management",
+  "/dashboard/locations": "Multi-Location",
+  "/dashboard/network-test": "Network Diagnostics",
+  "/dashboard/compliance": "Compliance Center",
+  "/dashboard/audit": "Audit Logs",
+  "/dashboard/alerts": "Emergency Alerts",
+  "/dashboard/conferences": "Conference Rooms",
+  "/dashboard/call-park": "Call Park",
+  "/dashboard/call-quality": "Call Quality Monitor",
+  "/dashboard/email-templates": "Email Templates",
+  "/dashboard/sms-templates": "SMS Templates",
+}
+
+export function isProFeature(path: string): boolean {
+  return !FREE_FEATURES.has(path)
+}
+
+export function getProFeatureName(path: string): string {
+  return PRO_FEATURE_NAMES[path] || "Pro Feature"
+}
+
+// Gumroad product config
+export const UPGRADE_CONFIG = {
+  productName: "SMB Voice Pro",
+  // Will be replaced with actual Gumroad link
+  checkoutUrl: "",
+  price: "$24.95/mo",
+  features: [
+    "AI Receptionist that answers 24/7",
+    "Advanced call analytics and reporting",
+    "Call queues, ring groups, and IVR menus",
+    "Outbound campaign manager",
+    "Call recording and quality assurance",
+    "Team management and supervisor tools",
+    "Shared inbox and live call monitoring",
+    "API access and webhook integrations",
+    "Custom hold music and holiday schedules",
+    "White-label and reseller options",
+  ],
+}

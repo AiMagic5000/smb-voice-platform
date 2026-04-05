@@ -5,7 +5,8 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/shared/logo";
-import { Menu, X, Phone, ArrowRight, Home } from "lucide-react";
+import { Menu, X, Phone, ArrowRight, Home, Crown } from "lucide-react";
+import { UPGRADE_CONFIG } from "@/lib/upgrade-config";
 
 const navLinks = [
   { label: "SMB Home", href: "https://startmybusiness.us", external: true },
@@ -91,6 +92,15 @@ export function Navbar() {
               </a>
               <Button asChild variant="ghost" className="text-[#1E3A5F]">
                 <Link href="/sign-in">Sign In</Link>
+              </Button>
+              <Button
+                asChild
+                className="gap-2 bg-gradient-to-r from-[#C9A227] to-[#DEB44A] hover:from-[#B8922A] hover:to-[#CDA33D] text-white font-semibold"
+              >
+                <a href={UPGRADE_CONFIG.checkoutUrl || "/sign-up"} target={UPGRADE_CONFIG.checkoutUrl ? "_blank" : undefined}>
+                  <Crown className="h-4 w-4" />
+                  Upgrade to Pro
+                </a>
               </Button>
               <Button asChild className="btn-primary gap-2 group">
                 <Link href="/sign-up">

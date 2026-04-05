@@ -95,7 +95,7 @@ export function getProFeatureName(path: string): string {
 export const UPGRADE_CONFIG = {
   productName: "SMB Voice Pro",
   // Will be replaced with actual Gumroad link
-  checkoutUrl: "",
+  checkoutUrl: "https://startmybusinessinc.gumroad.com/l/jawutv",
   price: "$24.95/mo",
   features: [
     "AI Receptionist that answers 24/7",

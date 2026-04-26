@@ -37,7 +37,7 @@ export function Navbar() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
             ? "bg-white/95 backdrop-blur-md shadow-sm"
-            : "bg-transparent"
+            : "bg-[#1E3A5F]/40 backdrop-blur-md"
         }`}
       >
         <nav className="container-wide">
@@ -55,7 +55,7 @@ export function Navbar() {
                     className={`text-sm font-medium transition-colors flex items-center gap-1 ${
                       isScrolled
                         ? "text-gray-600 hover:text-[#1E3A5F]"
-                        : "text-gray-700 hover:text-[#1E3A5F]"
+                        : "text-white/90 hover:text-white"
                     }`}
                   >
                     <Home className="h-4 w-4" />
@@ -68,7 +68,7 @@ export function Navbar() {
                     className={`text-sm font-medium transition-colors ${
                       isScrolled
                         ? "text-gray-600 hover:text-[#1E3A5F]"
-                        : "text-gray-700 hover:text-[#1E3A5F]"
+                        : "text-white/90 hover:text-white"
                     }`}
                   >
                     {link.label}
@@ -84,13 +84,17 @@ export function Navbar() {
                 className={`flex items-center gap-2 text-sm font-medium transition-colors ${
                   isScrolled
                     ? "text-gray-600 hover:text-[#1E3A5F]"
-                    : "text-gray-700 hover:text-[#1E3A5F]"
+                    : "text-white/90 hover:text-white"
                 }`}
               >
                 <Phone className="h-4 w-4" />
                 888-534-4145
               </a>
-              <Button asChild variant="ghost" className="text-[#1E3A5F]">
+              <Button
+                asChild
+                variant="ghost"
+                className={isScrolled ? "text-[#1E3A5F]" : "text-white hover:text-white hover:bg-white/10"}
+              >
                 <Link href="/sign-in">Sign In</Link>
               </Button>
               <Button
@@ -113,13 +117,17 @@ export function Navbar() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className={`lg:hidden p-2 rounded-lg transition-colors ${
+                isScrolled
+                  ? "hover:bg-gray-100"
+                  : "hover:bg-white/10"
+              }`}
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
-                <X className="h-6 w-6 text-[#1E3A5F]" />
+                <X className={`h-6 w-6 ${isScrolled ? "text-[#1E3A5F]" : "text-white"}`} />
               ) : (
-                <Menu className="h-6 w-6 text-[#1E3A5F]" />
+                <Menu className={`h-6 w-6 ${isScrolled ? "text-[#1E3A5F]" : "text-white"}`} />
               )}
             </button>
           </div>

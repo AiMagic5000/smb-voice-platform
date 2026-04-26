@@ -273,14 +273,11 @@ export function Downloads() {
           ))}
         </div>
 
-        {/* App Store badges placeholder */}
-        <div className="mt-12 flex flex-wrap justify-center gap-4">
-          <div className="px-4 py-2 bg-white/5 rounded-lg text-white/40 text-sm border border-white/10">
-            App Store - Coming Soon
-          </div>
-          <div className="px-4 py-2 bg-white/5 rounded-lg text-white/40 text-sm border border-white/10">
-            Google Play - Coming Soon
-          </div>
+        {/* Trust note */}
+        <div className="mt-12 text-center">
+          <p className="text-white/60 text-sm max-w-xl mx-auto">
+            Direct downloads from our secure servers. No app store needed. Your data stays private — we don&apos;t share install info with Apple or Google.
+          </p>
         </div>
       </div>
     </section>
